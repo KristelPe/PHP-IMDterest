@@ -25,6 +25,7 @@
         }
     }
     catch(Exception $e) {
+        echo $e->getMessage();
         echo "Your form is not complete";
     }
 ?>
