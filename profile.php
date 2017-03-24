@@ -11,6 +11,33 @@
     <title>Update</title>
 </head>
 <body>
-
+    <form action="" method="post">
+        <label for="name">Upload avatar</label>
+        <input type="file" name="avatar" id="avatar">
+        <button>
+            Upload
+        </button>
+        <br>
+        <br>
+        <label for="name">Change email address</label>
+        <input type="text" name="email" id="email" placeholder="New email">
+        <button>
+            Confirm
+        </button>
+        <br>
+        <br>
+        <label for="name">Change password</label>
+        <input type="text" name="password" id="password" placeholder="New password">
+        <button>
+            Confirm
+        </button>
+        <br>
+        <br>
+        <label for="name">Change username</label>
+        <input type="text" name="username" id="username" placeholder="New username">
+        <button>
+            Confirm
+        </button>
+    </form>
 </body>
 </html>
