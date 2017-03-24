@@ -12,6 +12,10 @@
             $userVerify = new UserVerify();
 
             if ($userVerify->Verify()){
+                //Start session with email as sessionvariable
+                session_start();
+                $_SESSION['user'] = $email;
+
                 $succes = "Jeej it works";
                 header('Location: ./index.php');
             } else {
