@@ -1,5 +1,12 @@
 <?php
 
+    //check if session exists
+    //if not send back to login
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location: login.php');
+    }
+
 ?>
 <!doctype html>
 <html lang="en">
