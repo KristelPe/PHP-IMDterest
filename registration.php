@@ -24,8 +24,8 @@
 
         }
     }
-    catch(PDOException $e) {
-        echo $e->getMessage();
+    catch(Exception $e) {
+        echo "Your form is not complete";
     }
 ?>
 <!DOCTYPE html>
@@ -36,10 +36,10 @@
 </head>
 <body>
     <form action="" method="post">
-        <label for="fullname">Firstname</label>
+        <label for="firstname">Firstname</label>
         <input type="text" name="firstname" id="firstname">
         
-        <label for="fullname">Lastname</label>
+        <label for="lastname">Lastname</label>
         <input type="text" name="lastname" id="lastname">
         
         <label for="email">Email</label>
@@ -47,7 +47,7 @@
         
         <label for="username">Username</label>
         <input type="text" name="username" id="username">
-        
+
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
         

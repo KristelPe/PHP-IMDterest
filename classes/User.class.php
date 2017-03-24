@@ -78,8 +78,11 @@ class User
      */
     public function setMEmail($m_email)
     {
-        if (!filter_var($m_email, FILTER_VALIDATE_EMAIL) || $m_email=="") {
+        if ($m_email=="") {
             throw new Exception("Email can not be empty");
+        }
+        if (!filter_var($m_email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Email is not a valid one");
         }
         $this->m_email = $m_email;
     }
@@ -97,9 +100,16 @@ class User
      */
     public function setMPassword($m_password)
     {
-        if (!preg_match("#[0-9]+#", $m_password) || !preg_match("#[a-zA-Z]+#", $m_password) || strlen($m_password) < 6  || $m_password=="") {
+        if ($m_password=="") {
             throw new Exception("Password can not be empty");
         }
+        if (strlen($m_password) < 6 ) {
+            throw new Exception("Password is too short");
+        }
+        if (!preg_match("#[a-zA-Z]+#", $m_password)) {
+            throw new Exception("Password is not valid");
+        }
+
         $this->m_password = $m_password;
     }
 
@@ -113,6 +123,6 @@ class User
         $stmnt->bindvalue(":username", $this->m_username);
         $stmnt->bindvalue(":password", $this->m_password);
         $res = $stmnt->execute();
-        var_dump($res);
+        echo "Registerd";
     }
 }
