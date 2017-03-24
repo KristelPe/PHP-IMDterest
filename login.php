@@ -1,28 +1,28 @@
 <?php
 
-    if( !empty($_POST) ){
-        $email = $_POST["email"];
-        $password = $_POST["password"];
+    spl_autoload_register(function($class){
+        include_once ("classes/" . $class . ".class.php");
+    });
 
-        $conn = new PDO('mysql:host=localhost;dbname=IMDterest', 'root', '');
-        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
-        $statement->bindValue(":email", $email);
-        $res = $statement->execute();
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    try{
+        if( !empty($_POST) ){
+            $email = $_POST["email"];
+            $password = $_POST["password"];
 
+            $userVerify = new UserVerify();
 
-        foreach( $results as $row ){
-            if(password_verify($password, $row['password'])){
-                header('Location: login.php');
-            }
-            else
-            {
-                session_start();
-                $_SESSION['email'] = $email;
-                header('Location: index.php');
+            if ($userVerify->Verify()){
+                $succes = "Jeej it works";
+                header('Location: ./index.php');
+            } else {
+                $error = "Looks like something went wrong";
+                header('Location: ./login.php');
             }
         }
+    }catch (Exception $e){
+        $error = $e->getMessage();
     }
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -41,5 +41,9 @@
 
         <button type="submit">LOGIN</button>
     </form>
+
+    <p style="color: red"><?php echo $error?></p>
+    <p style="color: green"><?php echo $succes?></p>
+
 </body>
 </html>
