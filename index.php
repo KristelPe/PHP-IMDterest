@@ -16,6 +16,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+    <a href="logout.php">Logout</a>
 </body>
 </html>
