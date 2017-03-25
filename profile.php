@@ -33,6 +33,7 @@
         echo $e->getMessage();
     }
 
+
     //Replace old email by new email
     try{
         if(!empty ($_POST['email']) && ($_POST['email']) != $email){
