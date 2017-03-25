@@ -10,17 +10,14 @@
             $password = $_POST["password"];
 
             $userVerify = new UserVerify();
+            $userVerify->setEmail($email);
+            $userVerify->setPassword($password);
 
             if ($userVerify->Verify()){
                 //Start session with email as sessionvariable
-                session_start();
-                $_SESSION['user'] = $email;
-
-                $succes = "Jeej it works";
-                header('Location: ./index.php');
+                $userVerify->Verify();
             } else {
                 $error = "Looks like something went wrong";
-                header('Location: ./login.php');
             }
         }
     }catch (Exception $e){
@@ -46,8 +43,7 @@
         <button type="submit">LOGIN</button>
     </form>
 
-    <p style="color: red"><?php echo $error?></p>
-    <p style="color: green"><?php echo $succes?></p>
+    <p><?php echo $error?></p>
 
 </body>
 </html>
