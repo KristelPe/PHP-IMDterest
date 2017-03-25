@@ -33,6 +33,25 @@
         echo $e->getMessage();
     }
 
+    //Replace old email by new email
+    try{
+        if(!empty ($_POST['email']) && ($_POST['email']) != $email){
+            $newEmail = $_POST['email'];
+            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+            $statement = $connection->prepare("UPDATE users SET email = REPLACE(email, '$email', '$newEmail') WHERE INSTR(email, '$email') > 0;");
+            $res = $statement->execute();
+            $emailSuccess = "Your email has been changed to " . "<b>" . $newEmail . "</b>";
+            //update session variable to new email address
+            $_SESSION['user'] = $newEmail;
+        }else{
+            $emailError = "Please fill in a valid email address!";
+        }
+    }
+    catch(PDOException $e) {
+        echo $e->getMessage();
+    }
+
+
 
 ?>
 <!doctype html>
@@ -53,6 +72,8 @@
         </button>
         <br>
         <br>
+        <p><?php echo "Your current email address is " . "<b>" . $email . "</b>" ?></p>
+        <p><?php if(isset($emailError)){echo $emailError;}else if(isset($emailSuccess)){echo $emailSuccess;} ?></p>
         <label for="name">Change email address</label>
         <input type="text" name="email" id="email" placeholder="New email">
         <button>
