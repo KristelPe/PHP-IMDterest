@@ -5,6 +5,7 @@
     });
 
     try{
+        $error = "";
         if( !empty($_POST) ){
             $email = $_POST["email"];
             $password = $_POST["password"];
