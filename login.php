@@ -5,6 +5,7 @@
     });
 
     try{
+        $error = "";
         if( !empty($_POST) ){
             $email = $_POST["email"];
             $password = $_POST["password"];
@@ -13,7 +14,6 @@
             $userVerify->setEmail($email);
             $userVerify->setPassword($password);
 
-            $error = "";
             if ($userVerify->Verify()){
                 //Start session with email as sessionvariable
                 $userVerify->Verify();
