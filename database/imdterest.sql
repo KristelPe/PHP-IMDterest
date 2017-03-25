@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 23 mrt 2017 om 12:34
+-- Gegenereerd op: 25 mrt 2017 om 20:12
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -44,7 +44,7 @@ CREATE TABLE `users` (
   `email` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `firstname` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` blob NOT NULL,
   `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -78,7 +78,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
