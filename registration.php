@@ -60,5 +60,6 @@
         
         <button type="submit" id="submit">Registreren</button>
     </form>
+    <p>Already got an account <a href="login.php">login here</a></p>
 </body>
 </html>
