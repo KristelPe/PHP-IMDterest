@@ -62,7 +62,6 @@ class UserVerify
                 throw new Exception("OOPS looks like you've filled in the wrong username or password");
             } else {
                 session_start();
-                $_SESSION['email'] = $this->m_vEmail;
             }
         }
 
