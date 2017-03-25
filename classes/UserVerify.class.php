@@ -59,11 +59,16 @@ class UserVerify
 
         foreach( $results as $row ) {
             if (password_verify($this->m_vPassword, $row['password'])) {
-                throw new Exception("OOPS looks like you've filled in the wrong username or password");
-            } else {
+                header("Location: ./index.php");
                 session_start();
+                $_SESSION['user'] = $this->m_vEmail;
+            } else {
+
+                throw new Exception("OOPS looks like you've filled in the wrong username or password");
             }
         }
+
+
 
         return $res;
     }
