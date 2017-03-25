@@ -13,6 +13,7 @@
             $userVerify->setEmail($email);
             $userVerify->setPassword($password);
 
+            $error = "";
             if ($userVerify->Verify()){
                 //Start session with email as sessionvariable
                 $userVerify->Verify();
