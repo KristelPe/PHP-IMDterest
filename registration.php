@@ -1,6 +1,8 @@
 <?php
     //connectie maken met database
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    spl_autoload_register(function($class){
+        include_once("classes/" . $class . ".class.php" );
+    });
 
     //check of er gepost is?
 
@@ -12,19 +14,19 @@
             $username = $_POST["username"];
             $password = $_POST["password"];
 
-            $stmnt = $connection->prepare("insert into users (email, firstname, lastname, username, password) values (:email, :firstname, :lastname, :username, :password)");
-            $stmnt->bindvalue(":email", $email);
-            $stmnt->bindvalue(":firstname", $firstname);
-            $stmnt->bindvalue(":lastname", $lastname);
-            $stmnt->bindvalue(":username", $username);
-            $stmnt->bindvalue(":password", $password);
-            $res = $stmnt->execute();
-            var_dump($res);
+            $user = new User();
+            $user->setMEmail($email);
+            $user->setMFirstname($firstname);
+            $user->setMLastname($lastname);
+            $user->setMUsername($username);
+            $user->setMPassword($password);
+            $user->Register();
 
         }
     }
-    catch(PDOException $e) {
+    catch(Exception $e) {
         echo $e->getMessage();
+        echo "Your form is not complete";
     }
 ?>
 <!DOCTYPE html>
@@ -35,10 +37,10 @@
 </head>
 <body>
     <form action="" method="post">
-        <label for="fullname">Firstname</label>
+        <label for="firstname">Firstname</label>
         <input type="text" name="firstname" id="firstname">
         
-        <label for="fullname">Lastname</label>
+        <label for="lastname">Lastname</label>
         <input type="text" name="lastname" id="lastname">
         
         <label for="email">Email</label>
@@ -46,7 +48,7 @@
         
         <label for="username">Username</label>
         <input type="text" name="username" id="username">
-        
+
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
         
