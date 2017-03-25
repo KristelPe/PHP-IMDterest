@@ -8,7 +8,7 @@ class UserVerify
     /**
      * @return mixed
      */
-    public function getMVEmail()
+    public function getEmail()
     {
         return $this->m_vEmail;
     }
@@ -16,7 +16,7 @@ class UserVerify
     /**
      * @param mixed $m_vEmail
      */
-    public function setMVEmail($m_vEmail)
+    public function setEmail($m_vEmail)
     {
         if ($m_vEmail == ""){
             throw new Exception("Username cannot be empty!");
@@ -27,7 +27,7 @@ class UserVerify
     /**
      * @return mixed
      */
-    public function getMVPassword()
+    public function getPassword()
     {
         return $this->m_vPassword;
     }
@@ -35,7 +35,7 @@ class UserVerify
     /**
      * @param mixed $m_vPassword
      */
-    public function setMVPassword($m_vPassword)
+    public function setPassword($m_vPassword)
     {
         if ($m_vPassword == ""){
             throw new Exception("Password cannot be empty!");
