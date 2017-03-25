@@ -14,7 +14,7 @@
             $username = $_POST["username"];
             $password = $_POST["password"];
             $options = [
-                'cost' => 13,
+                'cost' => 12,
             ];
 
             $password = password_hash($password, PASSWORD_DEFAULT, $options);
