@@ -32,6 +32,7 @@
     catch(PDOException $e) {
         echo $e->getMessage();
     }
+    
 
 
     //Replace old email by new email
