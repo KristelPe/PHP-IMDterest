@@ -13,6 +13,11 @@
             $lastname = $_POST["lastname"];
             $username = $_POST["username"];
             $password = $_POST["password"];
+            $options = [
+                'cost' => 13,
+            ];
+
+            $password = password_hash($password, PASSWORD_DEFAULT, $options);
 
             $user = new User();
             $user->setMEmail($email);
@@ -21,6 +26,7 @@
             $user->setMUsername($username);
             $user->setMPassword($password);
             $user->Register();
+
 
         }
     }
