@@ -19,7 +19,7 @@ class UserVerify
     public function setEmail($m_vEmail)
     {
         if ($m_vEmail == ""){
-            throw new Exception("Username cannot be empty!");
+            throw new Exception("Email cannot be empty!");
         }
         $this->m_vEmail = $m_vEmail;
     }

@@ -124,5 +124,8 @@ class User
         $stmnt->bindvalue(":password", $this->m_password);
         $res = $stmnt->execute();
         echo "Registerd";
+        session_start();
+        $_SESSION['user'] = $this->m_Email;
+        header("Location: ./index.php");
     }
 }
