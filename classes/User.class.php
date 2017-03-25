@@ -125,7 +125,7 @@ class User
         $res = $stmnt->execute();
         echo "Registerd";
         session_start();
-        $_SESSION['user'] = $this->m_Email;
+        $_SESSION['user'] = $this->m_email;
         header("Location: ./index.php");
     }
 }
