@@ -59,6 +59,7 @@ class UserVerify
 
         foreach( $results as $row ) {
             if (password_verify($this->m_vPassword, $row['password'])) {
+
                 header("Location: ./index.php");
                 session_start();
                 $_SESSION['user'] = $this->m_vEmail;
