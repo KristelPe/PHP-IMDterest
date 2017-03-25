@@ -43,8 +43,8 @@
 
         <button type="submit">LOGIN</button>
     </form>
-
     <p><?php echo $error?></p>
+    <p>Haven't got an account <a href="registration.php">register here</a></p>
 
 </body>
 </html>
