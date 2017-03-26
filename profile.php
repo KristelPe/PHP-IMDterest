@@ -17,6 +17,13 @@
     $res = $statement->execute();
     $username = $statement->fetchColumn();
 
+    //find password associated with the email address
+    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $statement = $connection->prepare("SELECT password FROM users WHERE email = :email");
+    $statement->bindvalue(":email", $email);
+    $res = $statement->execute();
+    $password = $statement->fetchColumn();
+
     //Replace old username by new username
     try{
         if(!empty ($_POST['username']) && ($_POST['username']) != $username){
@@ -32,8 +39,26 @@
     catch(PDOException $e) {
         echo $e->getMessage();
     }
-    
 
+    //Replace old password by new password
+    try{
+        if(!empty ($_POST['password'])){
+            $newPassword = $_POST['password'];
+            $options = [
+                'cost' => 12,
+            ];
+            $newPassword = password_hash($newPassword, PASSWORD_DEFAULT, $options);
+            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+            $statement = $connection->prepare("UPDATE users SET password = REPLACE(password, '$password', '$newPassword') WHERE INSTR(password, '$password') > 0;");
+            $res = $statement->execute();
+            $passwordSuccess = "Your password has been changed!";
+        }else{
+            $passwordError = "Please fill in a valid password!";
+        }
+    }
+    catch(PDOException $e) {
+        echo $e->getMessage();
+    }
 
     //Replace old email by new email
     try{
@@ -66,7 +91,7 @@
     <title>Update</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post"  enctype="multipart/form-data">
         <label for="name">Upload avatar</label>
         <input type="file" name="avatar" id="avatar">
         <button>
@@ -83,6 +108,7 @@
         </button>
         <br>
         <br>
+        <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
         <label for="name">Change password</label>
         <input type="text" name="password" id="password" placeholder="New password">
         <button>
