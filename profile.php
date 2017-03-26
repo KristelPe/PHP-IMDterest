@@ -80,6 +80,54 @@
 
 
 
+
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            $uploadSuccess_isImage = "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            $uploadError_isNotImage = "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        $uploadError_size = "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+        $uploadError_type = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        $uploadError_ok = "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $uploadSuccess = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+            $statement = $connection->prepare("UPDATE users SET image = '$target_file' WHERE email = :email");
+            $statement->bindvalue(":email", $email);
+            $res = $statement->execute();
+        } else {
+            $uploadError = "Sorry, there was an error uploading your file.";
+        }
+    }
+
+
+
+
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -91,14 +139,17 @@
     <title>Update</title>
 </head>
 <body>
+
     <a href="logout.php">Logout</a>
     <a href="index.php">Home</a>
-    <form action="" method="post"  enctype="multipart/form-data">
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+        <br>
+        <p><?php if(isset($uploadError_size)){echo $uploadError_size;} else if(isset($uploadError_isNotImage)){echo $uploadError_isNotImage;} else if(isset($uploadError_type)){echo $uploadError_type;} else if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";}else if(isset($uploadError)){echo $uploadError;} ?></p>
         <label for="name">Upload avatar</label>
-        <input type="file" name="avatar" id="avatar">
-        <button>
-            Upload
-        </button>
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
         <br>
         <br>
         <p><?php echo "Your current email address is " . "<b>" . $email . "</b>" ?></p>
@@ -109,6 +160,7 @@
             Confirm
         </button>
         <br>
+
         <br>
         <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
         <label for="name">Change password</label>
@@ -117,6 +169,7 @@
             Confirm
         </button>
         <br>
+
         <br>
         <p><?php echo "Your current username is " . "<b>" . $username . "</b>" ?></p>
         <p><?php if(isset($usernameError)){echo $usernameError;}else if(isset($usernameSuccess)){echo $usernameSuccess;} ?></p>
@@ -125,6 +178,7 @@
         <button>
             Confirm
         </button>
+
     </form>
 </body>
 </html>
