@@ -91,6 +91,8 @@
     <title>Update</title>
 </head>
 <body>
+    <a href="logout.php">Logout</a>
+    <a href="index.php">Home</a>
     <form action="" method="post"  enctype="multipart/form-data">
         <label for="name">Upload avatar</label>
         <input type="file" name="avatar" id="avatar">
