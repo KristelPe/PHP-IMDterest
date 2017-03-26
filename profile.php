@@ -80,49 +80,52 @@
 
 
 
-
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    // Check if image file is a actual image or fake image
-    if(isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if($check !== false) {
-            $uploadSuccess_isImage = "File is an image - " . $check["mime"] . ".";
-            $uploadOk = 1;
-        } else {
-            $uploadError_isNotImage = "File is not an image.";
+    try{
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+            if($check !== false) {
+                $uploadSuccess_isImage = "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                $uploadError_isNotImage = "File is not an image.";
+                $uploadOk = 0;
+            }
+        }
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            $uploadError_size = "Sorry, your file is too large.";
             $uploadOk = 0;
         }
-    }
-    // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
-        $uploadError_size = "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-    // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) {
-        $uploadError_type = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $uploadOk = 0;
-    }
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        $uploadError_ok = "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $uploadSuccess = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-            $statement = $connection->prepare("UPDATE users SET image = '$target_file' WHERE email = :email");
-            $statement->bindvalue(":email", $email);
-            $res = $statement->execute();
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+            $uploadError_type = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            $uploadError_ok = "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
         } else {
-            $uploadError = "Sorry, there was an error uploading your file.";
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                $uploadSuccess = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+                $statement = $connection->prepare("UPDATE users SET image = '$target_file' WHERE email = :email");
+                $statement->bindvalue(":email", $email);
+                $res = $statement->execute();
+            } else {
+                $uploadError = "Sorry, there was an error uploading your file.";
+            }
         }
     }
-
+    catch(PDOException $e) {
+        echo $e->getMessage();
+    }
 
 
 
@@ -146,7 +149,13 @@
 
     <form action="" method="post" enctype="multipart/form-data">
         <br>
-        <p><?php if(isset($uploadError_size)){echo $uploadError_size;} else if(isset($uploadError_isNotImage)){echo $uploadError_isNotImage;} else if(isset($uploadError_type)){echo $uploadError_type;} else if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";}else if(isset($uploadError)){echo $uploadError;} ?></p>
+        <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
+        <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>
+        <p><?php if(isset($uploadError2)){echo $uploadError2;} ?></p>
+        <p><?php if(isset($uploadError_isNotImage)){echo $uploadError_isNotImage;} ?></p>
+        <p><?php if(isset($uploadError_type)){echo $uploadError_type;} ?></p>
+        <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
+        <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
         <label for="name">Upload avatar</label>
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="submit" value="Upload Image" name="submit">
