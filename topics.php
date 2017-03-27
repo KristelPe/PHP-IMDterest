@@ -44,10 +44,14 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+    <nav>
+    <a href="index.php">Home</a>
+    <a href="profile.php">Profile</a>
+    <a href="logout.php">Logout</a>
+    </nav>
     <form id="topics" action="" method="post">
         <h1>Like 5 topics</h1>
-        <h1>Then we'll build a custom home feed for you</h1>
+        <h2>Then we'll build a custom home feed for you</h2>
         <p>step 1 of 1</p>
         <input name="search" id="search" placeholder="Search for any topics" type="search">
         <div class="topics">

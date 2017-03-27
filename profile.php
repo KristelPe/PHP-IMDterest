@@ -148,11 +148,12 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
-
-    <a href="logout.php">Logout</a>
+   <nav>
     <a href="index.php">Home</a>
-
-    <form action="" method="post" enctype="multipart/form-data">
+    <a href="profile.php">Profile</a>
+    <a href="logout.php">Logout</a>
+    </nav>
+    <form id="update" action="" method="post" enctype="multipart/form-data">
         <br>
         <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
         <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>

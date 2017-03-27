@@ -8,6 +8,50 @@ body{
     color: #201D1E;
     box-sizing: border-box;
 }
+h1,h2,p{
+    color: white;
+}
+#topics, #update{
+    padding: 2em;
+}
+#update p{
+    line-height: 2;
+}
+#update input{
+    margin: 0.5em 0;
+}
+h1{
+    font-size: 2em;
+    padding-bottom: 0.5em;
+}
+h2{
+    font-size: 1.5em;
+    padding-bottom: 1em;
+}
+nav{
+    position: fixed;
+    right: 0;
+    padding: 2em 2em 0 0;
+    display: flex;
+    width: 20%;
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
+    padding-bottom: 2em;
+}
+nav a:link,
+nav a:visited,
+nav a:hover,
+nav a:active{
+    color: white;
+    font-size: 1.3em;
+    text-decoration: none;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+nav a:hover{
+    opacity: 1;
+    transition: 0.5s all;
+}
 .form{
     background-color: white;
     margin-top: 5em;
@@ -57,6 +101,7 @@ body{
     padding-left: 2em;
     padding-right: 2em;
     line-height: 2;
+    color: black;
     
 }
 .form p.error{
@@ -138,4 +183,3 @@ body{
         width: 70%;
     }
 }
-

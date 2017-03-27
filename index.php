@@ -16,7 +16,10 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <a href="logout.php">Logout</a>
+   <nav>
+    <a href="index.php">Home</a>
     <a href="profile.php">Profile</a>
+    <a href="logout.php">Logout</a>
+    </nav>
 </body>
 </html>
