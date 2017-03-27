@@ -75,6 +75,49 @@ body{
     opacity: 1;
     padding-left: 0.3em;
 }
+
+.topics{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.topic{
+    margin: 0.5em;
+
+    height: 175px;
+    background-position: top center;
+    background-size: cover;
+    border-radius: 15px;
+    position: relative;
+}
+
+.topic p{
+    height: 175px;
+    width: 175px;
+    margin: auto;
+    padding: 12px;
+    font-size: larger;
+    color: white;
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+#topics{
+    max-width: 1000px;
+}
+
+.checkbox{
+    height: 175px;
+    width: 175px;
+    position: absolute;
+    opacity: 0.01;
+}
+
+.selected{
+    background-color: rgba(1,1,1, 0.6);
+}
+
 @media ( min-width:500px ){
     .form form{
     padding: 2em 4em;
