@@ -126,6 +126,6 @@ class User
         echo "Registerd";
         session_start();
         $_SESSION['user'] = $this->m_email;
-        header("Location: ./index.php");
+        header("Location: ./topics.php");
     }
 }
