@@ -1,4 +1,10 @@
 <?php
+
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location: login.php');
+    }
+
     try{
         $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
         $sql = "select * from topics";
