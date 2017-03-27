@@ -21,7 +21,7 @@
             $topics = "You selected $N topics";
             for($i=0; $i < $N; $i++)
             {
-                $selected = ($topic[$i] . " "); // dees moet weg zodra k weet hoe k die klasse kan toevoegen aan <p>
+                echo ($topic[$i] . " "); // dees moet weg zodra k weet hoe k die klasse kan toevoegen aan <p>
             }
         }
     }
