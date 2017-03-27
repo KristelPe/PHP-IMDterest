@@ -7,6 +7,7 @@
     //check of er gepost is?
 
     try{
+        $error = "";
         if(!empty ($_POST)){
             $email = $_POST["email"];
             $firstname = $_POST["firstname"];
@@ -31,8 +32,7 @@
         }
     }
     catch(Exception $e) {
-        echo $e->getMessage();
-        echo "Your form is not complete";
+        $error = $e->getMessage();
     }
 ?>
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
         <input type="text" name="lastname" id="lastname">
         
         <label for="email">Email</label>
-        <input type="text" name="email" id="email">
+        <input type="email" name="email" id="email">
         
         <label for="username">Username</label>
         <input type="text" name="username" id="username">
@@ -66,6 +66,7 @@
         <button type="submit" id="submit">Register</button>
     </form>
     <p>Already got an account <a href="login.php">login here</a></p>
+       <p class="error"><?php echo $error?></p>
     </div>
 </body>
 </html>
