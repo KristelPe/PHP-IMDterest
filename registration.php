@@ -40,8 +40,13 @@
 <head>
     <meta charset="UTF-8">
     <title>PHP-IMDterest</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
+   <div class="form registration">
+   <h1>Sign up</h1>
     <form action="" method="post">
         <label for="firstname">Firstname</label>
         <input type="text" name="firstname" id="firstname">
@@ -58,8 +63,9 @@
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
         
-        <button type="submit" id="submit">Registreren</button>
+        <button type="submit" id="submit">Register</button>
     </form>
     <p>Already got an account <a href="login.php">login here</a></p>
+    </div>
 </body>
 </html>

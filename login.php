@@ -31,9 +31,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
-
+    <div class="form login">
+    <h1>Log in</h1>
     <form action="" method="post">
         <label for="email">Email</label>
         <input id="email" name="email" type="email">
@@ -43,8 +47,8 @@
 
         <button type="submit">LOGIN</button>
     </form>
-    <p><?php echo $error?></p>
     <p>Haven't got an account <a href="registration.php">register here</a></p>
-
+    <p class="error"><?php echo $error?></p>
+    </div>
 </body>
 </html>
