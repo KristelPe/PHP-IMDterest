@@ -22,7 +22,7 @@
             for($i=0; $i < $N; $i++)
             {
                 echo ($topic[$i] . " "); // dees moet weg zodra k weet hoe k die klasse kan toevoegen aan <p>
-            }
+}
         }
     }
 
@@ -47,13 +47,23 @@
         <div class="topics">
         <?php foreach ($conn->query($sql) as $t):?>
                 <div class="topic" style="background-image: url(<?php echo $t['img']?>)">
-                    <input class="checkbox" name="topic[]" value="<?php echo $t['id']?>" type="checkbox">
+                    <input id="topic" class="checkbox" name="topic[]" value="<?php echo $t['id']?>" type="checkbox">
                     <p id="<?php echo $t['id']?>" ><?php echo $t['title']?></p>
                 </div>
         <?php endforeach;?>
         </div>
         <button id="submit" type="submit"><?php echo $topics?></button>
     </form>
-
+    <script src="jquery.min.js"></script>
+    <script type="text/javascript">
+        $('input').click(function(){
+            if($(this).is(":checked")) {
+                $(this).next().addClass("selected");
+            } else{
+                $(this).next().removeClass("selected");
+            }
+        });
+        //$('p').css("background-color", "rgba(1,1,1, 0.5)");
+    </script>
 </body>
 </html>
