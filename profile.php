@@ -155,7 +155,7 @@
         <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
         <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
         <label for="name">Upload avatar</label>
-        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="file" name="fileToUpload" id="fileToUpload" class="image_submit">
         <input type="submit" value="Upload Image" name="submit">
 
         <hr>
@@ -187,8 +187,6 @@
         <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
 
         </div>
-
-        <hr>
 
         <button>
             Confirm

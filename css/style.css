@@ -8,6 +8,8 @@ body{
     box-sizing: border-box;
 }
 
+/*CONTAINER START*/
+
 #container{
     width: 80%;
     margin: auto;
@@ -27,6 +29,15 @@ body{
 #container form p {
     color: #333333;
 }
+
+@media only screen and (min-width: 1024px) {
+    #container{
+        width: 900px;
+    }
+
+}
+
+/*CONTAINER END*/
 
 h1,h2,p{
     color: white;
@@ -162,12 +173,23 @@ button:hover{
     padding-bottom: 5px;
 }
 
+#update input#fileToUpload{
+    padding-left: 0;
+}
+
+#profile_form_left ,#profile_form_right , #profile_form_password {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
 #profile_form_left input,#profile_form_right input, #profile_form_password input{
     width: 100%;
 }
 
 #update button{
     margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 @media only screen and (min-width: 690px) {
