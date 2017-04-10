@@ -1,4 +1,7 @@
 <?php
+
+    error_reporting(E_ALL & ~E_NOTICE);
+
     //connectie maken met database
     spl_autoload_register(function($class){
         include_once("classes/" . $class . ".class.php" );
@@ -42,6 +45,7 @@
     <title>PHP-IMDterest</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/background.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
@@ -49,16 +53,16 @@
    <h1>Sign up</h1>
     <form action="" method="post">
         <label for="firstname">Firstname</label>
-        <input type="text" name="firstname" id="firstname">
+        <input type="text" name="firstname" id="firstname" value="<?php echo $_POST["firstname"]?>">
         
         <label for="lastname">Lastname</label>
-        <input type="text" name="lastname" id="lastname">
+        <input type="text" name="lastname" id="lastname" value="<?php echo $_POST["lastname"]?>">
         
         <label for="email">Email</label>
-        <input type="email" name="email" id="email">
+        <input type="email" name="email" id="email" value="<?php echo $_POST["email"]?>">
         
         <label for="username">Username</label>
-        <input type="text" name="username" id="username">
+        <input type="text" name="username" id="username" value="<?php echo $_POST["username"]?>">
 
         <label for="password">Password</label>
         <input type="password" name="password" id="password">

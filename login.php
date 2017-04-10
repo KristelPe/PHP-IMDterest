@@ -1,5 +1,7 @@
 <?php
 
+    error_reporting(E_ALL & ~E_NOTICE);
+
     spl_autoload_register(function($class){
         include_once ("classes/" . $class . ".class.php");
     });
@@ -33,6 +35,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/background.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
@@ -40,15 +43,14 @@
     <h1>Log in</h1>
     <form action="" method="post">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email">
+        <input id="email" name="email" type="email" value="<?php echo $_POST["email"]?>">
 
         <label for="password">Password</label>
-        <input id="password" name="password" type="password">
-
+        <input id="password" name="password" type="password" value="<?php echo $_POST["password"]?>">
         <button type="submit">LOGIN</button>
     </form>
     <p>Haven't got an account <a href="registration.php">register here</a></p>
-    <p class="error"><?php echo $error?></p>
+        <p class="error"><?php echo $error?></p>
     </div>
 </body>
 </html>

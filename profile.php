@@ -144,12 +144,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Update</title>
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
    <nav>
     <a href="index.php">Home</a>
+       <a href="upload.php">Upload</a>
     <a href="profile.php">Profile</a>
     <a href="logout.php">Logout</a>
     </nav>

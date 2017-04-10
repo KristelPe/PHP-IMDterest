@@ -13,11 +13,13 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
    <nav>
     <a href="index.php">Home</a>
+    <a href="upload.php">Upload</a>
     <a href="profile.php">Profile</a>
     <a href="logout.php">Logout</a>
     </nav>
