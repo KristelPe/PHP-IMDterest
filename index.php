@@ -23,5 +23,8 @@
     <a href="profile.php">Profile</a>
     <a href="logout.php">Logout</a>
     </nav>
+   <div id="container">
+
+   </div>
 </body>
 </html>

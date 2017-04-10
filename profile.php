@@ -155,8 +155,8 @@
     <a href="profile.php">Profile</a>
     <a href="logout.php">Logout</a>
     </nav>
+   <div id="container">
     <form id="update" action="" method="post" enctype="multipart/form-data">
-        <br>
         <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
         <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>
         <p><?php if(isset($uploadError2)){echo $uploadError2;} ?></p>
@@ -167,8 +167,9 @@
         <label for="name">Upload avatar</label>
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input type="submit" value="Upload Image" name="submit">
-        <br>
-        <br>
+
+        <hr>
+
         <p><?php echo "Your current email address is " . "<b>" . $email . "</b>" ?></p>
         <p><?php if(isset($emailError)){echo $emailError;}else if(isset($emailSuccess)){echo $emailSuccess;} ?></p>
         <label for="name">Change email address</label>
@@ -176,18 +177,18 @@
         <button>
             Confirm
         </button>
-        <br>
 
-        <br>
+        <hr>
+
         <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
         <label for="name">Change password</label>
         <input type="text" name="password" id="password" placeholder="New password">
         <button>
             Confirm
         </button>
-        <br>
 
-        <br>
+        <hr>
+
         <p><?php echo "Your current username is " . "<b>" . $username . "</b>" ?></p>
         <p><?php if(isset($usernameError)){echo $usernameError;}else if(isset($usernameSuccess)){echo $usernameSuccess;} ?></p>
         <label for="name">Change username</label>
@@ -197,5 +198,6 @@
         </button>
 
     </form>
+   </div>
 </body>
 </html>

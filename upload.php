@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>upload</title>
 </head>
 <body>
@@ -18,11 +19,20 @@
     <a href="logout.php">Logout</a>
 </nav>
 
+<div id="container">
+
 <form action="" method="post" id="submit">
-    <input type="text" id="item_name">
+    <p>Post your inspiration here!</p>
+    <label for="title">title</label>
+    <input type="text" id="title">
+    <label for="image">afbeelding</label>
+    <input type="file" id="afbeelding">
+    <label for="description">description</label>
     <textarea></textarea>
     <button type="submit">Submit</button>
 </form>
+
+</div>
 
 </body>
 </html>
