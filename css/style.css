@@ -32,9 +32,6 @@ h1,h2,p{
     color: white;
 }
 
-#update input{
-    margin: 0.5em 0;
-}
 h1{
     font-size: 2em;
     padding-bottom: 0.5em;
@@ -155,6 +152,41 @@ button:hover{
 .selected{
     background-color: rgba(1,1,1, 0.6);
 }
+
+/*PROFILE.PHP START*/
+
+#update input{
+    margin: 0.5em 0;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#profile_form_left input,#profile_form_right input, #profile_form_password input{
+    width: 100%;
+}
+
+#update button{
+    margin: auto;
+}
+
+@media only screen and (min-width: 690px) {
+
+    #middle_hr{
+        display: none;
+    }
+
+    #profile_form_left,#profile_form_right{
+        width: 50%;
+        float: left;
+    }
+
+    #profile_form_left input,#profile_form_right input{
+        width: 90%;
+    }
+}
+
+/*PROFILE.PHP END*/
 
 @media ( min-width:500px ){
     .form form{

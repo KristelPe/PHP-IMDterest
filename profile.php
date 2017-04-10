@@ -1,5 +1,7 @@
 <?php
 
+    error_reporting(E_ALL & ~E_NOTICE);
+
     //check if session exists
     //if not send back to login
     session_start();
@@ -25,6 +27,10 @@
     $password = $statement->fetchColumn();
 
     //Replace old username by new username
+
+    //Replace old password by new password
+
+    //Replace old email by new email
     try{
         if(!empty ($_POST['username']) && ($_POST['username']) != $username){
             $newUsername = $_POST['username'];
@@ -113,11 +119,6 @@
         echo $e->getMessage();
     }
 
-    //Replace old password by new password
-
-
-    //Replace old email by new email
-
 
 
 
@@ -159,23 +160,36 @@
 
         <hr>
 
-        <p><?php echo "Your current email address is " . "<b>" . $email . "</b>" ?></p>
-        <p><?php if(isset($emailError)){echo $emailError;}else if(isset($emailSuccess)){echo $emailSuccess;} ?></p>
+        <div id="profile_form_left">
+
         <label for="name">Change email address</label>
-        <input type="text" name="email" id="email" placeholder="New email">
+        <input type="text" name="email" id="email" placeholder="<?php echo $email?>">
+        <p><?php if(isset($emailError)){echo $emailError;}else if(isset($emailSuccess)){echo $emailSuccess;} ?></p>
+
+        </div>
+
+        <hr id="middle_hr">
+
+        <div id="profile_form_right">
+
+        <label for="name">Change username</label>
+        <input type="text" name="username" id="username" placeholder="<?php echo $username?>">
+        <p><?php if(isset($usernameError)){echo $usernameError;}else if(isset($usernameSuccess)){echo $usernameSuccess;} ?></p>
+
+        </div>
 
         <hr>
 
-        <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
+        <div id="profile_form_password">
+
         <label for="name">Change password</label>
         <input type="text" name="password" id="password" placeholder="New password">
+        <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
+
+        </div>
 
         <hr>
 
-        <p><?php echo "Your current username is " . "<b>" . $username . "</b>" ?></p>
-        <p><?php if(isset($usernameError)){echo $usernameError;}else if(isset($usernameSuccess)){echo $usernameSuccess;} ?></p>
-        <label for="name">Change username</label>
-        <input type="text" name="username" id="username" placeholder="New username">
         <button>
             Confirm
         </button>
