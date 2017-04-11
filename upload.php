@@ -4,6 +4,27 @@
         header('location: login.php');
     }
 
+    spl_autoload_register(function($class){
+        include_once("classes/" . $class . ".class.php" );
+    });
+
+    try{
+        if(!empty ($_POST)){
+            $title = $_POST["title"];
+            $afbeelding = $_POST["afbeelding"];
+            $description = $_POST["description"];
+
+            $post = new Post();
+            $post->setMTitle($title);
+            $post->setMAfbeelding($afbeelding);
+            $post->setMDescription($description);
+            $post->Upload();
+        }
+    }
+    catch(Exception $e) {
+        $error = $e->getMessage();
+    }
+
 
 ?>
 <!doctype html>
@@ -34,10 +55,10 @@
     <p>Post your inspiration here!</p>
     <label for="title">title</label>
     <input type="text" id="title" placeholder="Your title here">
-    <label for="image">afbeelding</label>
+    <label for="afbeelding">afbeelding</label>
     <input type="file" id="afbeelding">
     <label for="description">description</label>
-    <textarea placeholder="What is it about?"></textarea>
+    <textarea id="description" placeholder="What is it about?"></textarea>
     <button type="submit">Submit</button>
 </form>
 

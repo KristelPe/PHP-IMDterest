@@ -122,7 +122,7 @@ class User
         $stmnt->bindvalue(":lastname", $this->m_lastname);
         $stmnt->bindvalue(":username", $this->m_username);
         $stmnt->bindvalue(":password", $this->m_password);
-        $res = $stmnt->execute();
+        $stmnt->execute();
         echo "Registerd";
         session_start();
         $_SESSION['user'] = $this->m_email;
