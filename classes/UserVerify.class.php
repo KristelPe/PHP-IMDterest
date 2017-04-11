@@ -62,6 +62,7 @@ class UserVerify
 
                 header("Location: ./index.php");
                 session_start();
+                $_SESSION["id"] = $row["id"];
                 $_SESSION['user'] = $this->m_vEmail;
             } else {
 

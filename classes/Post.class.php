@@ -5,6 +5,23 @@ class Post
     private $m_title;
     private $m_afbeelding;
     private $m_description;
+    private $m_userId;
+
+    /**
+     * @return mixed
+     */
+    public function getMUserId()
+    {
+        return $this->m_userId;
+    }
+
+    /**
+     * @param mixed $m_userId
+     */
+    public function setMUserId($m_userId)
+    {
+        $this->m_userId = $m_userId;
+    }
 
     /**
      * @return mixed
@@ -61,7 +78,7 @@ class Post
         $stmnt->bindvalue(":title", $this->m_title);
         $stmnt->bindvalue(":afbeelding", $this->m_afbeelding);
         $stmnt->bindvalue(":description", $this->m_description);
-        $stmnt->bindvalue(":userId", $this->m_description);
+        $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->execute();
     }
 }

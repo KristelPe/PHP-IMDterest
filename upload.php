@@ -8,21 +8,30 @@
         include_once("classes/" . $class . ".class.php" );
     });
 
-    try{
-        if(!empty ($_POST)){
-            $title = $_POST["title"];
-            $afbeelding = $_POST["afbeelding"];
-            $description = $_POST["description"];
+    if(!empty($_POST)){
+        try{
+            print_r($_FILES);
+                $title = $_POST["title"];
+                $description = $_POST["description"];
+                $afbeelding = "uploads/test.png";
 
-            $post = new Post();
-            $post->setMTitle($title);
-            $post->setMAfbeelding($afbeelding);
-            $post->setMDescription($description);
-            $post->Upload();
+                if (move_uploaded_file($_FILES["afbeelding"]["tmp_name"], $afbeelding)) {
+                    echo "The file ". basename($_FILES["afbeelding"]["name"]). " has been uploaded.";
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+
+                $post = new Post();
+                $post->setMTitle($title);
+                $post->setMAfbeelding($afbeelding);
+                $post->setMDescription($description);
+                $post->setMUserId($_SESSION["id"]);
+                $post->Upload();
         }
-    }
-    catch(Exception $e) {
-        $error = $e->getMessage();
+        catch(Exception $e) {
+            $error = $e->getMessage();
+            die($error);
+        }
     }
 
 
@@ -50,13 +59,13 @@
 
 <div id="container">
 
-<form action="" method="post" id="submit">
+<form action="" method="post" id="submit" enctype="multipart/form-data">
     <h1>Upload</h1>
     <p>Post your inspiration here!</p>
     <label for="title">title</label>
     <input type="text" id="title" placeholder="Your title here">
     <label for="afbeelding">afbeelding</label>
-    <input type="file" id="afbeelding">
+    <input type="file" id="afbeelding" name="afbeelding">
     <label for="description">description</label>
     <textarea id="description" placeholder="What is it about?"></textarea>
     <button type="submit">Submit</button>
