@@ -30,38 +30,31 @@
 
            <div class="item">
                <div class="item_img">
-                   <img src="images/bgPaper.png" alt="image not found">
                </div>
            </div>
 
            <div class="item">
                <div class="item_img">
-                   <img src="images/bgPaper.png" alt="image not found">
-               </div>
-
-           </div>
-
-           <div class="item">
-               <div class="item_img">
-                   <img src="images/bgPaper.png" alt="image not found">
                </div>
            </div>
 
            <div class="item">
                <div class="item_img">
-                   <img src="images/bgPaper.png" alt="image not found">
                </div>
            </div>
 
            <div class="item">
                <div class="item_img">
-                   <img src="images/bgPaper.png" alt="image not found">
                </div>
            </div>
 
            <div class="item">
                <div class="item_img">
-                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+           </div>
+
+           <div class="item">
+               <div class="item_img">
                </div>
            </div>
 
