@@ -25,6 +25,46 @@
     </nav>
    <div id="container">
 
+       <div class="item_layout">
+
+           <div class="item">
+               <div class="item_img">
+                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+           </div>
+
+           <div class="item">
+               <div class="item_img">
+                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+
+           </div>
+
+           <div class="item">
+               <div class="item_img">
+                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+           </div>
+
+           <div class="item">
+               <div class="item_img">
+                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+           </div>
+
+           <div class="item">
+               <div class="item_img">
+                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+           </div>
+
+           <div class="item">
+               <div class="item_img">
+                   <img src="images/bgPaper.png" alt="image not found">
+               </div>
+           </div>
+
+       </div>
    </div>
 </body>
 </html>

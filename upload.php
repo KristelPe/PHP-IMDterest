@@ -22,13 +22,14 @@
 <div id="container">
 
 <form action="" method="post" id="submit">
+    <h1>Upload</h1>
     <p>Post your inspiration here!</p>
     <label for="title">title</label>
-    <input type="text" id="title">
+    <input type="text" id="title" placeholder="Your title here">
     <label for="image">afbeelding</label>
     <input type="file" id="afbeelding">
     <label for="description">description</label>
-    <textarea></textarea>
+    <textarea placeholder="What is it about?"></textarea>
     <button type="submit">Submit</button>
 </form>
 

@@ -147,6 +147,10 @@
     </nav>
    <div id="container">
     <form id="update" action="" method="post" enctype="multipart/form-data">
+        <h1>Profile</h1>
+        <label for="name">Upload avatar</label>
+
+        <input type="file" name="fileToUpload" id="fileToUpload" class="image_submit">
         <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
         <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>
         <p><?php if(isset($uploadError2)){echo $uploadError2;} ?></p>
@@ -154,8 +158,6 @@
         <p><?php if(isset($uploadError_type)){echo $uploadError_type;} ?></p>
         <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
         <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
-        <label for="name">Upload avatar</label>
-        <input type="file" name="fileToUpload" id="fileToUpload" class="image_submit">
         <input type="submit" value="Upload Image" name="submit">
 
         <hr>
