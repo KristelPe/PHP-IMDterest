@@ -8,6 +8,16 @@
         include_once("classes/" . $class . ".class.php" );
     });
 
+    $email = $_SESSION['user'];
+
+    //find userid associated with the email address
+    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $statement = $connection->prepare("SELECT id FROM users WHERE email = :email");
+    $statement->bindvalue(":email", $email);
+    $res = $statement->execute();
+    $userid = $statement->fetchColumn();
+
+
     if(!empty($_POST)){
         try{
             print_r($_FILES);
@@ -25,7 +35,7 @@
                 $post->setMTitle($title);
                 $post->setMAfbeelding($afbeelding);
                 $post->setMDescription($description);
-                $post->setMUserId($_SESSION["user"]);
+                $post->setMUserId($userid);
                 $post->Upload();
         }
         catch(Exception $e) {
