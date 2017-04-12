@@ -6,6 +6,20 @@
         header('location: login.php');
     }
 
+
+    if(isset($_POST['search'])) {
+        $searchq = $_POST['search'];
+        $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
+
+        $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+        $statement = $connection->prepare("SELECT * FROM posts WHERE title LIKE :keywords OR description LIKE :keywords");
+        $statement->bindValue(':keywords', '%' . $searchq . '%');
+        $statement->execute();
+        while ($r = $statement->fetch(PDO::FETCH_ASSOC)) {
+            echo "<pre>" . print_r($r, true) . "</pre>";
+        }
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
