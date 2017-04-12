@@ -74,7 +74,7 @@ class Post
     public function Upload(){
         $conn = Db::getInstance();
 
-        $stmnt = $conn->prepare("insert into posts (title, afbeelding, description, userId) values (:title, :afbeelding, :description, :userId)");
+        $stmnt = $conn->prepare("insert into posts (title, image, description, userId) values (:title, :afbeelding, :description, :userId)");
         $stmnt->bindvalue(":title", $this->m_title);
         $stmnt->bindvalue(":afbeelding", $this->m_afbeelding);
         $stmnt->bindvalue(":description", $this->m_description);
