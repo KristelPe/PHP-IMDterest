@@ -25,7 +25,7 @@
                 $post->setMTitle($title);
                 $post->setMAfbeelding($afbeelding);
                 $post->setMDescription($description);
-                $post->setMUserId($_SESSION["id"]);
+                $post->setMUserId($_SESSION["user"]);
                 $post->Upload();
         }
         catch(Exception $e) {
@@ -63,11 +63,11 @@
     <h1>Upload</h1>
     <p>Post your inspiration here!</p>
     <label for="title">title</label>
-    <input type="text" id="title" placeholder="Your title here">
+    <input type="text" id="title" name="title" placeholder="Your title here">
     <label for="afbeelding">afbeelding</label>
     <input type="file" id="afbeelding" name="afbeelding">
     <label for="description">description</label>
-    <textarea id="description" placeholder="What is it about?"></textarea>
+    <textarea id="description" name="description" placeholder="What is it about?"></textarea>
     <button type="submit">Submit</button>
 </form>
 
