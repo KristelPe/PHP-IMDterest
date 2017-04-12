@@ -28,6 +28,11 @@
     </nav>
    <div id="container">
 
+       <form action="index.php" method="post" style="margin-left:10px; margin-bottom:20px;">
+           <input type="text" name="search" id="search" placeholder="Search.." style="margin: 25px 0px 30px 10px; border-radius:5%; padding: 3px 50px 3px 3px;" />
+           <input type="submit" value=">>" style="margin:-20px 0px 10px 10px;" />
+       </form>
+
        <div class="item_layout">
 
            <div class="item">
