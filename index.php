@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
@@ -38,12 +39,15 @@
     <a href="profile.php">Profile</a>
     <a href="logout.php">Logout</a>
     </nav>
-   <div id="container">
 
-       <form action="index.php" method="post" style="margin-left:10px; margin-bottom:20px;">
-           <input type="text" name="search" id="search" placeholder="Search.." style="margin: 25px 0px 30px 10px; border-radius:5%; padding: 3px 50px 3px 3px;" />
-           <input type="submit" value=">>" style="margin:-20px 0px 10px 10px;" />
+   <div id="search_bar_style">
+       <form action="index.php" method="post" id="search_bar">
+           <input type="text" name="search" id="search" placeholder="Search..." />
+           <button type="submit" id="search_bar_button"></button>
        </form>
+   </div>
+
+   <div id="container">
 
        <div class="item_layout">
 
