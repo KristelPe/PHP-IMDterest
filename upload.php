@@ -8,6 +8,8 @@
         include_once("classes/" . $class . ".class.php" );
     });
 
+    $upload_message = "";
+
     $email = $_SESSION['user'];
 
     //find userid associated with the email address
@@ -20,15 +22,14 @@
 
     if(!empty($_POST)){
         try{
-            print_r($_FILES);
                 $title = $_POST["title"];
                 $description = $_POST["description"];
-                $afbeelding = "uploads/test.png";
+                $afbeelding = $_POST["afbeelding"];
 
                 if (move_uploaded_file($_FILES["afbeelding"]["tmp_name"], $afbeelding)) {
-                    echo "The file ". basename($_FILES["afbeelding"]["name"]). " has been uploaded.";
+                    $upload_message = "The file ". basename($_FILES["afbeelding"]["name"]). " has been uploaded.";
                 } else {
-                    echo "Sorry, there was an error uploading your file.";
+                    $upload_message = "Sorry, there was an error uploading your file.";
                 }
 
                 $post = new Post();
@@ -78,6 +79,7 @@
     <input type="file" id="afbeelding" name="afbeelding">
     <label for="description">description</label>
     <textarea id="description" name="description" placeholder="What is it about?"></textarea>
+    <p><?php echo $upload_message ?></p>
     <button type="submit">Submit</button>
 </form>
 
