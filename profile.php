@@ -139,12 +139,15 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 </head>
 <body>
-   <nav>
-    <a href="index.php">Home</a>
-       <a href="upload.php">Upload</a>
-    <a href="profile.php">Profile</a>
-    <a href="logout.php">Logout</a>
+<div id="navigatie">
+    <img src="images/spark_logo.svg" alt="spark_logo">
+    <nav>
+        <a href="index.php">Home</a>
+        <a href="upload.php">Upload</a>
+        <a href="profile.php">Profile</a>
+        <a href="logout.php">Logout</a>
     </nav>
+</div>
    <div id="container">
     <form id="update" action="" method="post" enctype="multipart/form-data">
         <h1>Profile</h1>

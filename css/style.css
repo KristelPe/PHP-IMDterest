@@ -70,7 +70,7 @@ h2{
     padding-bottom: 2em;
 }
 .form h1{
-    background-color: #48D1CC;
+    background-color: #d17f38;
     text-align: center;
     color: white;
     padding: 1.2em 0;
@@ -90,7 +90,7 @@ h2{
     padding-bottom: 0.5em;
 }
 button{
-    background-color: #48D1CC;
+    background-color: #d17f38;
     border: 0;
     padding: 1em 2.5em;
     margin: 2em 0;
@@ -99,7 +99,7 @@ button{
 }
 button:hover{
     transition: 0.5s all;
-    background-color: #34918c;
+    background-color: #d13d27;
     color: white;
 }
 .form input{
