@@ -141,12 +141,6 @@
            </div>
            <?php endforeach;?>
 
-
-           <!--
-           TO DO:
-            - like/unlike: toggle class use AJAX
-            - only show content from friends
-           -->
        </div>
 
        <form method="POST" action=''>
