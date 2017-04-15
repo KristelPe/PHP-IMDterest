@@ -47,65 +47,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/search.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-
-        .post_img{
-            width: 230px;
-            border-radius: 5px;
-            max-height: 200px;
-            overflow: hidden;
-        }
-
-        img{
-            width: 230px;
-        }
-
-        .like{
-            display: flex;
-            flex-direction: row;
-            margin-top: 1em;
-        }
-
-        p{
-            margin-top: 0.5em;
-            color: #9da5b6;
-        }
-
-        .like{
-            line-height: 1em;
-        }
-
-        .like p, .user p{
-            color: #b4b4b4;
-            font-size: small;
-        }
-
-        .like button{
-            margin: 0;
-            margin-right: 1em;
-            width: 30px;
-            height: 30px;
-            padding:0;
-            background-position: center;
-            background-size: 20px;
-            background-repeat: no-repeat;
-            background-color: white;
-            border-radius: 5px;
-        }
-
-        .liked{
-            background-image: url("http://www.clker.com/cliparts/o/4/f/P/U/b/red-heart-hi.png");
-        }
-
-        .unliked{
-            background-image: url("http://www.clker.com/cliparts/d/v/C/j/y/1/grey-heart-hi.png");
-        }
-
-        .item{
-            max-height: 500px;
-        }
-
-    </style>
 </head>
 <body>
 <div id="navigatie">

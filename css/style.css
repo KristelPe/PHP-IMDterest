@@ -89,16 +89,16 @@ body{
     color: #333333;
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1200px) {
     #container{
-        width: 1000px;
+        width: 1100px;
     }
 
 }
 
-@media only screen and (min-width: 1500px) {
+@media only screen and (min-width: 1700px) {
     #container{
-        width: 1500px;
+        width: 1600px;
     }
 
 }
@@ -324,7 +324,6 @@ button:hover{
 
 .item_layout{
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
 }
 
@@ -335,34 +334,84 @@ button:hover{
     padding-right: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     min-width: 250px;
     max-width: 250px;
     min-height: 250px;
     max-height: 250px;
 }
 
+.item img{
+    min-width: 300px;
+    max-width: 300px;
+}
+
 .item_img{
     overflow: hidden;
     width: 230px;
     height: 230px;
-    background: url('../images/bgPaper.png') center center;
-    background-size: cover;
+}
+
+.post_img{
+    width: 230px;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.like{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1em;
+}
+
+p{
+    margin-top: 0.5em;
+    color: #9da5b6;
+}
+
+.like{
+    line-height: 1em;
+}
+
+.like p, .user p{
+    color: #b4b4b4;
+    font-size: small;
+}
+
+.like button{
+    margin: 0;
+    margin-right: 1em;
+    width: 30px;
+    height: 30px;
+    padding:0;
+    background-position: center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.liked{
+    background-image: url("http://www.clker.com/cliparts/o/4/f/P/U/b/red-heart-hi.png");
+}
+
+.unliked{
+    background-image: url("http://www.clker.com/cliparts/d/v/C/j/y/1/grey-heart-hi.png");
+}
+
+.item{
+    max-height: 500px;
 }
 
 @media only screen and (min-width: 690px) {
     .item_layout{
-        flex-flow: row wrap ;
+        flex-flow: row wrap;
     }
-
-}
-
-@media only screen and (min-width: 1024px) {
     .item{
-        margin-bottom: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-bottom: 20px;
     }
+
 }
 
 /*ITEM END*/
