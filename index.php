@@ -86,7 +86,7 @@
 
        </div>
 
-       <form method="POST" action=''>
+       <form method="POST" action='' id="form_more">
         <?php if(!isset($_POST['search'])) { echo "<button type='submit' name='more' id='more'>Load more</button>"; } ?>
        </form>
    </div>

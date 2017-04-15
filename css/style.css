@@ -82,7 +82,7 @@ body{
     padding-left: 1.5%;
     padding-right: 1.5%;
     padding-top: 15px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
 }
 
 #container form p {
@@ -413,6 +413,18 @@ p{
     }
 
 }
+
+/*MORE FORM START*/
+
+#more{
+    margin: auto;
+}
+
+#form_more{
+    background-color: white !important;
+}
+
+/*MORE FORM END*/
 
 /*ITEM END*/
 
