@@ -1,5 +1,5 @@
 #navigatie{
-    background-color: #d17f38;
+    background-color: #4b7c87;
     padding: 2em 0 0 0;
     padding-bottom: 2em;
 }
@@ -54,5 +54,6 @@ nav a:hover{
         width: 75px;
         margin-left: 25px;
         margin-right: 0;
+        margin-bottom: 0;
     }
 }
