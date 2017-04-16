@@ -1,4 +1,5 @@
 <?php
+    require 'libraries/simple_html_dom.php';
     //check if session exists
     //if not send back to login
     session_start();
@@ -72,21 +73,53 @@
            <?php foreach ($statement as $key => $p): if (++$i == $count) break; ?>
            <div class="item">
                <h1><?php echo $p['title']?></h1>
-               <a href="post.php?postid=<?php echo $key;?>">
-               <div class="post_img">
-                   <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
 
-               </div>
+               <?php if(!empty($p['link'])) : ?>
+
+               <a href="<?php echo $p['link']?>">
+                   <?php
+                       $html = file_get_html($p['link']);
+                       $pagetitle = $html->find('title', 0);
+                       $image = $html->find('img', 0);
+
+                       echo $pagetitle->plaintext;
+                   ?>
                </a>
-               <div class="like">
-                   <button class="unliked"></button>
-                   <p>[#likes]</p>
-               </div>
-               <p><?php  echo $p['description']?></p>
+                   <a href="post.php?postid=<?php echo $key;?>">
+                       <div class="post_img">
+                       <img src=
+                            "<?php
+                                echo $image->src;
+                            ?>"
+                            alt=
+                            "<?php
+                                echo $pagetitle->plaintext;
+                            ?>"
+                       >
+                   </div>
+               </a>
+
+
+               <?php endif; ?>
+               <?php if(empty($p['link'])) : ?>
+                   <a href="post.php?postid=<?php echo $key;?>">
+                   <div class="post_img">
+                       <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
+
+                   </div>
+                   </a>
+                   <?php endif; ?>
+                   <div class="like">
+                       <button class="unliked"></button>
+                       <p>[#likes]</p>
+                   </div>
+                   <p><?php  echo $p['description']?></p>
+
            </div>
            <?php endforeach;?>
 
        </div>
+
 
        <form method="POST" action='' id="form_more">
         <?php if(!isset($_POST['search'])) { echo "<button type='submit' name='more' id='more'>Load more</button>"; } ?>
