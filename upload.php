@@ -109,20 +109,23 @@
 <form action="" method="post" id="submit" enctype="multipart/form-data">
     <h1>Upload</h1>
     <p>Post your inspiration here!</p>
-    <label for="title">title</label>
+    <label for="title">Title</label>
     <input type="text" id="title" name="title" placeholder="Your title here">
-
-    <label for="afbeelding">afbeelding</label>
+    <hr>
+    <label for="afbeelding">Upload image or website link</label>
     <input type="file" name="fileToUpload" id="afbeelding" class="image_submit">
-    <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
+    <p style="font-size: 12px;"> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
     <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>
     <p><?php if(isset($uploadError2)){echo $uploadError2;} ?></p>
     <p><?php if(isset($uploadError_isNotImage)){echo $uploadError_isNotImage;} ?></p>
     <p><?php if(isset($uploadError_type)){echo $uploadError_type;} ?></p>
     <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
     <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
+    <p>Or </p>
+    <input type="text" id="link" name="link" placeholder="https://www.yourwebsite.com/">
 
-    <label for="description">description</label>
+    <hr>
+    <label for="description">Description</label>
     <textarea id="description" name="description" placeholder="What is it about?"></textarea>
     <button type="submit">Submit</button>
 </form>
