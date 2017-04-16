@@ -69,13 +69,15 @@
 
        <div class="item_layout">
 
-           <?php foreach ($statement as $p): if (++$i == $count) break; ?>
+           <?php foreach ($statement as $key => $p): if (++$i == $count) break; ?>
            <div class="item">
                <h1><?php echo $p['title']?></h1>
+               <a href="post.php?postid=<?php echo $key;?>">
                <div class="post_img">
                    <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
 
                </div>
+               </a>
                <div class="like">
                    <button class="unliked"></button>
                    <p>[#likes]</p>
