@@ -10,14 +10,17 @@ spl_autoload_register(function($class){
 
 $postid = $_GET['postid'];
 
+
 try{
-    $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $select = $conn->prepare("select p.*, u.username as username, u.image as img from posts p inner join users u where u.id = p.userid");
-    $res = $select->execute();
-    $results = $select->fetchAll(PDO::FETCH_ASSOC);
-}catch(Exception $e) {
-    echo $e->getMessage();
+    if(!empty($_POST["comment_text"])){
+        $text = $_POST["comment_text"];
+
+        $comment = new Comment();
+    }
+}catch (Exception $e){
+    $error = $e->getMessage();
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -89,8 +92,8 @@ try{
 
     <div id="comment_layout">
         <form action="" method="post" id="submit" enctype="multipart/form-data">
-            <label for="comment">Comment</label>
-            <textarea id="comment" name="comment" placeholder="..."></textarea>
+            <label for="text_comment">Comment</label>
+            <textarea id="text_comment" name="text_comment" placeholder="..."></textarea>
             <button type="submit">Submit</button>
         </form>
     </div>
