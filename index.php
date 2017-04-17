@@ -126,7 +126,7 @@
                    <a href='" . $p['link'] . "'>" .
                     $pagetitle->plaintext
                     . "</a>
-                       <a href='post.php?postid='" . $p['id'] . "'>
+                       <a href='post.php?postid=" . $p['id'] . "'>
                            <div class='post_img'>
                            <img src='
                                 " .
