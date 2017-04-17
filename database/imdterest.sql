@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 17 apr 2017 om 23:11
+-- Gegenereerd op: 17 apr 2017 om 23:41
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -54,7 +54,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `likes`) VALUES
-(74, 0, 'te', 'uploads/2zr2qg8.jpg', 'te', '', 0);
+(72, 9, 'Title sample', 'uploads/duck.jpg', 'Description sample', '', 0);
 
 -- --------------------------------------------------------
 
@@ -110,7 +110,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `image`, `password`, `username`) VALUES
-(8, 'michiel.janssens@thomasmore.be', 'Michiel', 'Janssens', 'uploads/14717310_1468519219830827_5985986830015570317_n.jpg', '$2y$12$0OcHyq.HtP9tGlbr21Q6sOp8O2mq1CNPNW5MIdULRcWtcaWGvGIb.', 'Mijans');
+(8, 'michiel.janssens@thomasmore.be', 'Michiel', 'Janssens', 'uploads/14717310_1468519219830827_5985986830015570317_n.jpg', '$2y$12$0OcHyq.HtP9tGlbr21Q6sOp8O2mq1CNPNW5MIdULRcWtcaWGvGIb.', 'Mijans'),
+(9, 'test@test.be', 'test', 'test', 'uploads/438bd86283e3eb812735ceedb7f40e52.jpg', '$2y$12$jZ5e.AEW455Xew3D3t.3xesP1/mRI9gndt5jjvWeTr3jngwjj7K/W', 'test');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -148,7 +149,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT voor een tabel `topics`
 --
