@@ -5,6 +5,7 @@
 
     $statement = $connection->prepare("select * from posts order by id DESC limit $no,20");
     $statement->execute();
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     foreach( $results as $key => $p ){
         echo "<div id='item' class='item'>
