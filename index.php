@@ -140,9 +140,11 @@
                        </div>
                    </a>
                    <div class='like'>
-                           <button class='unliked'></button>
-                           <p>[#likes]</p>
-                       </div>
+                        <button id='like' class='unliked'></button>
+                        <p id='likes'>" . $p['likes'] . "</p>
+                        <p>likes</p>
+                        <input type='hidden' value='" . $p['id'] . "'>
+                   </div>
                    
                    </div>";
             } elseif(empty($p['link'])) {
@@ -154,8 +156,10 @@
                            </div>
                        </a>
                        <div class='like'>
-                           <button class='unliked'></button>
-                           <p>[#likes]</p>
+                           <button id='like' class='unliked'></button>
+                           <p id='likes'>" . $p['likes'] . "</p>
+                           <p>likes</p>
+                           <input type='hidden' value='" . $p['id'] . "'>
                        </div>
                    </div>";
             }
@@ -172,6 +176,11 @@
         $("#more").click(function(){
             loadmore();
         });
+
+        $('.like').find('button').click(function(){
+            var button = $(this);
+            like(button);
+        });
     });
 
     function loadmore() {
@@ -187,6 +196,36 @@
                 document.getElementById("result_no").value = Number(val)+20;
             }
         });
+    }
+
+    function like(button){
+        var likes = button.next();
+        var like = button.parent();
+        var id = parseInt(like.find('input').value);
+
+        var count;
+        if (button.hasClass('unliked')){
+            count = '+';
+        } else {
+            count = '-';
+        }
+
+        $.ajax({
+            type: 'post',
+            url: 'ajax/like.php',
+            data: { count: count, id: id  },
+            success: function (response) {
+                if (button.hasClass('unliked')){
+                    button.removeClass('unliked').addClass('liked');
+                    likes.html(response);
+                } else {
+                    button.removeClass('liked').addClass('unliked');
+                    likes.html(response);
+                }
+
+            }
+        });
+
     }
 </script>
 </body>
