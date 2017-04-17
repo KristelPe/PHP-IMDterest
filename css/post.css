@@ -11,7 +11,8 @@
 }
 
 #post_layout img{
-    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
 }
 
 #post_layout_info{
@@ -29,7 +30,8 @@
     }
 
     #post_layout img{
-        width: 45%;
+        max-width: 45%;
+        min-width: 45%;
         float: left;
         margin-right: 2.5%;
     }
