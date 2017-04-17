@@ -4,6 +4,10 @@ if(!isset($_SESSION['user'])){
     header('location: login.php');
 }
 
+spl_autoload_register(function($class){
+    include_once("classes/" . $class . ".class.php" );
+});
+
 $postid = $_GET['postid'];
 
 try{
@@ -70,7 +74,7 @@ try{
         <?php foreach ($results as $p):
         if($p['id'] == $postid): ?>
         <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
-        <div>
+        <div id="post_layout_info">
             <h1><?php echo $p['title']?></h1>
             <div class="user">
                 <div class="user_img">
@@ -81,6 +85,14 @@ try{
             <p><?php echo $p['description']?></p>
         </div>
         <?php endif; endforeach; ?>
+    </div>
+
+    <div id="comment_layout">
+        <form action="" method="post" id="submit" enctype="multipart/form-data">
+            <label for="comment">Comment</label>
+            <textarea id="comment" name="comment" placeholder="..."></textarea>
+            <button type="submit">Submit</button>
+        </form>
     </div>
 </div>
 </body>
