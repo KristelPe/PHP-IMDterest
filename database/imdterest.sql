@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 17 apr 2017 om 21:52
+-- Gegenereerd op: 17 apr 2017 om 23:01
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -45,15 +45,9 @@ CREATE TABLE `posts` (
   `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL
+  `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `like` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Gegevens worden geëxporteerd voor tabel `posts`
---
-
-INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`) VALUES
-(72, 9, 'Title sample', 'uploads/duck.jpg', 'Description sample', '');
 
 -- --------------------------------------------------------
 
@@ -109,8 +103,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `image`, `password`, `username`) VALUES
-(8, 'michiel.janssens@thomasmore.be', 'Michiel', 'Janssens', 'uploads/14717310_1468519219830827_5985986830015570317_n.jpg', '$2y$12$0OcHyq.HtP9tGlbr21Q6sOp8O2mq1CNPNW5MIdULRcWtcaWGvGIb.', 'Mijans'),
-(9, 'test@test.be', 'test', 'test', 'uploads/438bd86283e3eb812735ceedb7f40e52.jpg', '$2y$12$jZ5e.AEW455Xew3D3t.3xesP1/mRI9gndt5jjvWeTr3jngwjj7K/W', 'test');
+(8, 'michiel.janssens@thomasmore.be', 'Michiel', 'Janssens', 'uploads/14717310_1468519219830827_5985986830015570317_n.jpg', '$2y$12$0OcHyq.HtP9tGlbr21Q6sOp8O2mq1CNPNW5MIdULRcWtcaWGvGIb.', 'Mijans');
 
 --
 -- Indexen voor geëxporteerde tabellen
