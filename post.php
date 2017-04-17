@@ -1,4 +1,5 @@
 <?php
+require 'libraries/simple_html_dom.php';
 session_start();
 if(!isset($_SESSION['user'])){
     header('location: login.php');
@@ -86,20 +87,45 @@ try{
 
 <div id="container">
     <div id="post_layout">
-        <?php foreach ($results as $p):
-        if($p['id'] == $postid): ?>
-        <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
-        <div id="post_layout_info">
-            <h1><?php echo $p['title']?></h1>
-            <div class="user">
-                <div class="user_img">
-                    <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+        <?php foreach ($results as $p): ?>
+
+            <?php if($p['id'] == $postid && empty($p['link'])): ?>
+                <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
+                <div id="post_layout_info">
+                    <h1><?php echo $p['title']?></h1>
+                    <div class="user">
+                        <div class="user_img">
+                            <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                        </div>
+                        <h2><?php echo $p['username']?></h2>
+                    </div>
+                    <p><?php echo $p['description']?></p>
                 </div>
-                <h2><?php echo $p['username']?></h2>
-            </div>
-            <p><?php echo $p['description']?></p>
-        </div>
-        <?php endif; endforeach; ?>
+
+            <?php elseif($p['id'] == $postid && !empty($p['link'])): ?>
+                <?php
+                $html = file_get_html($p['link']);
+                $pagetitle = $html->find('title', 0);
+                $image = $html->find('img', 0);
+                ?>
+                <a style="text-decoration: none;" href="<?php echo $p['link'] ?>">
+                    <h1><?php echo $pagetitle->plaintext ?></h1>
+                    <img src='<?php echo $image->src ?>' alt='<?php echo $pagetitle->plaintext ?>'>
+                </a>
+                <div id="post_layout_info">
+                    <h1><?php echo $p['title']?></h1>
+                    <div class="user">
+                        <div class="user_img">
+                            <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                        </div>
+                        <h2><?php echo $p['username']?></h2>
+                    </div>
+                    <p><?php echo $p['description']?></p>
+                </div>
+            <?php endif; ?>
+
+        <?php endforeach; ?>
+
     </div>
 
     <div id="comment_layout">
