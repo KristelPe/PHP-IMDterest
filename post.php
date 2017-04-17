@@ -37,6 +37,21 @@ try{
         h2{
             color: #b4b4b4;
         }
+        .user{
+            display: flex;
+            flex-direction: row;
+            line-height: 4em;
+        }
+        .user_img{
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0.5em 1em;
+        }
+        .user_img img{
+            width: inherit;
+        }
     </style>
 </head>
 <body>
@@ -57,7 +72,12 @@ try{
         <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
         <div>
             <h1><?php echo $p['title']?></h1>
-            <h2><?php echo $p['username']?></h2>
+            <div class="user">
+                <div class="user_img">
+                    <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                </div>
+                <h2><?php echo $p['username']?></h2>
+            </div>
             <p><?php echo $p['description']?></p>
         </div>
         <?php endif; endforeach; ?>
