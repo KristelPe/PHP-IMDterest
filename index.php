@@ -21,7 +21,7 @@
                 echo "<pre>" . print_r($r, true) . "</pre>";
             }*/
         } else {
-            $statement = $connection->prepare("select * from posts order by id DESC limit 0,20");
+            $statement = $connection->prepare("select * from posts limit 0,20");
             $statement->execute();
         }
 
