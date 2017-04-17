@@ -3,7 +3,8 @@
 
     $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
 
-    $statement = $connection->prepare("select * from posts order by id DESC limit $no,20");
+    $statement = $connection->prepare("select * from posts limit $no,20");
+    //$statement = $connection->prepare("select * from posts order by id DESC limit $no,20");
     $statement->execute();
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
