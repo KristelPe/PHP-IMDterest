@@ -10,6 +10,11 @@ spl_autoload_register(function($class){
 
 $postid = $_GET['postid'];
 
+if(!empty($_POST["comment"])){
+    $text = $_POST["comment_text"];
+
+    $comment = new Comment();
+}
 
 try{
     if(!empty($_POST["comment_text"])){
@@ -21,6 +26,14 @@ try{
     $error = $e->getMessage();
 }
 
+try{
+    $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $select = $conn->prepare("select p.*, u.username as username, u.image as img from posts p inner join users u where u.id = p.userid");
+    $res = $select->execute();
+    $results = $select->fetchAll(PDO::FETCH_ASSOC);
+}catch(Exception $e) {
+    echo $e->getMessage();
+}
 ?>
 <!doctype html>
 <html lang="en">
