@@ -11,19 +11,18 @@ spl_autoload_register(function($class){
 $postid = $_GET['postid'];
 
 if(!empty($_POST["comment"])){
-    $text = $_POST["comment_text"];
-
-    $comment = new Comment();
-}
-
-try{
-    if(!empty($_POST["comment_text"])){
+    try{
         $text = $_POST["comment_text"];
 
         $comment = new Comment();
+        $comment->setMComment($text);
+        $comment->setMPostId($postid);
+        $comment->setMUserId($userid);
+        $comment->Upload();
+
+    }catch(Exception $e) {
+        echo $e->getMessage();
     }
-}catch (Exception $e){
-    $error = $e->getMessage();
 }
 
 try{
