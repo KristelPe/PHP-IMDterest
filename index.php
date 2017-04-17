@@ -119,6 +119,7 @@
                 $image = $html->find('img', 0);
 
                 echo "<div id='item' class='item'>
+                    <h1>" . $p['title'] . "</h1>
                    <a href='" . $p['link'] . "'>" .
                     $pagetitle->plaintext
                     . "</a>
@@ -135,6 +136,11 @@
                            >
                        </div>
                    </a>
+                   <div class='like'>
+                           <button class='unliked'></button>
+                           <p>[#likes]</p>
+                       </div>
+                   
                    </div>";
             } elseif(empty($p['link'])) {
                 echo "<div id='item' class='item'>
@@ -148,7 +154,6 @@
                            <button class='unliked'></button>
                            <p>[#likes]</p>
                        </div>
-                       <p>" . $p['description'] . "</p>
                    </div>";
             }
         }
