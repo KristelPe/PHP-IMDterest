@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 17 apr 2017 om 23:01
+-- Gegenereerd op: 17 apr 2017 om 23:11
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -46,8 +46,15 @@ CREATE TABLE `posts` (
   `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `like` int(11) NOT NULL DEFAULT '0'
+  `likes` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `posts`
+--
+
+INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `likes`) VALUES
+(74, 0, 'te', 'uploads/2zr2qg8.jpg', 'te', '', 0);
 
 -- --------------------------------------------------------
 
@@ -141,7 +148,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT voor een tabel `topics`
 --
