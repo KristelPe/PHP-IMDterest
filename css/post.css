@@ -22,7 +22,7 @@
 @media only screen and (min-width: 1200px) {
     #post_layout{
         display: block;
-        min-height: 550px;
+        min-height: 850px;
     }
 
     #post_layout h1{
