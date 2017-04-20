@@ -33,10 +33,10 @@ foreach( $results as $key => $p ) {
                        </div>
                    </a>
                    <div class='like'>
-                        <button id='like' class='unliked'></button>
-                        <p id='likes'>" . $p['likes'] . "</p>
-                        <p>likes</p>
-                        <input type='hidden' value='" . $p['id'] . "'>
+                       <button id='like' class='unliked'></button>
+                       <p id='likes'></p>
+                       <p>likes</p>
+                       <input name='id' type='hidden' value='" . $p['id'] . "'>
                    </div>
                    
                    </div>";
@@ -50,9 +50,9 @@ foreach( $results as $key => $p ) {
                        </a>
                        <div class='like'>
                            <button id='like' class='unliked'></button>
-                           <p id='likes'>" . $p['likes'] . "</p>
+                           <p id='likes'></p>
                            <p>likes</p>
-                           <input type='hidden' value='" . $p['id'] . "'>
+                           <input name='id' type='hidden' value='" . $p['id'] . "'>
                        </div>
                    </div>";
     }

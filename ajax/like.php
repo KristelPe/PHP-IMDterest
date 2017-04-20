@@ -1,31 +1,31 @@
 <?php
-$count = $_POST['count'];
-$id = $_POST['id'];
+    include_once "../classes/Db.class.php";
 
-$connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    session_start();
 
-$statement = $connection->prepare("select likes from posts");
-//$statement->bindValue(':id', $id);
-$statement->execute();
-$result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $postId = $_POST['id'];
+    $count = $_POST['count'];
+    $userId = $_SESSION['id'];
+
+    $pdo = Db::getInstance();
+
+    if ($count == true) {
+        $stmt = $pdo->prepare("INSERT INTO likes (user_id, post_id) VALUES (:userid, :postid)");
+        $stmt->bindValue("userid", $userId);
+        $stmt->bindValue("postid", $postId);
+        $stmt->execute();
+    } elseif ($count == false){
+        $stmt = $pdo->prepare("DELETE FROM likes WHERE postid = :postid AND userid = :userid");
+        $stmt->bindValue("userid", $userId);
+        $stmt->bindValue("postid", $postId);
+        $stmt->execute();
+    }
+
+    $statement = $pdo->prepare("SELECT count(*) FROM likes WHERE postid = :postid");
+    $statement->bindValue("postid", $postId);
+    $likes = $statement->execute();
+
+    echo $likes;
 
 
-foreach( $statement as $p ){
-  while ($p['id'] == $id){
-        if ($count == '+'){
-            $val = $result + 1;
-        } elseif ($count == '-'){
-            $val = $result - 1;
-        }
-
-         $update = $connection->prepare("update posts set likes = :likes where id = :id");
-         $update->bindValue(':likes', $val);
-         $update->bindValue(':id', $id);
-
-         echo $val;
-  }
-}
-
-
-
-
+    // PROBLEEM 3 - nog niet kunnen testen door probleem 1  ╮(─▽─)╭
