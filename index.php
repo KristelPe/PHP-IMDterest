@@ -52,17 +52,19 @@
         img{
             width: 230px;
         }
+        button{
+            cursor: pointer;
+        }
         .like{
             display: flex;
             flex-direction: row;
             margin-top: 1em;
+            line-height: 1em;
         }
         p{
             margin-top: 0.5em;
             color: #9da5b6;
-        }
-        .like{
-            line-height: 1em;
+            margin-right: 5px;
         }
         .like p, .user p{
             color: #b4b4b4;
@@ -140,10 +142,10 @@
                        </div>
                    </a>
                    <div class='like'>
-                        <button id='like' class='unliked'></button>
-                        <p id='likes'>" . $p['likes'] . "</p>
-                        <p>likes</p>
-                        <input type='hidden' value='" . $p['id'] . "'>
+                       <button id='like' class='unliked'></button>
+                       <p id='likes'></p>
+                       <p>likes</p>
+                       <input name='id' type='hidden' value='" . $p['id'] . "'>
                    </div>
                    
                    </div>";
@@ -157,9 +159,9 @@
                        </a>
                        <div class='like'>
                            <button id='like' class='unliked'></button>
-                           <p id='likes'>" . $p['likes'] . "</p>
+                           <p id='likes'></p>
                            <p>likes</p>
-                           <input type='hidden' value='" . $p['id'] . "'>
+                           <input name='id' type='hidden' value='" . $p['id'] . "'>
                        </div>
                    </div>";
             }
@@ -177,6 +179,7 @@
             loadmore();
         });
 
+        // PROBLEEM 2: likes worden 1ste keer geladen na click load more werken likes niet meer  o(╥﹏╥)o
         $('.like').find('button').click(function(){
             var button = $(this);
             like(button);
@@ -198,24 +201,23 @@
         });
     }
 
-    function like(button){
-        var likes = button.next();
-        var like = button.parent();
-        var id = parseInt(like.find('input').value);
-
+    function like(button) {
+        var postId = button.next('input').value; // <- Undefined index <= PROBLEEM 1  (┛◉Д◉)┛彡┻━┻
+        var likes = button.next('p');
         var count;
-        if (button.hasClass('unliked')){
-            count = '+';
+
+        if (button.hasClass('unliked')) {
+            count = true;
         } else {
-            count = '-';
+            count = false;
         }
 
         $.ajax({
             type: 'post',
             url: 'ajax/like.php',
-            data: { count: count, id: id  },
+            data: {postId: postId, count: count},
             success: function (response) {
-                if (button.hasClass('unliked')){
+                if (button.hasClass('unliked')) {
                     button.removeClass('unliked').addClass('liked');
                     likes.html(response);
                 } else {
@@ -225,8 +227,8 @@
 
             }
         });
-
     }
+
 </script>
 </body>
 </html>
