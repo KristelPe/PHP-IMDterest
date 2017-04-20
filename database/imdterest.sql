@@ -2,10 +2,10 @@
 -- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 17 apr 2017 om 23:41
--- Serverversie: 10.1.21-MariaDB
--- PHP-versie: 5.6.30
+-- Host: localhost
+-- Generation Time: Apr 20, 2017 at 11:28 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,40 +17,51 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `imdterest`
+-- Database: `IMDterest`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
-  `comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postId` int(11) NOT NULL,
   `userId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `posts`
+-- Table structure for table `likes`
+--
+
+CREATE TABLE `likes` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
-  `id` int(11) NOT NULL,
+  `id` int(11) UNSIGNED NOT NULL,
   `userId` int(11) NOT NULL,
   `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `likes` int(11) NOT NULL DEFAULT '0'
+  `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `likes`) VALUES
@@ -59,7 +70,7 @@ INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `l
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `topics`
+-- Table structure for table `topics`
 --
 
 CREATE TABLE `topics` (
@@ -69,7 +80,7 @@ CREATE TABLE `topics` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `topics`
+-- Dumping data for table `topics`
 --
 
 INSERT INTO `topics` (`id`, `title`, `img`) VALUES
@@ -92,7 +103,7 @@ INSERT INTO `topics` (`id`, `title`, `img`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -106,7 +117,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `image`, `password`, `username`) VALUES
@@ -114,52 +125,57 @@ INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `image`, `password`
 (9, 'test@test.be', 'test', 'test', 'uploads/438bd86283e3eb812735ceedb7f40e52.jpg', '$2y$12$jZ5e.AEW455Xew3D3t.3xesP1/mRI9gndt5jjvWeTr3jngwjj7K/W', 'test');
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `comments`
+-- Indexes for table `likes`
 --
-ALTER TABLE `comments`
+ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `topics`
+-- Indexes for table `topics`
 --
 ALTER TABLE `topics`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `posts`
+-- AUTO_INCREMENT for table `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 --
--- AUTO_INCREMENT voor een tabel `topics`
+-- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
--- AUTO_INCREMENT voor een tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
