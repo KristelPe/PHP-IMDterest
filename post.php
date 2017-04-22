@@ -54,6 +54,13 @@ try{
 }catch(Exception $e) {
     echo $e->getMessage();
 }
+
+try{
+    $selectComments = $conn->prepare("select * from comments where postId = $postid");
+    $res = $selectComments->execute();
+}catch(Exception $e) {
+    echo $e->getMessage();
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -154,10 +161,12 @@ try{
     </div>
 
     <div id="comment_layout">
-        <?php foreach ($results as $p): ?>
+        <?php $resultsComments = $selectComments->fetchAll(PDO::FETCH_ASSOC);
 
+        foreach( $resultsComments as $c ){
 
-        <?php endforeach; ?>
+        }
+        ?>
     </div>
 </div>
 </body>
