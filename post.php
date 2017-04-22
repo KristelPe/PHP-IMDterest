@@ -12,8 +12,8 @@ spl_autoload_register(function($class){
 $email = $_SESSION['user'];
 
 //find userid associated with the email address
-$connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-$statement = $connection->prepare("SELECT id FROM users WHERE email = :email");
+$conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+$statement = $conn->prepare("SELECT id FROM users WHERE email = :email");
 $statement->bindvalue(":email", $email);
 $res = $statement->execute();
 $userid = $statement->fetchColumn();
@@ -46,7 +46,6 @@ if(isset($_POST["report"])){
 }
 
 try{
-    $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
     $select = $conn->prepare("select p.*, u.username as username, u.image as img from posts p inner join users u where u.id = p.userid");
     $res = $select->execute();
     $results = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -150,6 +149,13 @@ try{
             <textarea id="text_comment" name="comment" placeholder="..."></textarea>
             <button type="submit">Submit</button>
         </form>
+    </div>
+
+    <div id="comment_layout">
+        <?php foreach ($results as $p): ?>
+
+
+        <?php endforeach; ?>
     </div>
 </div>
 </body>
