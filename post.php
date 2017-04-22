@@ -35,10 +35,12 @@ if(!empty($_POST["comment"])){
     }
 }
 
-if(isset($_POST["report"])){
+if(!empty($_POST["report"])){
     try{
-        $comment = new Comment();
-        $comment->Upload();
+        $report = new Reported();
+        $report->setMUserId($userid);
+        $report->setMPostId($postid);
+        $report->Report();
 
     }catch(Exception $e) {
         echo $e->getMessage();
@@ -140,7 +142,7 @@ try{
     </div>
 
     <form action="" method="post" id="report">
-        <button type="submit">Report</button>
+        <input type="submit" name="report" value="Report">
     </form>
 
     <div id="comment_layout">
