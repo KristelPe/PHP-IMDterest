@@ -48,6 +48,18 @@ CREATE TABLE `likes` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `following`
+--
+
+CREATE TABLE `following` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `userid` int(11) NOT NULL,
+  `followerid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `posts`
 --
 
