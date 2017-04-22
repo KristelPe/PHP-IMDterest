@@ -9,16 +9,35 @@ spl_autoload_register(function($class){
     include_once("classes/" . $class . ".class.php" );
 });
 
+$email = $_SESSION['user'];
+
+//find userid associated with the email address
+$connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+$statement = $connection->prepare("SELECT id FROM users WHERE email = :email");
+$statement->bindvalue(":email", $email);
+$res = $statement->execute();
+$userid = $statement->fetchColumn();
+
 $postid = $_GET['postid'];
 
 if(!empty($_POST["comment"])){
     try{
-        $text = $_POST["comment_text"];
+        $text = $_POST["comment"];
 
         $comment = new Comment();
         $comment->setMComment($text);
         $comment->setMPostId($postid);
         $comment->setMUserId($userid);
+        $comment->Upload();
+
+    }catch(Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+if(isset($_POST["report"])){
+    try{
+        $comment = new Comment();
         $comment->Upload();
 
     }catch(Exception $e) {
@@ -121,10 +140,14 @@ try{
 
     </div>
 
+    <form action="" method="post" id="report">
+        <button type="submit">Report</button>
+    </form>
+
     <div id="comment_layout">
         <form action="" method="post" id="submit" enctype="multipart/form-data">
             <label for="text_comment">Comment</label>
-            <textarea id="text_comment" name="text_comment" placeholder="..."></textarea>
+            <textarea id="text_comment" name="comment" placeholder="..."></textarea>
             <button type="submit">Submit</button>
         </form>
     </div>
