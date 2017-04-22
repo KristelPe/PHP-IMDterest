@@ -56,7 +56,7 @@ try{
 }
 
 try{
-    $selectComments = $conn->prepare("select * from comments where postId = $postid");
+    $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = $postid");
     $res = $selectComments->execute();
 }catch(Exception $e) {
     echo $e->getMessage();
@@ -75,31 +75,7 @@ try{
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/post.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        h1{
-            margin-top:2em;
-            color: #9da5b6;
-        }
 
-        h2{
-            color: #b4b4b4;
-        }
-        .user{
-            display: flex;
-            flex-direction: row;
-            line-height: 4em;
-        }
-        .user_img{
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0.5em 1em;
-        }
-        .user_img img{
-            width: inherit;
-        }
-    </style>
 </head>
 <body>
 
@@ -160,11 +136,22 @@ try{
         </form>
     </div>
 
-    <div id="comment_layout">
+    <div class="comments_layout">
         <?php $resultsComments = $selectComments->fetchAll(PDO::FETCH_ASSOC);
 
         foreach( $resultsComments as $c ){
-
+            echo "
+                    <div class=\"comment_user\">
+                        <div class=\"user_img\">
+                            <img src=" . $c['img'] . " alt=" . $c['username'] . ">
+                        </div>
+                        <div class=\"user_comment\">
+                        <h2>" . $c['username'] . ":". "</h2>
+                        <p>" . $c['comment'] . "</p>
+                        </div>
+                    </div>
+         
+                 ";
         }
         ?>
     </div>
