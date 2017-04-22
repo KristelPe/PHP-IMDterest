@@ -1,4 +1,21 @@
-<!doctype html>
+<?php
+
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location: login.php');
+    }
+
+    if (!empty($_POST)) {
+        $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+        $statement = $connection->prepare("INSERT INTO boards (userid, title, state) VALUES (:userid, :title, :state)");
+        $statement->bindValue(':userid', $_SESSION['id']);
+        $statement->bindValue(':title', $_POST['title']);
+        $statement->bindValue(':state', $_POST['case']);
+        $statement->execute();
+        header('location: profile.php?id=' . $_SESSION['id']);
+    }
+
+?><!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -65,7 +82,7 @@
 
     <div>
         <label for="name">Name</label>
-        <input id="name" type="text">
+        <input id="name" type="text" name="title">
     </div>
     <hr>
     <div>
