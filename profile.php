@@ -13,7 +13,6 @@
 
     $userid = $_GET['id'];
 
-
     if ($_SESSION['id'] == $userid){
         $guest = "hidden";
         $user = "visible";
@@ -22,15 +21,35 @@
         $user = "hidden";
     }
 
-    try{
-        if (!empty($_POST)) {
+
+
+    $stmnt = $connection->prepare("select userid from following where userid = :id and followerid = :follower");
+    $stmnt->bindValue(':id', $_GET['id']);
+    $stmnt->bindValue(':follower', $_SESSION['id']);
+    $stmnt->execute();
+    $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!empty($status)){
+        $state = "unfollow";
+    } else {
+        $state = "follow";
+    }
+
+    if (!empty($_POST)) {
+        if (!empty($status)){
+            $statement = $connection->prepare("DELETE FROM following WHERE userid = :userid AND followerid = :followerid");
+            $statement->bindValue(':userid', $_GET['id']);
+            $statement->bindValue(':followerid', $_SESSION['id']);
+            $statement->execute();
+            $state = "unfollow";
+        } else {
             $statement = $connection->prepare("INSERT INTO following (userid, followerid) VALUES (:userid, :followerid)");
             $statement->bindValue(':userid', $_GET['id']);
             $statement->bindValue(':followerid', $_SESSION['id']);
             $statement->execute();
+            $state = "follow";
         }
-    }catch (Exception $e) {
-        $error = $e->getMessage();
+        header("Refresh:0");
     }
 
 
@@ -94,9 +113,6 @@
             text-decoration: none;
             color: #9397a6;
         }
-        .following{
-            background-color: orange;
-        }
     </style>
 </head>
 <body>
@@ -108,7 +124,7 @@
 
 <form id="follow" class="<?php echo $guest?>" action="" method="post">
     <input name="follower" type="hidden" value="<?php echo $userid ?>">
-    <button type="submit">Follow</button>
+    <button type="submit"><?php echo $state?></button>
 </form>
 
 <hr>
@@ -116,28 +132,19 @@
     <h2>Boards</h2>
     <div id="boards">
         <a href="newBoard.php" class="<?php echo $user?>">
-            <div id="add" class="board">
+            <div id="add" class="board <?php echo $user?>">
                 <h3>+</h3>
             </div>
         </a>
 
         <!-- foreach moet hierkomen -->
         <div class="board">
-            <div class="contain">
+            <div class="contain" class="visible">
                 <img src="https://s-media-cache-ak0.pinimg.com/originals/23/49/ae/2349ae980ff92275ce9bf9d7ef1539b1.gif" alt="girl">
             </div>
             <h3>SOMETHING</h3>
         </div>
     </div>
 </div>
-
-<script src="jquery.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $("#follow").click(function(){
-            $(this).addClass('following');
-            $(this).html('FOLLOWING');
-        });
-</script>
 </body>
 </html>
