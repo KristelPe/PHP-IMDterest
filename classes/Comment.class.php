@@ -58,10 +58,10 @@ class Comment{
     public function Upload(){
         $conn = Db::getInstance();
 
-        $stmnt = $conn->prepare("insert into comments (comment,userId,postId) values (:comment,:userId,:postId)");
+        $stmnt = $conn->prepare("insert into comments (comment,postId,userId) values (:comment,:postId,:userId)");
         $stmnt->bindvalue(":comment", $this->m_comment);
-        $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->bindvalue(":postId", $this->m_postId);
+        $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->execute();
     }
 }

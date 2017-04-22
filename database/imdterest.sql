@@ -61,15 +61,6 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `likes`) VALUES
-(72, 9, 'Title sample', 'uploads/duck.jpg', 'Description sample', '', 0);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `topics`
 --
 
