@@ -20,21 +20,6 @@ $userid = $statement->fetchColumn();
 
 $postid = $_GET['postid'];
 
-if(!empty($_POST["comment"])){
-    try{
-        $text = $_POST["comment"];
-
-        $comment = new Comment();
-        $comment->setMComment($text);
-        $comment->setMPostId($postid);
-        $comment->setMUserId($userid);
-        $comment->Upload();
-
-    }catch(Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
 if(!empty($_POST["report"])){
     try{
         $report = new Reported();
@@ -132,6 +117,7 @@ try{
         <form action="" method="post" id="submit" enctype="multipart/form-data">
             <label for="text_comment">Comment</label>
             <textarea id="text_comment" name="comment" placeholder="..."></textarea>
+            <input type="hidden" value="<?php echo htmlentities($_GET["postid"]); ?>" name="post_id">
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -155,6 +141,27 @@ try{
         }
         ?>
     </div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        $("#submit").bind("submit", function(e) {
+            $.post('ajax/createComment.php', $(this).serialize(), function(e) {
+                // Zodra gepost, nieuw element toevoegen
+
+                var comment = $("<div class='comment_user'>");
+                comment.html('<div class="user_img"><img src=' + $["img"] + '></div>');
+
+                $('.comments_layout').prepend(comment);
+                $('.comments_layout comment').first().slideDown();
+
+
+                // Veld leegmaken
+
+                $('#text_comment').val('');
+            });
+            e.preventDefault();
+        })
+    </script>
 </div>
 </body>
 </html>
