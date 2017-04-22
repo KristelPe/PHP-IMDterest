@@ -53,6 +53,10 @@
     }
 
 
+    $statemnt = $connection->prepare("select * from boards where userid = :userid");
+    $statemnt->bindValue(':userid', $_GET['id']);
+    $statemnt->execute();
+    $boards = $statemnt->fetchAll(PDO::FETCH_ASSOC)
 
 ?><!doctype html>
 <html lang="en">
@@ -69,7 +73,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <style>
-        .hidden{
+        .hidden, .private{
             display: none;
         }
 
@@ -100,9 +104,10 @@
         }
         .contain img{
             width: inherit;
+        }
+        #something{
             margin-top: -38%;
         }
-
         #add *{
             font-size: 5em;
             width: 40px;
@@ -112,6 +117,14 @@
         #boards a{
             text-decoration: none;
             color: #9397a6;
+        }
+        #boards{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .unfollow{
+            background-color: gray;
         }
     </style>
 </head>
@@ -124,7 +137,7 @@
 
 <form id="follow" class="<?php echo $guest?>" action="" method="post">
     <input name="follower" type="hidden" value="<?php echo $userid ?>">
-    <button type="submit"><?php echo $state?></button>
+    <button class="<?php echo $state?>" type="submit"><?php echo $state?></button>
 </form>
 
 <hr>
@@ -139,11 +152,26 @@
 
         <!-- foreach moet hierkomen -->
         <div class="board">
-            <div class="contain" class="visible">
-                <img src="https://s-media-cache-ak0.pinimg.com/originals/23/49/ae/2349ae980ff92275ce9bf9d7ef1539b1.gif" alt="girl">
+            <div class="contain">
+                <img id="something" src="https://s-media-cache-ak0.pinimg.com/originals/23/49/ae/2349ae980ff92275ce9bf9d7ef1539b1.gif" alt="girl">
             </div>
             <h3>SOMETHING</h3>
         </div>
+
+        <?php foreach ($boards as $b):
+            if ($b['state'] == "private" && $b['userid'] == $_SESSION['id']){
+                $board_state = "public";
+            } else {
+                $board_state = $b['state'];
+            }
+            ?>
+        <div class="board <?php echo $board_state ?>">
+            <div class="contain">
+                <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+            </div>
+            <h3><?php echo $b['title']?></h3>
+        </div>
+        <?php endforeach; ?>
     </div>
 </div>
 </body>
