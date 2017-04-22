@@ -23,6 +23,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `boards`
+--
+
+CREATE TABLE `boards` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `userid` int(11) NOT NULL,
+  `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `state` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `comments`
 --
 
