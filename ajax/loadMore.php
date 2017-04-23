@@ -1,11 +1,27 @@
 <?php
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location: login.php');
+    }
+
     $no = $_POST['getresult'];
 
     $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
 
-    $statement = $connection->prepare("select * from posts limit $no,20");
-    //$statement = $connection->prepare("select * from posts order by id DESC limit $no,20");
-    $statement->execute();
+    $stmnt = $connection->prepare("select count(*) from following where followerid = :followerid");
+    $stmnt->bindValue(':followerid', $_SESSION['id']);
+    $stmnt->execute();
+    $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!empty($status)) {
+        $statement = $connection->prepare("select p.* from posts p inner join following f on f.userid = p.userid where followerid = :followerid limit $no,20");
+        $statement->bindValue(':followerid', $_SESSION['id']);
+        $statement->execute();
+    } else {
+        $statement = $connection->prepare("select * from posts limit $no,20");
+        $statement->execute();
+        //$statement = $connection->prepare("select * from posts order by id DESC limit $no,20");
+    }
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 foreach( $results as $key => $p ) {
