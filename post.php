@@ -84,6 +84,9 @@ try{
                         </a>
                     </div>
                     <p><?php echo $p['description']?></p>
+                    <form action="" method="post" id="remove_post">
+                        <input type="submit" name="remove_post" value="Remove Post">
+                    </form>
                 </div>
 
             <?php elseif($p['id'] == $postid && !empty($p['link'])): ?>
@@ -107,16 +110,15 @@ try{
                         </a>
                     </div>
                     <p><?php echo $p['description']?></p>
+                    <form action="" method="post" id="report">
+                        <input type="submit" name="report" value="Report">
+                    </form>
                 </div>
             <?php endif; ?>
 
         <?php endforeach; ?>
 
     </div>
-
-    <form action="" method="post" id="report">
-        <input type="submit" name="report" value="Report">
-    </form>
 
     <div id="comment_layout">
         <form action="" method="post" id="submit" enctype="multipart/form-data">
