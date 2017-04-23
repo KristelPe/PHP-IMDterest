@@ -25,7 +25,7 @@
             $stmnt->bindValue(':followerid', $_SESSION['id']);
             $stmnt->execute();
             $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
-            
+
             if (!empty($status)) {
                 $statement = $connection->prepare("select p.* from posts p inner join following f on f.userid = p.userid where followerid = :followerid limit 0,20");
                 $statement->bindValue(':followerid', $_SESSION['id']);
