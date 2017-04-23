@@ -20,6 +20,9 @@ $userid = $statement->fetchColumn();
 
 $postid = $_GET['postid'];
 
+var_dump($userid);
+var_dump($postid);
+
 if(!empty($_POST["report"])){
     try{
         $report = new Reported();
@@ -27,6 +30,16 @@ if(!empty($_POST["report"])){
         $report->setMPostId($postid);
         $report->Report();
 
+    }catch(Exception $e) {
+        echo $e->getMessage();
+    }
+}
+
+if(!empty($_POST["remove_post"])){
+    try{
+        $removePost = $conn->prepare("DELETE FROM posts WHERE userId = $userid  and id = $postid");
+        $res = $removePost->execute();
+        header('location: index.php');
     }catch(Exception $e) {
         echo $e->getMessage();
     }
@@ -84,9 +97,18 @@ try{
                         </a>
                     </div>
                     <p><?php echo $p['description']?></p>
+
+
                     <form action="" method="post" id="remove_post">
                         <input type="submit" name="remove_post" value="Remove Post">
                     </form>
+
+                    <form action="" method="post" id="report">
+                        <input type="submit" name="report" value="Report">
+                    </form>
+
+
+
                 </div>
 
             <?php elseif($p['id'] == $postid && !empty($p['link'])): ?>
@@ -110,9 +132,8 @@ try{
                         </a>
                     </div>
                     <p><?php echo $p['description']?></p>
-                    <form action="" method="post" id="report">
-                        <input type="submit" name="report" value="Report">
-                    </form>
+
+
                 </div>
             <?php endif; ?>
 
