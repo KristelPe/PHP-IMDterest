@@ -21,7 +21,7 @@
                 echo "<pre>" . print_r($r, true) . "</pre>";
             }*/
         } else {
-            $stmnt = $connection->prepare("select count(*) from following where followerid = :followerid");
+            $stmnt = $connection->prepare("select userid from following where followerid = :followerid");
             $stmnt->bindValue(':followerid', $_SESSION['id']);
             $stmnt->execute();
             $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
