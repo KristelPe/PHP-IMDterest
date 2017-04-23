@@ -5,15 +5,25 @@
         header('location: login.php');
     }
 
+    $email = $_SESSION['user'];
+
+    //find userid associated with the email address
+    $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $statement = $conn->prepare("SELECT id FROM users WHERE email = :email");
+    $statement->bindvalue(":email", $email);
+    $res = $statement->execute();
+    $uid = $statement->fetchColumn();
+
     $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
     $statement = $connection->prepare("SELECT * FROM users WHERE id = :id");
-    $statement->bindValue(':id', $_SESSION['id']);
+    $statement->bindValue(':id', $uid);
     $statement->execute();
     $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     $userid = $_GET['id'];
 
-    if ($_SESSION['id'] == $userid){
+
+    if ($uid == $userid){
         $guest = "hidden";
         $user = "visible";
     } else {
@@ -25,7 +35,7 @@
 
     $stmnt = $connection->prepare("select userid from following where userid = :id and followerid = :follower");
     $stmnt->bindValue(':id', $_GET['id']);
-    $stmnt->bindValue(':follower', $_SESSION['id']);
+    $stmnt->bindValue(':follower', $uid);
     $stmnt->execute();
     $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
