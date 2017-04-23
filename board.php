@@ -1,6 +1,25 @@
 <?php
+    require 'libraries/simple_html_dom.php';
+    session_start();
+    if(!isset($_SESSION['user'])){
+        header('location: login.php');
+    }
 
-?>
+
+    $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $statement = $conn->prepare("select * from posts limit 0,20 where board = :board"); //probleem met query
+    $statement->bindValue(':board', $_GET['id']);
+    $statement->execute();
+    //debug
+    $statement = $conn->prepare("select board from posts");
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    $test = $_GET['id'];
+    echo $test; // = 7
+    var_dump($result); // =7
+    //waarom werkt het niet! :'(
+    ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,7 +37,65 @@
     </style>
 </head>
 <body>
-<?php include_once("nav.inc.php")?>
+    <?php include_once("nav.inc.php")?>
+    <div id="items" class="item_layout">
+
+        <?php $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach( $results as $key => $p ){
+            if(!empty($p['link'])){
+                $html = file_get_html($p['link']);
+                $pagetitle = $html->find('title', 0);
+                $image = $html->find('img', 0);
+
+                echo "<div id='item' class='item'>
+                    <h1>" . $p['title'] . "</h1>
+                   <a href='" . $p['link'] . "'>" .
+                    $pagetitle->plaintext
+                    . "</a>
+                       <a href='post.php?postid=" . $p['id'] . "'>
+                           <div class='post_img'>
+                           <img src='
+                                " .
+                    $image->src
+                    . "'
+                                alt='
+                                " .
+                    $pagetitle->plaintext
+                    . "'
+                           >
+                       </div>
+                   </a>
+                   <div class='like'>
+                       <button id='like' class='unliked'></button>
+                       <p id='likes'></p>
+                       <p>likes</p>
+                       <input name='id' type='hidden' value='" . $p['id'] . "'>
+                   </div>
+                   
+                   </div>";
+            } elseif(empty($p['link'])) {
+                echo "<div id='item' class='item'>
+                       <h1>" . $p['title'] . "</h1>
+                       <a href='post.php?postid=" . $p['id'] . "'>
+                           <div class='post_img'>
+                               <img src='" . $p['image'] . "' alt='" . $p['title'] . "'>
+                           </div>
+                       </a>
+                       <div class='like'>
+                           <button id='like' class='unliked'></button>
+                           <p id='likes'></p>
+                           <p>likes</p>
+                           <input name='id' type='hidden' value='" . $p['id'] . "'>
+                       </div>
+                   </div>";
+            }
+        }
+        ?>
+        <input type="hidden" id="result_no" value="20">
+    </div>
+    <button type='submit' name='more' id='more'>Load more</button>
+
 </body>
 </html>
 
