@@ -123,21 +123,18 @@ class User
         $stmnt->bindvalue(":username", $this->m_username);
         $stmnt->bindvalue(":password", $this->m_password);
         $stmnt->execute();
-        echo "Registerd";
-        session_start();
+        echo "Registered";
 
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
-        $statement->bindValue(":email", $this->m_vEmail);
-        // execute statement
+        $statement->bindValue(":email", $this->m_email);
         $res = $statement->execute();
-        // confirmation
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach( $results as $row ) {
+            session_start();
             $_SESSION["id"] = $row["id"];
+            $_SESSION['user'] = $this->m_email;
+            header("Location: ./topics.php");
         }
-
-        $_SESSION['user'] = $this->m_email;
-        header("Location: ./topics.php");
     }
 }
