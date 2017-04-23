@@ -13,10 +13,13 @@ $email = $_SESSION['user'];
 
 //find userid associated with the email address
 $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-$statement = $conn->prepare("SELECT id FROM users WHERE email = :email");
+$statement = $conn->prepare("SELECT id, username, image FROM users WHERE email = :email");
 $statement->bindvalue(":email", $email);
-$res = $statement->execute();
-$userid = $statement->fetchColumn();
+$statement->execute();
+$res = $statement->fetch();
+$userid = $res['id'];
+$image = $res['image'];
+$username = $res['username'];
 
 $postid = $_GET['postid'];
 
@@ -183,10 +186,11 @@ try{
                 // Zodra gepost, nieuw element toevoegen
 
                 var comment = $("<div class='comment_user'>");
-                comment.html('<div class="user_img"><img src=' + ["img"] + '></div><div class="user_comment"><h2>' + ['username'] + ':' + '</h2><p>' + ['comment'] + '</p></div>');
+                var username = '<?php echo $username ?>';
+                var img = '<?php echo $image ?>';
+                comment.html('<div class="user_img"><img src=' + img + '></div><div class="user_comment"><h2>' + username + ':' + '</h2><p>' + $('#text_comment').val() + '</p></div>');
 
                 $("#comments_layout").prepend(comment);
-                $("#comments_layout comment").first().slideDown();
 
 
                 // Veld leegmaken
