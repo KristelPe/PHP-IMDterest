@@ -125,6 +125,18 @@ class User
         $stmnt->execute();
         echo "Registerd";
         session_start();
+
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
+        $statement->bindValue(":email", $this->m_vEmail);
+        // execute statement
+        $res = $statement->execute();
+        // confirmation
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach( $results as $row ) {
+            $_SESSION["id"] = $row["id"];
+        }
+
         $_SESSION['user'] = $this->m_email;
         header("Location: ./topics.php");
     }
