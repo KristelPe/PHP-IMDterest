@@ -7,18 +7,16 @@
 
 
     $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $conn->prepare("select * from posts limit 0,20 where board = :board"); //probleem met query
+    $statement = $conn->prepare("select * from posts where board = :board limit 0,20");
     $statement->bindValue(':board', $_GET['id']);
     $statement->execute();
     //debug
-    $statement = $conn->prepare("select board from posts");
-    $statement->execute();
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $stmnt = $conn->prepare("select board from posts");
+    $stmnt->execute();
+    $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
     $test = $_GET['id'];
-    echo $test; // = 7
-    var_dump($result); // =7
-    //waarom werkt het niet! :'(
+    echo $test;
     ?>
 <!doctype html>
 <html lang="en">
