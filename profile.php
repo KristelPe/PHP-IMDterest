@@ -14,6 +14,10 @@
 
     $userid = $_GET['id'];
 
+    $stment = $connection->prepare("SELECT * FROM users WHERE id = :id");
+    $stment->bindValue(':id', $userid);
+    $stment->execute();
+    $use = $stment->fetchAll(PDO::FETCH_ASSOC);
 
     if ($_SESSION['id'] == $userid){
         $guest = "hidden";
@@ -128,12 +132,62 @@
         .unfollow{
             background-color: gray;
         }
+        .info{
+            display: flex;
+            flex-direction: row;
+        }
+        .info h3{
+            width: 150px;
+        }
+        .info p{
+            line-height: 0em;
+        }
+        #user img{
+            max-height: 400px;
+            max-width: 400px;
+            margin: auto 2em;
+
+        }
+        #user div{
+            margin: 0.5em;
+        }
+        #user{
+            display: flex;
+            flex-direction: row;
+            margin: 2em;
+            flex-wrap: wrap;
+        }
+        h2{
+            color: orange;
+        }
     </style>
 </head>
 <body>
 
 <?php include_once("nav.inc.php")?>
 
+
+
+<div id="user">
+    <?php foreach ($use as $u): ?>
+    <img src="<?php echo $u['image']?>" alt="<?php echo $u['username']?>">
+    <div>
+        <h2><?php echo $u['username']?></h2>
+        <div class="info">
+            <h3>Firstname:</h3>
+            <p><?php echo $u['firstname']?></p>
+        </div>
+        <div class="info">
+            <h3>Lastname:</h3>
+            <p><?php echo $u['lastname']?></p>
+        </div>
+        <div class="info">
+            <h3>Email:</h3>
+            <p><?php echo $u['email']?></p>
+        </div>
+    </div>
+    <?php endforeach;?>
+</div>
 
 <a id="update" class="<?php echo $user?>" href="updateProfile.php">UPDATE</a>
 
@@ -151,14 +205,6 @@
                 <h3>+</h3>
             </div>
         </a>
-
-        <!-- foreach moet hierkomen -->
-        <div class="board">
-            <div class="contain">
-                <img id="something" src="https://s-media-cache-ak0.pinimg.com/originals/23/49/ae/2349ae980ff92275ce9bf9d7ef1539b1.gif" alt="girl">
-            </div>
-            <h3>SOMETHING</h3>
-        </div>
 
         <?php foreach ($boards as $b):
             if ($b['state'] == "private" && $b['userid'] == $_SESSION['id']){
