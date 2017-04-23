@@ -20,9 +20,6 @@ $userid = $statement->fetchColumn();
 
 $postid = $_GET['postid'];
 
-var_dump($userid);
-var_dump($postid);
-
 if(!empty($_POST["report"])){
     try{
         $report = new Reported();
@@ -127,26 +124,26 @@ try{
 
             <?php endif; ?>
 
-            <?php if($p['id'] == $postid): ?>
-
-
-            <form action="" method="post" id="remove_post">
-                <input type="submit" name="remove_post" value="Remove Post">
-            </form>
-
-            <?php endif; ?>
-
-            <?php if($p['id'] != $postid): ?>
-
-            <form action="" method="post" id="report">
-                <input type="submit" name="report" value="Report">
-            </form>
-
-            <?php endif; ?>
-
         <?php endforeach; ?>
 
     </div>
+
+    <?php if($p['userid'] == $userid): ?>
+
+
+        <form action="" method="post" id="remove_post">
+            <input type="submit" name="remove_post" value="Remove Post">
+        </form>
+
+    <?php endif; ?>
+
+    <?php if($p['userid'] != $userid): ?>
+
+        <form action="" method="post" id="report">
+            <input type="submit" name="report" value="Report">
+        </form>
+
+    <?php endif; ?>
 
     <div id="comment_layout">
         <form action="" method="post" id="submit" enctype="multipart/form-data">
