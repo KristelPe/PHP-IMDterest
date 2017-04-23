@@ -20,21 +20,6 @@ $userid = $statement->fetchColumn();
 
 $postid = $_GET['postid'];
 
-if(!empty($_POST["comment"])){
-    try{
-        $text = $_POST["comment"];
-
-        $comment = new Comment();
-        $comment->setMComment($text);
-        $comment->setMPostId($postid);
-        $comment->setMUserId($userid);
-        $comment->Upload();
-
-    }catch(Exception $e) {
-        echo $e->getMessage();
-    }
-}
-
 if(!empty($_POST["report"])){
     try{
         $report = new Reported();
@@ -56,7 +41,7 @@ try{
 }
 
 try{
-    $selectComments = $conn->prepare("select * from comments where postId = $postid");
+    $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = $postid");
     $res = $selectComments->execute();
 }catch(Exception $e) {
     echo $e->getMessage();
@@ -75,34 +60,6 @@ try{
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/post.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        h1{
-            margin-top:2em;
-            color: #9da5b6;
-        }
-
-        h2{
-            color: #b4b4b4;
-        }
-        .user{
-            display: flex;
-            flex-direction: row;
-            line-height: 4em;
-        }
-        .user_img{
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0.5em 1em;
-        }
-        .user_img img{
-            width: inherit;
-        }
-        .user a{
-            text-decoration: none;
-        }
-    </style>
 </head>
 <body>
 
@@ -163,18 +120,52 @@ try{
         <form action="" method="post" id="submit" enctype="multipart/form-data">
             <label for="text_comment">Comment</label>
             <textarea id="text_comment" name="comment" placeholder="..."></textarea>
+            <input type="hidden" value="<?php echo htmlentities($_GET["postid"]); ?>" name="post_id">
             <button type="submit">Submit</button>
         </form>
     </div>
 
-    <div id="comment_layout">
+    <div id="comments_layout">
         <?php $resultsComments = $selectComments->fetchAll(PDO::FETCH_ASSOC);
 
         foreach( $resultsComments as $c ){
 
+            echo "
+                    <div class=\"comment_user\">
+                        <div class=\"user_img\">
+                            <img src=" . $c['img'] . " alt=" . $c['username'] . ">
+                        </div>
+                        <div class=\"user_comment\">
+                        <h2>" . $c['username'] . ":". "</h2>
+                        <p>" . $c['comment'] . "</p>
+                        </div>
+                    </div>
+         
+                 ";
         }
         ?>
     </div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        $("#submit").bind("submit", function(e) {
+            $.post('ajax/createComment.php', $(this).serialize(), function(e) {
+                // Zodra gepost, nieuw element toevoegen
+
+                var comment = $("<div class='comment_user'>");
+                comment.html('<div class="user_img"><img src=' + ["img"] + '></div><div class="user_comment"><h2>' + ['username'] + ':' + '</h2><p>' + ['comment'] + '</p></div>');
+
+                $("#comments_layout").prepend(comment);
+                $("#comments_layout comment").first().slideDown();
+
+
+                // Veld leegmaken
+
+                $('#text_comment').val('');
+            });
+            e.preventDefault();
+        })
+    </script>
 </div>
 </body>
 </html>
