@@ -18,6 +18,9 @@ class Comment{
      */
     public function setMComment($m_comment)
     {
+        if($m_comment==""){
+            throw new Exception("Comment can not be empty");
+        }
         $this->m_comment = $m_comment;
     }
 

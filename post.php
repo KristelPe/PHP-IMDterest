@@ -40,11 +40,13 @@ try{
     echo $e->getMessage();
 }
 
+$commentError = "";
+
 try{
-    $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = $postid");
+    $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = $postid ORDER BY c.Id DESC ");
     $res = $selectComments->execute();
 }catch(Exception $e) {
-    echo $e->getMessage();
+    $commentError = $e->getMessage();
 }
 ?>
 <!doctype html>
@@ -121,6 +123,7 @@ try{
             <label for="text_comment">Comment</label>
             <textarea id="text_comment" name="comment" placeholder="..."></textarea>
             <input type="hidden" value="<?php echo htmlentities($_GET["postid"]); ?>" name="post_id">
+            <p><?php echo $commentError?></p>
             <button type="submit">Submit</button>
         </form>
     </div>
