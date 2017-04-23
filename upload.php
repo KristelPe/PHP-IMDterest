@@ -17,14 +17,20 @@
     $res = $statement->execute();
     $userid = $statement->fetchColumn();
 
+    $statemnt = $connection->prepare("select * from boards where userid = :userid");
+    $statemnt->bindValue(':userid', $_SESSION['id']);
+    $statemnt->execute();
+    $boards = $statemnt->fetchAll(PDO::FETCH_ASSOC);
 
-    if(!empty($_POST["title"]) && !empty($_POST["description"])){
+
+    if(!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"])){
 
         if(!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])){
             $link = $_POST["link"];
             $title = $_POST["title"];
             $description = $_POST["description"];
             $afbeelding = "";
+            $board = $_POST["board"];
 
             $post = new Post();
             $post->setMTitle($title);
@@ -32,6 +38,7 @@
             $post->setMLink($link);
             $post->setMDescription($description);
             $post->setMUserId($userid);
+            $post->setMBoard($board);
             $post->Upload();
         }
 
@@ -39,6 +46,7 @@
                 $title = $_POST["title"];
                 $description = $_POST["description"];
                 $link = "";
+                $board = $_POST["board"];
 
                 if (!empty ($_FILES["fileToUpload"]["name"])) {
                     $target_dir = "uploads/";
@@ -89,6 +97,7 @@
                     $post->setMLink($link);
                     $post->setMDescription($description);
                     $post->setMUserId($userid);
+                    $post->setMBoard($board);
                     $post->Upload();
                 }
         }else{
@@ -112,6 +121,71 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>upload</title>
+    <style>
+        .hidden, .private{
+            display: none;
+        }
+
+        .visible{
+            display: inherit;
+        }
+        #boards{
+            display: flex;
+            flex-direction: row;
+            margin: 0.5em 1.5em;
+        }
+
+        hr{
+            margin: 1.5em;
+        }
+        .board{
+            height: 225px;
+            width: 300px;
+            background-color: lightgray;
+            margin: 1.5em;
+            padding: 1em;
+        }
+        .contain{
+            height: 165px;
+            width: 270px;
+            overflow: hidden;
+            margin-bottom: 1em;
+        }
+        .contain img{
+            width: inherit;
+        }
+        #something{
+            margin-top: -38%;
+        }
+        #add *{
+            font-size: 5em;
+            width: 40px;
+            margin: auto;
+            margin-top: 20%;
+        }
+        #boards a{
+            text-decoration: none;
+            color: #9397a6;
+        }
+        #boards{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .unfollow{
+            background-color: gray;
+        }
+        .info{
+            display: flex;
+            flex-direction: row;
+        }
+        .info h3{
+            width: 150px;
+        }
+        .info p{
+            line-height: 0em;
+        }
+    </style>
 </head>
 <body>
 
@@ -134,6 +208,24 @@
         <hr>
         <label for="description">Description</label>
         <textarea id="description" name="description" placeholder="What is it about?"></textarea>
+
+        <p>Select a board</p>
+        <?php if(empty($boards)) :  ?>
+        <p>You must create board before uploading a pin!</p>
+            <a href="newBoard.php">Create board</a>
+        <?php endif; ?>
+        <?php foreach ($boards as $b): ?>
+            <div id="boards">
+                <div class="board <?php echo $board_state ?>">
+                    <div class="contain">
+                        <input id="board" name="board" value="<?php echo $b['id']?>" type="radio">
+                        <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                    </div>
+                    <h3><?php echo $b['title']?></h3>
+                </div>
+            </div>
+
+        <?php endforeach; ?>
         <button type="submit">Submit</button>
         <p><?php if(isset($imageError)){echo $imageError;} ?></p>
         <p><?php if(isset($fieldError)){echo $fieldError;} ?></p>
@@ -144,8 +236,6 @@
         <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
         <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
     </form>
-
 </div>
-
 </body>
 </html>

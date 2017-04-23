@@ -7,6 +7,23 @@ class Post
     private $m_link;
     private $m_description;
     private $m_userId;
+    private $m_board;
+
+    /**
+     * @return mixed
+     */
+    public function getMBoard()
+    {
+        return $this->m_board;
+    }
+
+    /**
+     * @param mixed $m_board
+     */
+    public function setMBoard($m_board)
+    {
+        $this->m_board = $m_board;
+    }
 
     /**
      * @return mixed
@@ -92,12 +109,13 @@ class Post
     public function Upload(){
         $conn = Db::getInstance();
 
-        $stmnt = $conn->prepare("insert into posts (title, image, description, userId, link) values (:title, :afbeelding, :description, :userId, :link)");
+        $stmnt = $conn->prepare("insert into posts (title, image, description, userId, link, board) values (:title, :afbeelding, :description, :userId, :link, :board)");
         $stmnt->bindvalue(":title", $this->m_title);
         $stmnt->bindvalue(":afbeelding", $this->m_afbeelding);
         $stmnt->bindvalue(":description", $this->m_description);
         $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->bindvalue(":link", $this->m_link);
+        $stmnt->bindvalue(":board", $this->m_board);
         $stmnt->execute();
     }
 }

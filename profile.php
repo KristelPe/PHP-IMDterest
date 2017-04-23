@@ -213,12 +213,14 @@
                 $board_state = $b['state'];
             }
             ?>
-        <div class="board <?php echo $board_state ?>">
-            <div class="contain">
-                <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
-            </div>
-            <h3><?php echo $b['title']?></h3>
-        </div>
+            <a href="board.php?id=<?php echo $b['id'];?>">
+                <div class="board <?php echo $board_state ?>">
+                    <div class="contain">
+                        <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                    </div>
+                    <h3><?php echo $b['title']?></h3>
+                </div>
+            </a>
         <?php endforeach; ?>
     </div>
 </div>
