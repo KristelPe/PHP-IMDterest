@@ -21,8 +21,19 @@
                 echo "<pre>" . print_r($r, true) . "</pre>";
             }*/
         } else {
-            $statement = $connection->prepare("select * from posts limit 0,20");
-            $statement->execute();
+            $stmnt = $connection->prepare("select count(*) from following where followerid = :followerid");
+            $stmnt->bindValue(':followerid', $_SESSION['id']);
+            $stmnt->execute();
+            $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
+            
+            if (!empty($status)) {
+                $statement = $connection->prepare("select p.* from posts p inner join following f on f.userid = p.userid where followerid = :followerid limit 0,20");
+                $statement->bindValue(':followerid', $_SESSION['id']);
+                $statement->execute();
+            } else {
+                $statement = $connection->prepare("select * from posts limit 0,20");
+                $statement->execute();
+            }
         }
 
     }catch(Exception $e) {
