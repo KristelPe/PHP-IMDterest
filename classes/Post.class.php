@@ -106,16 +106,19 @@ class Post
         $this->m_description = $m_description;
     }
 
+
     public function Upload(){
         $conn = Db::getInstance();
-
-        $stmnt = $conn->prepare("insert into posts (title, image, description, userId, link, board) values (:title, :afbeelding, :description, :userId, :link, :board)");
+        $stmnt = $conn->prepare("
+          insert into posts (title, userId, image, description, link, board, date) 
+          values (:title, :userId, :afbeelding, :description, :link, :board, :date)");
+        $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->bindvalue(":title", $this->m_title);
         $stmnt->bindvalue(":afbeelding", $this->m_afbeelding);
         $stmnt->bindvalue(":description", $this->m_description);
-        $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->bindvalue(":link", $this->m_link);
         $stmnt->bindvalue(":board", $this->m_board);
+        $stmnt->bindvalue(":date", date('Y-m-d H:i:s'));
         $stmnt->execute();
     }
 }

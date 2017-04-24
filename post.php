@@ -20,7 +20,7 @@ $res = $statement->fetch();
 $userid = $res['id'];
 $image = $res['image'];
 $username = $res['username'];
-
+$date = date('Y-m-d H:i:s');
 $postid = $_GET['postid'];
 
 if(!empty($_POST["report"])){
@@ -46,7 +46,10 @@ if(!empty($_POST["remove_post"])){
 }
 
 try{
-    $select = $conn->prepare("select p.*, u.username as username, u.image as img, u.id as userid from posts p inner join users u where u.id = p.userid");
+    $select = $conn->prepare("select p.*, u.username as username, u.image as img, u.id as userid 
+                              from posts p 
+                              inner join users u 
+                              where u.id = p.userid");
     $res = $select->execute();
     $results = $select->fetchAll(PDO::FETCH_ASSOC);
 }catch(Exception $e) {
