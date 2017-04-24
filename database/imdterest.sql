@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 23 apr 2017 om 21:22
+-- Gegenereerd op: 25 apr 2017 om 00:52
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -32,6 +32,13 @@ CREATE TABLE `boards` (
   `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `state` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `boards`
+--
+
+INSERT INTO `boards` (`id`, `userid`, `title`, `state`) VALUES
+(6, 28, 'tests', 'public');
 
 -- --------------------------------------------------------
 
@@ -83,8 +90,16 @@ CREATE TABLE `posts` (
   `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `board` int(11) NOT NULL
+  `board` int(11) NOT NULL,
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `posts`
+--
+
+INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `board`, `date`) VALUES
+(60, 27, 'uogfzef', '', 'dbvozv', 'https://cdn.pixabay.com/user/2015/01/20/20-56-42-330_250x250.jpg', 6, '2017-04-25 00:45:16');
 
 -- --------------------------------------------------------
 
@@ -152,7 +167,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `image`, `password`, `username`) VALUES
-(8, 'michiel.janssens@thomasmore.be', 'Michiel', 'Janssens', 'uploads/14717310_1468519219830827_5985986830015570317_n.jpg', '$2y$12$0OcHyq.HtP9tGlbr21Q6sOp8O2mq1CNPNW5MIdULRcWtcaWGvGIb.', 'Mijans');
+(8, 'michiel.janssens@thomasmore.be', 'Michiel', 'Janssens', 'uploads/14717310_1468519219830827_5985986830015570317_n.jpg', '$2y$12$0OcHyq.HtP9tGlbr21Q6sOp8O2mq1CNPNW5MIdULRcWtcaWGvGIb.', 'Mijans'),
+(27, 'soren.wagemans@hotmail.com', 'soren', 'wagemans', 'uploads/route2.png', '$2y$12$i1hCHkFMo5iCYaqhGNnsAu09RWog8MFGdqkI1YWz4iv2JbZX86ArS', 'soren');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -208,7 +224,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT voor een tabel `comments`
 --
@@ -223,7 +239,7 @@ ALTER TABLE `likes`
 -- AUTO_INCREMENT voor een tabel `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT voor een tabel `reported`
 --
@@ -238,7 +254,7 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
