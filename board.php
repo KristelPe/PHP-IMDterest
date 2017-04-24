@@ -10,13 +10,6 @@
     $statement = $conn->prepare("select * from posts where board = :board limit 0,20");
     $statement->bindValue(':board', $_GET['id']);
     $statement->execute();
-    //debug
-    $stmnt = $conn->prepare("select board from posts");
-    $stmnt->execute();
-    $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
-
-    $test = $_GET['id'];
-    echo $test;
     ?>
 <!doctype html>
 <html lang="en">
