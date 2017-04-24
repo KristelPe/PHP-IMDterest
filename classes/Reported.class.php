@@ -38,10 +38,25 @@ class Reported{
 
     public function Report(){
         $conn = Db::getInstance();
+        $statement = $conn->prepare("select COUNT(*) from reported where postId = :postId and userId = :userId LIMIT 1");
+        $statement->bindvalue(":postId", $this->m_postId);
+        $statement->bindvalue(":userId", $this->m_userId);
+        $statement->execute();
 
-        $stmnt = $conn->prepare("insert into reported (postId,userId) values (:postId,:userId)");
-        $stmnt->bindvalue(":postId", $this->m_postId);
-        $stmnt->bindvalue(":userId", $this->m_userId);
-        $stmnt->execute();
+        //$result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if($statement->fetchColumn()){
+            echo "You have already reported this post!";
+        }
+        else{
+            $stmnt = $conn->prepare("insert into reported (postId,userId) values (:postId,:userId)");
+            $stmnt->bindvalue(":postId", $this->m_postId);
+            $stmnt->bindvalue(":userId", $this->m_userId);
+            $stmnt->execute();
+            echo "You have successfully reported this post!";
+        }
+
+
+
     }
 }
