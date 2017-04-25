@@ -25,7 +25,7 @@ $postid = $_GET['postid'];
 
 if (!empty($_POST["report"])) {
     try {
-        $report = new Reported();
+        $report = new Post();
         $report->setMUserId($userid);
         $report->setMPostId($postid);
         $report->Report();
