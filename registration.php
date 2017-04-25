@@ -25,10 +25,10 @@
 
             $user = new User();
             $user->setMEmail($email);
+            $user->setMPassword($password);
             $user->setMFirstname($firstname);
             $user->setMLastname($lastname);
             $user->setMUsername($username);
-            $user->setMPassword($password);
             $user->Register();
         }
     } catch (Exception $e) {

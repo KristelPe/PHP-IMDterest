@@ -12,13 +12,13 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
 
-            $userVerify = new UserVerify();
-            $userVerify->setEmail($email);
-            $userVerify->setPassword($password);
+            $user = new User();
+            $user->setMEmail($email);
+            $user->setMPassword($password);
 
-            if ($userVerify->Verify()) {
+            if ($user->Login()) {
                 //Start session with email as sessionvariable
-                $userVerify->Verify();
+                $user->Login();
             } else {
                 $error = "Looks like something went wrong";
             }

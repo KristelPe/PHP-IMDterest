@@ -138,4 +138,33 @@ class User
             header("Location: ./topics.php");
         }
     }
+
+    public function Login()
+    {
+        // conn (PDO)
+        $conn = Db::getInstance();
+
+        // statement: SELECT query
+        $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
+        $statement->bindValue(":email", $this->m_email);
+
+        // execute statement
+        $res = $statement->execute();
+
+        // confirmation
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($results as $row) {
+            if (password_verify($this->m_password, $row['password'])) {
+                header("Location: ./index.php");
+                session_start();
+                $_SESSION["id"] = $row["id"];
+                $_SESSION['user'] = $this->m_email;
+            } else {
+                throw new Exception("OOPS looks like you've filled in the wrong username or password");
+            }
+        }
+
+        return $res;
+    }
 }
