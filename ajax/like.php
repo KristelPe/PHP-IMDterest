@@ -14,7 +14,7 @@
         $stmt->bindValue("userid", $userId);
         $stmt->bindValue("postid", $postId);
         $stmt->execute();
-    } elseif ($count == false){
+    } elseif ($count == false) {
         $stmt = $pdo->prepare("DELETE FROM likes WHERE postid = :postid AND userid = :userid");
         $stmt->bindValue("userid", $userId);
         $stmt->bindValue("postid", $postId);

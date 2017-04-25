@@ -1,7 +1,7 @@
 <?php
 
     session_start();
-    if(!isset($_SESSION['user'])){
+    if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
@@ -19,7 +19,7 @@
     $stment->execute();
     $use = $stment->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($_SESSION['id'] == $userid){
+    if ($_SESSION['id'] == $userid) {
         $guest = "hidden";
         $user = "visible";
     } else {
@@ -35,14 +35,14 @@
     $stmnt->execute();
     $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
-    if (!empty($status)){
+    if (!empty($status)) {
         $state = "unfollow";
     } else {
         $state = "follow";
     }
 
     if (!empty($_POST)) {
-        if (!empty($status)){
+        if (!empty($status)) {
             $statement = $connection->prepare("DELETE FROM following WHERE userid = :userid AND followerid = :followerid");
             $statement->bindValue(':userid', $_GET['id']);
             $statement->bindValue(':followerid', $_SESSION['id']);
@@ -71,7 +71,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php foreach ( $users as $u):?>
+    <?php foreach ($users as $u):?>
     <title><?php echo $u["username"]?></title>
     <?php endforeach;?>
     <link rel="stylesheet" href="css/reset.css">
@@ -207,7 +207,7 @@
         </a>
 
         <?php foreach ($boards as $b):
-            if ($b['state'] == "private" && $b['userid'] == $_SESSION['id']){
+            if ($b['state'] == "private" && $b['userid'] == $_SESSION['id']) {
                 $board_state = "public";
             } else {
                 $board_state = $b['state'];

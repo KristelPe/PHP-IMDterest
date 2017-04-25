@@ -1,6 +1,7 @@
 <?php
 
-class Comment{
+class Comment
+{
     private $m_comment;
     private $m_userId;
     private $m_postId;
@@ -18,7 +19,7 @@ class Comment{
      */
     public function setMComment($m_comment)
     {
-        if($m_comment==""){
+        if ($m_comment=="") {
             throw new Exception("Comment can not be empty");
         }
         $this->m_comment = $m_comment;
@@ -58,7 +59,8 @@ class Comment{
 
 
 
-    public function Upload(){
+    public function Upload()
+    {
         $conn = Db::getInstance();
 
         $stmnt = $conn->prepare("insert into comments (comment,postId,userId) values (:comment,:postId,:userId)");

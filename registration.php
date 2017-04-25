@@ -3,15 +3,15 @@
     error_reporting(E_ALL & ~E_NOTICE);
 
     //connectie maken met database
-    spl_autoload_register(function($class){
-        include_once("classes/" . $class . ".class.php" );
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
     });
 
     //check of er gepost is?
 
-    try{
+    try {
         $error = "";
-        if(!empty ($_POST)){
+        if (!empty($_POST)) {
             $email = $_POST["email"];
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
@@ -30,11 +30,8 @@
             $user->setMUsername($username);
             $user->setMPassword($password);
             $user->Register();
-
-
         }
-    }
-    catch(Exception $e) {
+    } catch (Exception $e) {
         $error = $e->getMessage();
     }
 ?>

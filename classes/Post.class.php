@@ -107,7 +107,8 @@ class Post
     }
 
 
-    public function Upload(){
+    public function Upload()
+    {
         $conn = Db::getInstance();
         $stmnt = $conn->prepare("
           insert into posts (title, userId, image, description, link, board, date) 

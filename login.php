@@ -2,13 +2,13 @@
 
     error_reporting(E_ALL & ~E_NOTICE);
 
-    spl_autoload_register(function($class){
-        include_once ("classes/" . $class . ".class.php");
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
     });
 
-    try{
+    try {
         $error = "";
-        if( !empty($_POST) ){
+        if (!empty($_POST)) {
             $email = $_POST["email"];
             $password = $_POST["password"];
 
@@ -16,14 +16,14 @@
             $userVerify->setEmail($email);
             $userVerify->setPassword($password);
 
-            if ($userVerify->Verify()){
+            if ($userVerify->Verify()) {
                 //Start session with email as sessionvariable
                 $userVerify->Verify();
             } else {
                 $error = "Looks like something went wrong";
             }
         }
-    }catch (Exception $e){
+    } catch (Exception $e) {
         $error = $e->getMessage();
     }
 

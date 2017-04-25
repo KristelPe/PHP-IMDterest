@@ -1,6 +1,7 @@
 <?php
 
-class Reported{
+class Reported
+{
     private $m_userId;
     private $m_postId;
 
@@ -36,7 +37,8 @@ class Reported{
         $this->m_postId = $m_postId;
     }
 
-    public function Report(){
+    public function Report()
+    {
         $conn = Db::getInstance();
         $statement = $conn->prepare("select COUNT(*) from reported where postId = :postId and userId = :userId LIMIT 1");
         $statement->bindvalue(":postId", $this->m_postId);
@@ -45,18 +47,14 @@ class Reported{
 
         //$result = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if($statement->fetchColumn()){
+        if ($statement->fetchColumn()) {
             echo "You have already reported this post!";
-        }
-        else{
+        } else {
             $stmnt = $conn->prepare("insert into reported (postId,userId) values (:postId,:userId)");
             $stmnt->bindvalue(":postId", $this->m_postId);
             $stmnt->bindvalue(":userId", $this->m_userId);
             $stmnt->execute();
             echo "You have successfully reported this post!";
         }
-
-
-
     }
 }

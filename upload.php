@@ -1,11 +1,11 @@
 <?php
     session_start();
-    if(!isset($_SESSION['user'])){
+    if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
-    spl_autoload_register(function($class){
-        include_once("classes/" . $class . ".class.php" );
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
     });
 
     $email = $_SESSION['user'];
@@ -23,9 +23,8 @@
     $boards = $statemnt->fetchAll(PDO::FETCH_ASSOC);
 
 
-    if(!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"])){
-
-        if(!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])){
+    if (!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"])) {
+        if (!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])) {
             $link = $_POST["link"];
             $title = $_POST["title"];
             $description = $_POST["description"];
@@ -40,19 +39,17 @@
             $post->setMUserId($userid);
             $post->setMBoard($board);
             $post->Upload();
-        }
+        } elseif (!empty($_FILES["fileToUpload"]["name"]) && empty($_POST["link"])) {
+            $title = $_POST["title"];
+            $description = $_POST["description"];
+            $link = "";
+            $board = $_POST["board"];
 
-        else if(!empty($_FILES["fileToUpload"]["name"]) && empty($_POST["link"])) {
-                $title = $_POST["title"];
-                $description = $_POST["description"];
-                $link = "";
-                $board = $_POST["board"];
-
-                if (!empty ($_FILES["fileToUpload"]["name"])) {
-                    $target_dir = "uploads/";
-                    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-                    $uploadOk = 1;
-                    $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+            if (!empty($_FILES["fileToUpload"]["name"])) {
+                $target_dir = "uploads/";
+                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                $uploadOk = 1;
+                $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
                     // Check if image file is a actual image or fake image
                     if (isset($_POST["submit"])) {
                         $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -88,22 +85,22 @@
                             $uploadError = "Sorry, there was an error uploading your file.";
                         }
                     }
-                }
+            }
 
-                if(!empty($afbeelding)) {
-                    $post = new Post();
-                    $post->setMTitle($title);
-                    $post->setMAfbeelding($afbeelding);
-                    $post->setMLink($link);
-                    $post->setMDescription($description);
-                    $post->setMUserId($userid);
-                    $post->setMBoard($board);
-                    $post->Upload();
-                }
-        }else{
+            if (!empty($afbeelding)) {
+                $post = new Post();
+                $post->setMTitle($title);
+                $post->setMAfbeelding($afbeelding);
+                $post->setMLink($link);
+                $post->setMDescription($description);
+                $post->setMUserId($userid);
+                $post->setMBoard($board);
+                $post->Upload();
+            }
+        } else {
             $imageError = "PLEASE UPLOAD AN IMAGE OR A WEBSITE!";
         }
-    }else{
+    } else {
         $fieldError = "PLEASE FILL IN ALL FIELDS!";
     }
 
@@ -210,7 +207,7 @@
         <textarea id="description" name="description" placeholder="What is it about?"></textarea>
 
         <p>Select a board</p>
-        <?php if(empty($boards)) :  ?>
+        <?php if (empty($boards)) :  ?>
         <p>You must create board before uploading a pin!</p>
             <a href="newBoard.php">Create board</a>
         <?php endif; ?>
@@ -227,14 +224,31 @@
 
         <?php endforeach; ?>
         <button type="submit">Submit</button>
-        <p><?php if(isset($imageError)){echo $imageError;} ?></p>
-        <p><?php if(isset($fieldError)){echo $fieldError;} ?></p>
-        <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>
-        <p><?php if(isset($uploadError2)){echo $uploadError2;} ?></p>
-        <p><?php if(isset($uploadError_isNotImage)){echo $uploadError_isNotImage;} ?></p>
-        <p><?php if(isset($uploadError_type)){echo $uploadError_type;} ?></p>
-        <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
-        <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
+        <p><?php if (isset($imageError)) {
+    echo $imageError;
+} ?></p>
+        <p><?php if (isset($fieldError)) {
+    echo $fieldError;
+} ?></p>
+        <p><?php if (isset($uploadError_size)) {
+    echo $uploadError_size;
+}?></p>
+        <p><?php if (isset($uploadError2)) {
+    echo $uploadError2;
+} ?></p>
+        <p><?php if (isset($uploadError_isNotImage)) {
+    echo $uploadError_isNotImage;
+} ?></p>
+        <p><?php if (isset($uploadError_type)) {
+    echo $uploadError_type;
+} ?></p>
+        <p><?php if (isset($uploadSuccess)) {
+    echo $uploadSuccess;
+    echo "<img style='width:50px; height:50px;' src='$target_file'";
+} ?></p>
+        <p><?php if (isset($uploadError)) {
+    echo $uploadError;
+} ?></p>
     </form>
 </div>
 </body>

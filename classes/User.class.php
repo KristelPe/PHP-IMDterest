@@ -21,7 +21,7 @@ class User
      */
     public function setMFirstname($m_firstname)
     {
-        if($m_firstname==""){
+        if ($m_firstname=="") {
             throw new Exception("Name can not be empty");
         }
         $this->m_firstname = $m_firstname;
@@ -40,7 +40,7 @@ class User
      */
     public function setMLastname($m_lastname)
     {
-        if($m_lastname==""){
+        if ($m_lastname=="") {
             throw new Exception("Lastname can not be empty");
         }
         $this->m_lastname = $m_lastname;
@@ -59,7 +59,7 @@ class User
      */
     public function setMUsername($m_username)
     {
-        if($m_username==""){
+        if ($m_username=="") {
             throw new Exception("Username can not be empty");
         }
         $this->m_username = $m_username;
@@ -103,7 +103,7 @@ class User
         if ($m_password=="") {
             throw new Exception("Password can not be empty");
         }
-        if (strlen($m_password) < 6 ) {
+        if (strlen($m_password) < 6) {
             throw new Exception("Password is too short");
         }
         if (!preg_match("#[a-zA-Z]+#", $m_password)) {
@@ -113,7 +113,8 @@ class User
         $this->m_password = $m_password;
     }
 
-    public function Register(){
+    public function Register()
+    {
         $conn = Db::getInstance();
 
         $stmnt = $conn->prepare("insert into users (email, firstname, lastname, username, password) values (:email, :firstname, :lastname, :username, :password)");
@@ -130,7 +131,7 @@ class User
         $res = $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach( $results as $row ) {
+        foreach ($results as $row) {
             session_start();
             $_SESSION["id"] = $row["id"];
             $_SESSION['user'] = $this->m_email;

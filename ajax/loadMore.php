@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION['user'])){
+    if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
@@ -24,7 +24,7 @@
     }
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-foreach( $results as $key => $p ) {
+foreach ($results as $key => $p) {
     if (!empty($p['link'])) {
         $html = file_get_html($p['link']);
         $pagetitle = $html->find('title', 0);

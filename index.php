@@ -3,14 +3,14 @@
     //check if session exists
     //if not send back to login
     session_start();
-    if(!isset($_SESSION['user'])){
+    if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
-    try{
+    try {
         $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
 
-        if(isset($_POST['search'])) {
+        if (isset($_POST['search'])) {
             $searchq = $_POST['search'];
             $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
 
@@ -35,8 +35,7 @@
                 $statement->execute();
             }
         }
-
-    }catch(Exception $e) {
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 
@@ -121,8 +120,8 @@
 
         <?php $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach( $results as $key => $p ){
-            if(!empty($p['link'])){
+        foreach ($results as $key => $p) {
+            if (!empty($p['link'])) {
                 $html = file_get_html($p['link']);
                 $pagetitle = $html->find('title', 0);
                 $image = $html->find('img', 0);
@@ -153,7 +152,7 @@
                    </div>
                    
                    </div>";
-            } elseif(empty($p['link'])) {
+            } elseif (empty($p['link'])) {
                 echo "<div id='item' class='item'>
                        <h1>" . $p['title'] . "</h1>
                        <a href='post.php?postid=" . $p['id'] . "'>

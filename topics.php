@@ -1,34 +1,30 @@
 <?php
 
     session_start();
-    if(!isset($_SESSION['user'])){
+    if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
-    try{
+    try {
         $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
         $sql = "select * from topics";
-    }catch(Exception $e) {
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 
     $topic = "";
-    if(empty($_POST['topic']))
-    {
+    if (empty($_POST['topic'])) {
         $topics = "You didn't select any topics.";
-    }
-    else
-    {
+    } else {
         $topic = $_POST['topic'];
         $N = count($topic);
-        if ($N == 1){
+        if ($N == 1) {
             $topics = "You selected $N topic";
-        } else{
+        } else {
             $topics = "You selected $N topics";
-            for($i=0; $i < $N; $i++)
-            {
-                echo ($topic[$i] . " "); // dees moet weg zodra k weet hoe k die klasse kan toevoegen aan <p>
-}
+            for ($i=0; $i < $N; $i++) {
+                echo($topic[$i] . " "); // dees moet weg zodra k weet hoe k die klasse kan toevoegen aan <p>
+            }
         }
     }
 

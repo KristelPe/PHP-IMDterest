@@ -1,12 +1,12 @@
 <?php
 require 'libraries/simple_html_dom.php';
 session_start();
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
     header('location: login.php');
 }
 
-spl_autoload_register(function($class){
-    include_once("classes/" . $class . ".class.php" );
+spl_autoload_register(function ($class) {
+    include_once("classes/" . $class . ".class.php");
 });
 
 $email = $_SESSION['user'];
@@ -23,45 +23,44 @@ $username = $res['username'];
 $date = date('Y-m-d H:i:s');
 $postid = $_GET['postid'];
 
-if(!empty($_POST["report"])){
-    try{
+if (!empty($_POST["report"])) {
+    try {
         $report = new Reported();
         $report->setMUserId($userid);
         $report->setMPostId($postid);
         $report->Report();
-
-    }catch(Exception $e) {
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-if(!empty($_POST["remove_post"])){
-    try{
+if (!empty($_POST["remove_post"])) {
+    try {
         $removePost = $conn->prepare("DELETE FROM posts WHERE userId = $userid  and id = $postid");
         $res = $removePost->execute();
         header('location: index.php');
-    }catch(Exception $e) {
+    } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
-try{
+try {
     $select = $conn->prepare("select p.*, u.username as username, u.image as img, u.id as userid 
                               from posts p 
                               inner join users u 
                               where u.id = p.userid");
     $res = $select->execute();
     $results = $select->fetchAll(PDO::FETCH_ASSOC);
-}catch(Exception $e) {
+} catch (Exception $e) {
     echo $e->getMessage();
 }
 
 $commentError = "";
 
-try{
+try {
     $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = $postid ORDER BY c.Id DESC ");
     $res = $selectComments->execute();
-}catch(Exception $e) {
+} catch (Exception $e) {
     $commentError = $e->getMessage();
 }
 ?>
@@ -87,7 +86,7 @@ try{
     <div id="post_layout">
         <?php foreach ($results as $p): ?>
 
-            <?php if($p['id'] == $postid && empty($p['link'])): ?>
+            <?php if ($p['id'] == $postid && empty($p['link'])): ?>
                 <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
                 <div id="post_layout_info">
                     <h1><?php echo $p['title']?></h1>
@@ -103,7 +102,7 @@ try{
 
                 </div>
 
-            <?php elseif($p['id'] == $postid && !empty($p['link'])): ?>
+            <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>
                 <?php
                 $html = file_get_html($p['link']);
                 $pagetitle = $html->find('title', 0);
@@ -134,7 +133,7 @@ try{
 
     </div>
 
-    <?php if($p['userid'] == $userid): ?>
+    <?php if ($p['userid'] == $userid): ?>
 
 
         <form action="" method="post" id="remove_post">
@@ -143,7 +142,7 @@ try{
 
     <?php endif; ?>
 
-    <?php if($p['userid'] != $userid): ?>
+    <?php if ($p['userid'] != $userid): ?>
 
         <form action="" method="post" id="report">
             <input type="submit" name="report" value="Report">
@@ -164,8 +163,7 @@ try{
     <div id="comments_layout">
         <?php $resultsComments = $selectComments->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach( $resultsComments as $c ){
-
+        foreach ($resultsComments as $c) {
             echo "
                     <div class=\"comment_user\">
                         <div class=\"user_img\">

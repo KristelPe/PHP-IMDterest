@@ -5,7 +5,7 @@
     //check if session exists
     //if not send back to login
     session_start();
-    if(!isset($_SESSION['user'])){
+    if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
@@ -31,18 +31,18 @@
     //Replace old password by new password
 
     //Replace old email by new email
-    try{
-        if(!empty ($_POST['username']) && ($_POST['username']) != $username){
+    try {
+        if (!empty($_POST['username']) && ($_POST['username']) != $username) {
             $newUsername = $_POST['username'];
             $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
             $statement = $connection->prepare("UPDATE users SET username = REPLACE(username, '$username', '$newUsername') WHERE INSTR(username, '$username') > 0;");
             $res = $statement->execute();
             $usernameSuccess = "Your username has been changed to " . "<b>" . $newUsername . "</b>";
-        }else{
+        } else {
             $usernameError = "Please fill in a valid username!";
         }
 
-        if(!empty ($_POST['password'])){
+        if (!empty($_POST['password'])) {
             $newPassword = $_POST['password'];
             $options = [
                 'cost' => 12,
@@ -52,11 +52,11 @@
             $statement = $connection->prepare("UPDATE users SET password = REPLACE(password, '$password', '$newPassword') WHERE INSTR(password, '$password') > 0;");
             $res = $statement->execute();
             $passwordSuccess = "Your password has been changed!";
-        }else{
+        } else {
             $passwordError = "Please fill in a valid password!";
         }
 
-        if(!empty ($_POST['email']) && ($_POST['email']) != $email){
+        if (!empty($_POST['email']) && ($_POST['email']) != $email) {
             $newEmail = $_POST['email'];
             $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
             $statement = $connection->prepare("UPDATE users SET email = REPLACE(email, '$email', '$newEmail') WHERE INSTR(email, '$email') > 0;");
@@ -64,11 +64,11 @@
             $emailSuccess = "Your email has been changed to " . "<b>" . $newEmail . "</b>";
             //update session variable to new email address
             $_SESSION['user'] = $newEmail;
-        }else{
+        } else {
             $emailError = "Please fill in a valid email address!";
         }
 
-        if (!empty ($_FILES["fileToUpload"]["name"])) {
+        if (!empty($_FILES["fileToUpload"]["name"])) {
             $target_dir = "uploads/";
             $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
             $uploadOk = 1;
@@ -112,10 +112,7 @@
                 }
             }
         }
-
-
-    }
-    catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo $e->getMessage();
     }
 
@@ -149,12 +146,25 @@
 
         <input type="file" name="fileToUpload" id="fileToUpload" class="image_submit">
         <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
-        <p><?php if(isset($uploadError_size)){echo $uploadError_size;}?></p>
-        <p><?php if(isset($uploadError2)){echo $uploadError2;} ?></p>
-        <p><?php if(isset($uploadError_isNotImage)){echo $uploadError_isNotImage;} ?></p>
-        <p><?php if(isset($uploadError_type)){echo $uploadError_type;} ?></p>
-        <p><?php if(isset($uploadSuccess)){echo $uploadSuccess; echo "<img style='width:50px; height:50px;' src='$target_file'";} ?></p>
-        <p><?php if(isset($uploadError)){echo $uploadError;} ?></p>
+        <p><?php if (isset($uploadError_size)) {
+    echo $uploadError_size;
+}?></p>
+        <p><?php if (isset($uploadError2)) {
+    echo $uploadError2;
+} ?></p>
+        <p><?php if (isset($uploadError_isNotImage)) {
+    echo $uploadError_isNotImage;
+} ?></p>
+        <p><?php if (isset($uploadError_type)) {
+    echo $uploadError_type;
+} ?></p>
+        <p><?php if (isset($uploadSuccess)) {
+    echo $uploadSuccess;
+    echo "<img style='width:50px; height:50px;' src='$target_file'";
+} ?></p>
+        <p><?php if (isset($uploadError)) {
+    echo $uploadError;
+} ?></p>
         <input type="submit" value="Upload Image" name="submit">
 
         <hr>
@@ -163,7 +173,11 @@
 
         <label for="name">Change email address</label>
         <input type="text" name="email" id="email" placeholder="<?php echo $email?>">
-        <p><?php if(isset($emailError)){echo $emailError;}else if(isset($emailSuccess)){echo $emailSuccess;} ?></p>
+        <p><?php if (isset($emailError)) {
+    echo $emailError;
+} elseif (isset($emailSuccess)) {
+    echo $emailSuccess;
+} ?></p>
 
         </div>
 
@@ -173,7 +187,11 @@
 
         <label for="name">Change username</label>
         <input type="text" name="username" id="username" placeholder="<?php echo $username?>">
-        <p><?php if(isset($usernameError)){echo $usernameError;}else if(isset($usernameSuccess)){echo $usernameSuccess;} ?></p>
+        <p><?php if (isset($usernameError)) {
+    echo $usernameError;
+} elseif (isset($usernameSuccess)) {
+    echo $usernameSuccess;
+} ?></p>
 
         </div>
 
@@ -183,7 +201,11 @@
 
         <label for="name">Change password</label>
         <input type="text" name="password" id="password" placeholder="New password">
-        <p><?php if(isset($passwordError)){echo $passwordError;}else if(isset($passwordSuccess)){echo $passwordSuccess;} ?></p>
+        <p><?php if (isset($passwordError)) {
+    echo $passwordError;
+} elseif (isset($passwordSuccess)) {
+    echo $passwordSuccess;
+} ?></p>
 
         </div>
 
