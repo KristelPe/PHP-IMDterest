@@ -160,6 +160,8 @@ try {
             <input type="submit" name="report" value="Report">
         </form>
 
+        <p><?php echo "HIER REPORT MESSAGE"?></p>
+
     <?php endif; ?>
 
     <div id="comment_layout">
