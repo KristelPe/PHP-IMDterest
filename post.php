@@ -20,7 +20,7 @@ $res = $statement->fetch();
 $userid = $res['id'];
 $image = $res['image'];
 $username = $res['username'];
-$date = date('Y-m-d H:i:s');
+$date = $res['date'];
 $postid = $_GET['postid'];
 
 if (!empty($_POST["report"])) {
@@ -94,12 +94,24 @@ try {
                         <div class="user_img">
                             <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
                         </div>
+
                         <a href="profile.php?id=<?php echo $p['userid']?>">
                             <h2><?php echo $p['username']?></h2>
                         </a>
                     </div>
                     <p><?php echo $p['description']?></p>
+                    <?php
+                    if($p['date']==date('Y-m-d')){
+                        $date = 'Posted today';
 
+                    }else{
+                        $value1=substr($p['date'],8,2);
+                        $value2=substr(date('Y-m-d'),8,2);
+                        $resvalue = $value2 - $value1;
+                        $date = 'Posted '.$resvalue.' days ago';
+                    }
+                    ?>
+                    <p><?php echo $date ?></p>
                 </div>
 
             <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>

@@ -119,7 +119,7 @@ class Post
         $stmnt->bindvalue(":description", $this->m_description);
         $stmnt->bindvalue(":link", $this->m_link);
         $stmnt->bindvalue(":board", $this->m_board);
-        $stmnt->bindvalue(":date", date('Y-m-d H:i:s'));
+        $stmnt->bindvalue(":date", date('Y-m-d'));
         $stmnt->execute();
     }
 }
