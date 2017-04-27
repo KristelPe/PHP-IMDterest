@@ -7,37 +7,28 @@
         header('location: login.php');
     }
 
-    try {
-        $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
+    });
 
+    $noP = 0;
+    settype($noP, "integer");
+
+    try {
+        $stack = new Stack();
         if (isset($_POST['search'])) {
             $searchq = $_POST['search'];
-            $searchq = preg_replace("#[^0-9a-z]#i", "", $searchq);
-
-            $statement = $connection->prepare("SELECT * FROM posts WHERE title LIKE :keywords OR description LIKE :keywords limit 0,20");
-            $statement->bindValue(':keywords', '%' . $searchq . '%');
-            $statement->execute();
-            /*while ($r = $statement->fetch(PDO::FETCH_ASSOC)) {
-                echo "<pre>" . print_r($r, true) . "</pre>";
-            }*/
+            $stack->setSearch($searchq);
+            $res = $stack->Search($noP);
         } else {
-            $stmnt = $connection->prepare("select userid from following where followerid = :followerid");
-            $stmnt->bindValue(':followerid', $_SESSION['id']);
-            $stmnt->execute();
-            $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
-
-            if (!empty($status)) {
-                $statement = $connection->prepare("select p.* from posts p inner join following f on f.userid = p.userid where followerid = :followerid limit 0,20");
-                $statement->bindValue(':followerid', $_SESSION['id']);
-                $statement->execute();
-            } else {
-                $statement = $connection->prepare("select * from posts limit 0,20");
-                $statement->execute();
-            }
+            $sessionId = $_SESSION['id'];
+            $stack->setSessionId($sessionId);
+            $res = $stack->Stacker($noP);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
+
 
     $i = 0;
 
@@ -118,7 +109,7 @@
 
     <div id="items" class="item_layout">
 
-        <?php $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        <?php $results = $res;
 
         foreach ($results as $key => $p) {
             if (!empty($p['link'])) {
@@ -145,10 +136,9 @@
                        </div>
                    </a>
                    <div class='like'>
-                       <button id='like' class='unliked'></button>
-                       <p id='likes'></p>
-                       <p>likes</p>
+                       <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
                        <input name='id' type='hidden' value='" . $p['id'] . "'>
+                       <p id='likes'>" . $p['likes']. " likes</p>
                    </div>
                    
                    </div>";
@@ -161,12 +151,13 @@
                            </div>
                        </a>
                        <div class='like'>
-                           <button id='like' class='unliked'></button>
-                           <p id='likes'></p>
-                           <p>likes</p>
+                           <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
                            <input name='id' type='hidden' value='" . $p['id'] . "'>
+                           <p id='likes'>" . $p['likes']. " likes</p>
                        </div>
                    </div>";
+
+                settype($p['id'], "integer");
             }
         }
         ?>
@@ -182,7 +173,6 @@
             loadmore();
         });
 
-        // PROBLEEM 2: likes worden 1ste keer geladen na click load more werken likes niet meer  o(╥﹏╥)o
         $('.like').find('button').click(function(){
             var button = $(this);
             like(button);
@@ -205,14 +195,14 @@
     }
 
     function like(button) {
-        var postId = button.next('input').value; // <- Undefined index <= PROBLEEM 1  (┛◉Д◉)┛彡┻━┻
-        var likes = button.next('p');
+        var postId = button.next('input').value; //DUUUUS Dees geeft ni de correcte waarde terug en k weet ni wa k hier nog zou kunnen proberen (￣□￣)
+        var likes = button.next().next();
         var count;
 
         if (button.hasClass('unliked')) {
-            count = true;
+            count = 'plus';
         } else {
-            count = false;
+            count = 'minus';
         }
 
         $.ajax({
@@ -222,10 +212,10 @@
             success: function (response) {
                 if (button.hasClass('unliked')) {
                     button.removeClass('unliked').addClass('liked');
-                    likes.html(response);
+                    likes.text(response+' likes');
                 } else {
                     button.removeClass('liked').addClass('unliked');
-                    likes.html(response);
+                    likes.text(response+' likes');
                 }
 
             }
