@@ -25,12 +25,12 @@
             $password = password_hash($password, PASSWORD_DEFAULT, $options);
 
             $user = new User();
-            $user->setMEmail($email);
-            $user->setMPassword($password);
-            $user->setMFirstname($firstname);
-            $user->setMLastname($lastname);
-            $user->setMUsername($username);
-            $user->setMImage($image);
+            $user->setEmail($email);
+            $user->setPassword($password);
+            $user->setFirstname($firstname);
+            $user->setLastname($lastname);
+            $user->setUsername($username);
+            $user->setImage($image);
             $user->Register();
         }
     } catch (Exception $e) {

@@ -2,132 +2,132 @@
 
 class User
 {
-    private $m_firstname;
-    private $m_lastname;
-    private $m_username;
-    private $m_email;
-    private $m_password;
-    private $m_image;
+    private $firstname;
+    private $lastname;
+    private $username;
+    private $email;
+    private $password;
+    private $image;
 
     /**
      * @return mixed
      */
-    public function getMFirstname()
+    public function getFirstname()
     {
-        return $this->m_firstname;
+        return $this->firstname;
     }
 
     /**
-     * @param mixed $m_firstname
+     * @param mixed $firstname
      */
-    public function setMFirstname($m_firstname)
+    public function setFirstname($firstname)
     {
-        if ($m_firstname=="") {
+        if ($firstname=="") {
             throw new Exception("Name can not be empty");
         }
-        $this->m_firstname = $m_firstname;
+        $this->firstname = $firstname;
     }
 
     /**
      * @return mixed
      */
-    public function getMLastname()
+    public function getLastname()
     {
-        return $this->m_lastname;
+        return $this->lastname;
     }
 
     /**
-     * @param mixed $m_lastname
+     * @param mixed $lastname
      */
-    public function setMLastname($m_lastname)
+    public function setLastname($lastname)
     {
-        if ($m_lastname=="") {
+        if ($lastname=="") {
             throw new Exception("Lastname can not be empty");
         }
-        $this->m_lastname = $m_lastname;
+        $this->lastname = $lastname;
     }
 
     /**
      * @return mixed
      */
-    public function getMUsername()
+    public function getUsername()
     {
-        return $this->m_username;
+        return $this->username;
     }
 
     /**
-     * @param mixed $m_username
+     * @param mixed $username
      */
-    public function setMUsername($m_username)
+    public function setUsername($username)
     {
-        if ($m_username=="") {
+        if ($username=="") {
             throw new Exception("Username can not be empty");
         }
-        $this->m_username = $m_username;
+        $this->username = $username;
     }
 
     /**
      * @return mixed
      */
-    public function getMEmail()
+    public function getEmail()
     {
-        return $this->m_email;
+        return $this->email;
     }
 
     /**
-     * @param mixed $m_email
+     * @param mixed $email
      */
-    public function setMEmail($m_email)
+    public function setEmail($email)
     {
-        if ($m_email=="") {
+        if ($email=="") {
             throw new Exception("Email can not be empty");
         }
-        if (!filter_var($m_email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Email is not a valid one");
         }
-        $this->m_email = $m_email;
+        $this->email = $email;
     }
 
     /**
      * @return mixed
      */
-    public function getMPassword()
+    public function getPassword()
     {
-        return $this->m_password;
+        return $this->password;
     }
 
     /**
-     * @param mixed $m_password
+     * @param mixed $password
      */
-    public function setMPassword($m_password)
+    public function setMPassword($password)
     {
-        if ($m_password=="") {
+        if ($password=="") {
             throw new Exception("Password can not be empty");
         }
-        if (strlen($m_password) < 6) {
+        if (strlen($password) < 6) {
             throw new Exception("Password is too short");
         }
-        if (!preg_match("#[a-zA-Z]+#", $m_password)) {
+        if (!preg_match("#[a-zA-Z]+#", $password)) {
             throw new Exception("Password is not valid");
         }
 
-        $this->m_password = $m_password;
+        $this->password = $password;
     }
 
     /**
      * @return mixed
      */
-    public function getMImage()
+    public function getImage()
     {
-        return $this->m_image;
+        return $this->image;
     }
 
     /**
-     * @param mixed $m_image
+     * @param mixed $image
      */
-    public function setMImage($m_image)
+    public function setImage($image)
     {
-        $this->m_image = $m_image;
+        $this->image = $image;
     }
 
 
@@ -136,24 +136,24 @@ class User
         $conn = Db::getInstance();
 
         $stmnt = $conn->prepare("insert into users (email, firstname, lastname, username, password, image) values (:email, :firstname, :lastname, :username, :password, :image)");
-        $stmnt->bindvalue(":email", $this->m_email);
-        $stmnt->bindvalue(":firstname", $this->m_firstname);
-        $stmnt->bindvalue(":lastname", $this->m_lastname);
-        $stmnt->bindvalue(":username", $this->m_username);
-        $stmnt->bindvalue(":password", $this->m_password);
-        $stmnt->bindvalue(":image", $this->m_image);
+        $stmnt->bindvalue(":email", $this->email);
+        $stmnt->bindvalue(":firstname", $this->firstname);
+        $stmnt->bindvalue(":lastname", $this->lastname);
+        $stmnt->bindvalue(":username", $this->username);
+        $stmnt->bindvalue(":password", $this->password);
+        $stmnt->bindvalue(":image", $this->image);
         $stmnt->execute();
         echo "Registered";
 
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
-        $statement->bindValue(":email", $this->m_email);
+        $statement->bindValue(":email", $this->email);
         $res = $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($results as $row) {
             session_start();
             $_SESSION["id"] = $row["id"];
-            $_SESSION['user'] = $this->m_email;
+            $_SESSION['user'] = $this->email;
             header("Location: ./topics.php");
         }
     }
@@ -165,7 +165,7 @@ class User
 
         // statement: SELECT query
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
-        $statement->bindValue(":email", $this->m_email);
+        $statement->bindValue(":email", $this->email);
 
         // execute statement
         $res = $statement->execute();
@@ -174,11 +174,11 @@ class User
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($results as $row) {
-            if (password_verify($this->m_password, $row['password'])) {
+            if (password_verify($this->password, $row['password'])) {
                 header("Location: ./index.php");
                 session_start();
                 $_SESSION["id"] = $row["id"];
-                $_SESSION['user'] = $this->m_email;
+                $_SESSION['user'] = $this->email;
             } else {
                 throw new Exception("OOPS looks like you've filled in the wrong username or password");
             }

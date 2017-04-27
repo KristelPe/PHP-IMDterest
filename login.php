@@ -13,8 +13,8 @@
             $password = $_POST["password"];
 
             $user = new User();
-            $user->setMEmail($email);
-            $user->setMPassword($password);
+            $user->setEmail($email);
+            $user->setPassword($password);
 
             if ($user->Login()) {
                 //Start session with email as sessionvariable
