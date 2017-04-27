@@ -162,4 +162,39 @@ class Post
             echo "You have successfully reported this post!";
         }
     }
+
+    public function Datum($date){
+        $currentDate = strtotime(date("Y-m-d H:i:s"));
+        $savedDate = strtotime($date);
+        $diff = $currentDate-$savedDate;
+        if($diff>60 and $diff<3600 ){
+            $result = floor($diff / 60);
+            if($result==1){
+                $result = $result." minuut geleden";
+            }else{
+                $result = $result." minuten geleden";
+            }
+        }else if ($diff>3600 and $diff<86400) {
+            $result = floor($diff / 3600)." uur geleden";
+        }else if($diff>86400 and $diff<604800){
+            $result = floor($diff/86400);
+            if($result==1){
+                $result = $result." dag geleden";
+            }else{
+                $result = $result." dagen geleden";
+            }
+        }else if($diff>604800 and $diff<31449600){
+            $result = floor($diff/604800);
+            if($result==1){
+                $result = $result." week geleden";
+            }else{
+                $result = $result." weken geleden";
+            }
+        }else if($diff>31449600){
+            $result = floor($diff/31449600)." jaar geleden";
+        }else{
+            $result = $diff." seconde geleden";
+        }
+        return $result;
+    }
 }
