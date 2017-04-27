@@ -41,7 +41,7 @@ class Stack
     public function Search($noP) {
         $conn = Db::getInstance();
 
-        $statement = $conn->prepare("SELECT p.*, count(l.user_id) as likes FROM posts left join likes l on p.id = l.post_id group by p.id WHERE p.title LIKE :keywords OR p.description LIKE :keywords order by p.id desc limit :noP,20");
+        $statement = $conn->prepare("SELECT p.*, count(l.user_id) as likes FROM posts p left join likes l on p.id = l.post_id WHERE p.title LIKE :keywords OR p.description LIKE :keywords group by p.id order by p.id desc limit :noP,20");
         $statement->bindValue(':keywords', '%' . $this->search . '%');
         $statement->bindValue(':noP', $noP, PDO::PARAM_INT);
         $statement->execute();
