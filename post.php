@@ -24,7 +24,7 @@ $postid = $_GET['postid'];
 
 if (!empty($_POST["report"])) {
     try {
-        $report = new Reported();
+        $report = new Post();
         $report->setMUserId($userid);
         $report->setMPostId($postid);
         $report->Report();
@@ -164,6 +164,8 @@ try {
         <form action="" method="post" id="report">
             <input type="submit" name="report" value="Report">
         </form>
+
+        <p><?php echo "HIER REPORT MESSAGE"?></p>
 
     <?php endif; ?>
 

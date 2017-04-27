@@ -7,6 +7,7 @@ class User
     private $m_username;
     private $m_email;
     private $m_password;
+    private $m_image;
 
     /**
      * @return mixed
@@ -113,16 +114,35 @@ class User
         $this->m_password = $m_password;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getMImage()
+    {
+        return $this->m_image;
+    }
+
+    /**
+     * @param mixed $m_image
+     */
+    public function setMImage($m_image)
+    {
+        $this->m_image = $m_image;
+    }
+
+
+
     public function Register()
     {
         $conn = Db::getInstance();
 
-        $stmnt = $conn->prepare("insert into users (email, firstname, lastname, username, password) values (:email, :firstname, :lastname, :username, :password)");
+        $stmnt = $conn->prepare("insert into users (email, firstname, lastname, username, password, image) values (:email, :firstname, :lastname, :username, :password, :image)");
         $stmnt->bindvalue(":email", $this->m_email);
         $stmnt->bindvalue(":firstname", $this->m_firstname);
         $stmnt->bindvalue(":lastname", $this->m_lastname);
         $stmnt->bindvalue(":username", $this->m_username);
         $stmnt->bindvalue(":password", $this->m_password);
+        $stmnt->bindvalue(":image", $this->m_image);
         $stmnt->execute();
         echo "Registered";
 
