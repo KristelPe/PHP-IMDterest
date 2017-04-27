@@ -4,25 +4,29 @@
         header('location: login.php');
     }
 
-    $no = $_POST['getresult'];
+    spl_autoload_register(function ($class) {
+        include_once("../classes/" . $class . ".class.php");
+    });
 
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $noP = $_POST['getresult'];
+    settype($noP, "integer");
 
-    $stmnt = $connection->prepare("select count(*) from following where followerid = :followerid");
-    $stmnt->bindValue(':followerid', $_SESSION['id']);
-    $stmnt->execute();
-    $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
-
-    if (!empty($status)) {
-        $statement = $connection->prepare("select p.* from posts p inner join following f on f.userid = p.userid where followerid = :followerid limit $no,20");
-        $statement->bindValue(':followerid', $_SESSION['id']);
-        $statement->execute();
-    } else {
-        $statement = $connection->prepare("select * from posts limit $no,20");
-        $statement->execute();
-        //$statement = $connection->prepare("select * from posts order by id DESC limit $no,20");
+    try {
+        $stack = new Stack();
+        if (isset($_POST['search'])) {
+            $searchq = $_POST['search'];
+            $stack->setSearch($searchq);
+            $res = $stack->Search($noP);
+        } else {
+            $sessionId = $_SESSION['id'];
+            $stack->setSessionId($sessionId);
+            $res = $stack->Stacker($noP);
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
-    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+   $results = $res;
 
 foreach ($results as $key => $p) {
     if (!empty($p['link'])) {
@@ -49,10 +53,9 @@ foreach ($results as $key => $p) {
                        </div>
                    </a>
                    <div class='like'>
-                       <button id='like' class='unliked'></button>
-                       <p id='likes'></p>
-                       <p>likes</p>
+                       <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
                        <input name='id' type='hidden' value='" . $p['id'] . "'>
+                       <p id='likes'>" . $p['likes']. " likes</p>
                    </div>
                    
                    </div>";
@@ -65,11 +68,11 @@ foreach ($results as $key => $p) {
                            </div>
                        </a>
                        <div class='like'>
-                           <button id='like' class='unliked'></button>
-                           <p id='likes'></p>
-                           <p>likes</p>
+                           <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
                            <input name='id' type='hidden' value='" . $p['id'] . "'>
+                           <p id='likes'>" . $p['likes']. " likes</p>
                        </div>
                    </div>";
+
     }
 }
