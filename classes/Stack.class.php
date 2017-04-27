@@ -60,7 +60,7 @@ class Stack
         $stmnt->execute();
         $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (empty($status)) {
+        if (!empty($status)) {
             $statement = $conn->prepare("select p.*, count(l.user_id) as likes from posts p inner join following f on f.userid = p.userid left join likes l on p.id = l.post_id where followerid = :followerid group by p.id ORDER BY p.id desc limit :noP,20");
             $statement->bindValue(':followerid', $this->sessionId);
             $statement->bindValue(':noP', $noP, PDO::PARAM_INT);
