@@ -20,7 +20,6 @@ $res = $statement->fetch();
 $userid = $res['id'];
 $image = $res['image'];
 $username = $res['username'];
-$date = $res['date'];
 $postid = $_GET['postid'];
 
 if (!empty($_POST["report"])) {
@@ -101,17 +100,23 @@ try {
                     </div>
                     <p><?php echo $p['description']?></p>
                     <?php
-                    if($p['date']==date('Y-m-d')){
-                        $date = 'Posted today';
 
-                    }else{
-                        $value1=substr($p['date'],8,2);
-                        $value2=substr(date('Y-m-d'),8,2);
-                        $resvalue = $value2 - $value1;
-                        $date = 'Posted '.$resvalue.' days ago';
-                    }
+                        $currentDate = strtotime(date("Y-m-d H:i:s"));
+                        $savedDate = strtotime($p['date']);
+                        $diff = $currentDate-$savedDate;
+                        if($diff>60 and $diff<3600 ){
+                            $result = floor($diff / 60)." minutes ago";
+                        }else if ($diff>3600 and $diff<86400) {
+                            $result = floor($diff / 3600)." hours ago";
+                        }else if($diff>86400 and $diff<604800){
+                            $result = floor($diff/86400)." days ago";
+                        }else if($diff>604800 and $diff<31449600){
+                            $result = floor($diff/604800)." weeks ago";
+                        }else if($diff>31449600){
+                            $result = floor($diff/31449600)." years ago";
+                        }
                     ?>
-                    <p><?php echo $date ?></p>
+                    <p><?php echo $result ?></p>
                 </div>
 
             <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>
