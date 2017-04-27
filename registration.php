@@ -16,6 +16,7 @@
             $firstname = $_POST["firstname"];
             $lastname = $_POST["lastname"];
             $username = $_POST["username"];
+            $image = "images/default.png";
             $password = $_POST["password"];
             $options = [
                 'cost' => 12,
@@ -29,6 +30,7 @@
             $user->setMFirstname($firstname);
             $user->setMLastname($lastname);
             $user->setMUsername($username);
+            $user->setMImage($image);
             $user->Register();
         }
     } catch (Exception $e) {
