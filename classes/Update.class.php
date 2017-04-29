@@ -68,4 +68,14 @@ class Update extends User
         $res = $statement->execute();
         return $res;
     }
+
+    public function userId(){
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT id FROM users WHERE email = :email");
+        $statement->bindvalue(":email", $this->sessionUser);
+        $statement->execute();
+        $userid = $statement->fetchColumn();
+
+        return $userid;
+    }
 }

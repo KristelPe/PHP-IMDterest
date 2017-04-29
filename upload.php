@@ -12,17 +12,13 @@
     $email = $_SESSION['user'];
 
     //find userid associated with the email address
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $connection->prepare("SELECT id FROM users WHERE email = :email");
-    $statement->bindvalue(":email", $email);
-    $res = $statement->execute();
-    $userid = $statement->fetchColumn();
+    $update = new Update();
+    $update->setSessionUser($email);
+    $userid = $update->userId();
 
-    $statemnt = $connection->prepare("select * from boards where userid = :userid");
-    $statemnt->bindValue(':userid', $_SESSION['id']);
-    $statemnt->execute();
-    $boards = $statemnt->fetchAll(PDO::FETCH_ASSOC);
-
+    $profile = new Profile();
+    $profile->setUserId($_SESSION['id']);
+    $boards = $profile->Boards();
 
     if (!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"])) {
         if (!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])) {

@@ -235,4 +235,22 @@ class Post
         }
         return $result;
     }
+
+    public function removePost(){
+        $conn = Db::getInstance();
+        $removePost = $conn->prepare("DELETE FROM posts WHERE userId = :userid  and id = :postid");
+        $removePost->bindvalue(":userId", $this->m_userId);
+        $removePost->bindvalue(":postid", $this->m_postId);
+        $removePost->execute();
+        header('location: index.php');
+    }
+
+    public function showPost(){
+        $conn = Db::getInstance();
+        $select = $conn->prepare("select p.*, u.username as username, u.image as img, u.id as userid from posts p inner join users u where u.id = p.userid");
+        $select->execute();
+        $results = $select->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }
+
 }
