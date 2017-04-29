@@ -147,4 +147,14 @@ class Profile
 
         return $posts;
     }
+
+    public function userVMail($email){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("SELECT id, username, image FROM users WHERE email = :email");
+        $statement->bindvalue(":email", $email);
+        $statement->execute();
+        $res = $statement->fetch();
+        return $res;
+    }
 }
