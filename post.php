@@ -13,22 +13,20 @@ $reportmessage ="";
 $email = $_SESSION['user'];
 
 //find userid associated with the email address
-$conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-$statement = $conn->prepare("SELECT id, username, image FROM users WHERE email = :email");
-$statement->bindvalue(":email", $email);
-$statement->execute();
-$res = $statement->fetch();
+$profile = new Profile();
+$res = $profile->userVMail($email);
+
 $userid = $res['id'];
 $image = $res['image'];
 $username = $res['username'];
 $postid = $_GET['postid'];
 
+$post = new Post();
+$post->setMUserId($userid);
+$post->setMPostId($postid);
 if (!empty($_POST["report"])) {
     try {
-        $report = new Post();
-        $report->setMUserId($userid);
-        $report->setMPostId($postid);
-        $reportmessage = $report->Report();
+        $reportmessage = $post->Report();
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -36,21 +34,14 @@ if (!empty($_POST["report"])) {
 
 if (!empty($_POST["remove_post"])) {
     try {
-        $removePost = $conn->prepare("DELETE FROM posts WHERE userId = $userid  and id = $postid");
-        $res = $removePost->execute();
-        header('location: index.php');
+        $post->removePost();
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 }
 
 try {
-    $select = $conn->prepare("select p.*, u.username as username, u.image as img, u.id as userid 
-                              from posts p 
-                              inner join users u 
-                              where u.id = p.userid");
-    $res = $select->execute();
-    $results = $select->fetchAll(PDO::FETCH_ASSOC);
+    $results = $post->showPost();
 } catch (Exception $e) {
     echo $e->getMessage();
 }
@@ -58,8 +49,9 @@ try {
 $commentError = "";
 
 try {
-    $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = $postid ORDER BY c.Id DESC ");
-    $res = $selectComments->execute();
+    $comment = new Comment();
+    $comment->setMPostId($postid);
+    $resC = $comment->showComments();
 } catch (Exception $e) {
     $commentError = $e->getMessage();
 }
@@ -165,7 +157,7 @@ try {
     </div>
 
     <div id="comments_layout">
-        <?php $resultsComments = $selectComments->fetchAll(PDO::FETCH_ASSOC);
+        <?php $resultsComments = $resC;
 
         foreach ($resultsComments as $c) {
             echo "
