@@ -14,7 +14,7 @@
             $title = $_POST['title'];
             $case = $_POST['case'];
 
-            $newB = new Board();
+            $newB = new Profile();
             $newB->setTitle($title);
             $newB->setState($case);
             $newB->newB();
