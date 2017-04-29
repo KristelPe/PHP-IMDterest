@@ -11,10 +11,10 @@ spl_autoload_register(function ($class) {
     include_once("../classes/" . $class . ".class.php");
 });
 
-//$url = $_POST['test'];
-$url = "https://perfectaim.io";
+$url = $_POST['test'];
 
 $scraper = new Scraper();
 $scraper->SetLink($url);
 $desc = $scraper->ScrapeDesc();
+echo $desc;
 

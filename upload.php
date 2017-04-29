@@ -260,11 +260,9 @@
                 url: 'ajax/generateDesc.php',
                 data: { test: link },
                 success: function(response){
-                    console.log(response);
+                    $("#description").val (response);
                 }
             });
-
-            $("#description").val ("<?php echo $desc; ?>");
         });
 </script>
 </body>
