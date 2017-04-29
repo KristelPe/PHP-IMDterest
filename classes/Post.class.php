@@ -172,13 +172,13 @@ class Post
         //$result = $statement->fetch(PDO::FETCH_ASSOC);
 
         if ($statement->fetchColumn()) {
-            echo "You have already reported this post!";
+            return "You have already reported this post!";
         } else {
             $stmnt = $conn->prepare("insert into reported (postId,userId) values (:postId,:userId)");
             $stmnt->bindvalue(":postId", $this->m_postId);
             $stmnt->bindvalue(":userId", $this->m_userId);
             $stmnt->execute();
-            echo "You have successfully reported this post!";
+            return "You have successfully reported this post!";
         }
     }
 

@@ -9,6 +9,7 @@ spl_autoload_register(function ($class) {
     include_once("classes/" . $class . ".class.php");
 });
 
+$reportmessage ="";
 $email = $_SESSION['user'];
 
 //find userid associated with the email address
@@ -27,7 +28,7 @@ if (!empty($_POST["report"])) {
         $report = new Post();
         $report->setMUserId($userid);
         $report->setMPostId($postid);
-        $report->Report();
+        $reportmessage = $report->Report();
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -147,9 +148,8 @@ try {
 
         <form action="" method="post" id="report">
             <input type="submit" name="report" value="Report">
+            <p><?php echo $reportmessage ?></p>
         </form>
-
-        <p><?php echo "HIER REPORT MESSAGE"?></p>
 
     <?php endif; ?>
 
