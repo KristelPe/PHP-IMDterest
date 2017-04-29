@@ -31,9 +31,14 @@
         $state = $profile->Follow();
 
         //BOARDS
-        $board = new Board();
+        $board = new Profile();
         $board->setUserId($userid);
         $boards = $board->Boards();
+
+        //POSTS
+        $posts = new Profile();
+        $posts->setUserId($userid);
+        $posts = $posts->Posts();
 
     } catch (Exception $e) {
         echo $e->getMessage();
@@ -196,6 +201,24 @@
                     <h3><?php echo $b['title']?></h3>
                 </div>
             </a>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<hr>
+<div>
+    <h2>Uploads</h2>
+    <div id="boards">
+
+        <?php foreach ($posts as $p):?>
+        <div id='item' class='item'>
+            <a href="post.php?postid=<?php echo $p['id'];?>">
+                <h1><?php echo $p['title']?></h1>
+                    <div class="post_img">
+                        <img src="<?php echo $p['image'] ?>" alt="<?php echo $p['title'] ?>"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                    </div>
+            </a>
+        </div>
         <?php endforeach; ?>
     </div>
 </div>
