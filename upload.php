@@ -22,20 +22,26 @@
 
     if (!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"])) {
         if (!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])) {
-            $link = $_POST["link"];
-            $title = $_POST["title"];
-            $description = $_POST["description"];
-            $afbeelding = "";
-            $board = $_POST["board"];
+            error_reporting(0);
+            if (get_headers($_POST["link"])) {
+                $link = $_POST["link"];
+                $title = $_POST["title"];
+                $description = $_POST["description"];
+                $afbeelding = "";
+                $board = $_POST["board"];
 
-            $post = new Post();
-            $post->setMTitle($title);
-            $post->setMAfbeelding($afbeelding);
-            $post->setMLink($link);
-            $post->setMDescription($description);
-            $post->setMUserId($userid);
-            $post->setMBoard($board);
-            $post->Upload();
+                $post = new Post();
+                $post->setMTitle($title);
+                $post->setMAfbeelding($afbeelding);
+                $post->setMLink($link);
+                $post->setMDescription($description);
+                $post->setMUserId($userid);
+                $post->setMBoard($board);
+                $post->Upload();
+            }else{
+                $urlError = "Please enter a valid URL";
+            }
+            error_reporting(1);
         } elseif (!empty($_FILES["fileToUpload"]["name"]) && empty($_POST["link"])) {
             $title = $_POST["title"];
             $description = $_POST["description"];
@@ -246,6 +252,9 @@
         <p><?php if (isset($uploadError)) {
     echo $uploadError;
 } ?></p>
+        <p><?php if (isset($urlError)) {
+                echo $urlError;
+            } ?></p>
     </form>
 </div>
 
@@ -261,6 +270,9 @@
                 data: { test: link },
                 success: function(response){
                     $("#description").val (response);
+                },
+                error: function(){
+                    $("#description").val ("This webpage does not exist!");
                 }
             });
         });
