@@ -11,7 +11,7 @@
 
     try {
         $userId = $_GET['id'];
-        $board = new Board();
+        $board = new Profile();
         $board->setUserId($userId);
         $res = $board->Boards();
     } catch (Exception $e) {
