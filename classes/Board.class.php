@@ -70,13 +70,25 @@ class Board
         header('location: profile.php?id=' . $_SESSION['id']);
     }
 
-    public function Boards(){
+    public function BoardPosts(){
         $conn = Db::getInstance();
+
         $statement = $conn->prepare("select p.*, count(l.user_id) as likes from posts p left join likes l on p.id = l.post_id where board = :board group by p.id order BY id DESC");
         $statement->bindValue(':board', $this->userId);
         $statement->execute();
 
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $results;
+    }
+
+    public function Boards(){
+        $conn = Db::getInstance();
+
+        $statemnt = $conn->prepare("select * from boards where userid = :userid");
+        $statemnt->bindValue(':userid', $this->userId);
+        $statemnt->execute();
+        $boards = $statemnt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $boards;
     }
 }
