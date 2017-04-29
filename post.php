@@ -106,13 +106,14 @@ try {
 
             <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>
                 <?php
-                $html = file_get_html($p['link']);
-                $pagetitle = $html->find('title', 0);
-                $image = $html->find('img', 0);
+                $scraper = new Scraper();
+                $scraper->SetLink($p['link']);
+                $pagetitle = $scraper->ScrapeTitle();
+                $image = $scraper->ScrapeImg();
                 ?>
                 <a style="text-decoration: none;" href="<?php echo $p['link'] ?>">
-                    <h1><?php echo $pagetitle->plaintext ?></h1>
-                    <img src='<?php echo $image->src ?>' alt='<?php echo $pagetitle->plaintext ?>'>
+                    <h1><?php echo $pagetitle ?></h1>
+                    <img src='<?php echo $image ?>' alt='<?php echo $pagetitle ?>'>
                 </a>
                 <div id="post_layout_info">
                     <h1><?php echo $p['title']?></h1>
