@@ -5,14 +5,22 @@
         header('location: login.php');
     }
 
-    if (!empty($_POST)) {
-        $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-        $statement = $connection->prepare("INSERT INTO boards (userid, title, state) VALUES (:userid, :title, :state)");
-        $statement->bindValue(':userid', $_SESSION['id']);
-        $statement->bindValue(':title', $_POST['title']);
-        $statement->bindValue(':state', $_POST['case']);
-        $statement->execute();
-        header('location: profile.php?id=' . $_SESSION['id']);
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
+    });
+
+    try {
+        if (!empty($_POST)) {
+            $title = $_POST['title'];
+            $case = $_POST['case'];
+
+            $newB = new Board();
+            $newB->setTitle($title);
+            $newB->getState($case);
+            $newB->newB();
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
 
 ?><!doctype html>
