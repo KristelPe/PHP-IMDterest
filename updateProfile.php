@@ -9,34 +9,21 @@
         header('location: login.php');
     }
 
-    //get email address of current user/session
-    $email = $_SESSION['user'];
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
+    });
 
-    //find username associated with the email address
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $connection->prepare("SELECT username FROM users WHERE email = :email");
-    $statement->bindvalue(":email", $email);
-    $res = $statement->execute();
-    $username = $statement->fetchColumn();
-
-    //find password associated with the email address
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $connection->prepare("SELECT password FROM users WHERE email = :email");
-    $statement->bindvalue(":email", $email);
-    $res = $statement->execute();
-    $password = $statement->fetchColumn();
-
-    //Replace old username by new username
-
-    //Replace old password by new password
-
-    //Replace old email by new email
     try {
+        $email = $_SESSION['user'];
+        $update = new Update();
+        $update->setSessionUser($email);
+        $username = $update->prevUsername();
+        $password = $update->prevPassword();
+
         if (!empty($_POST['username']) && ($_POST['username']) != $username) {
             $newUsername = $_POST['username'];
-            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-            $statement = $connection->prepare("UPDATE users SET username = REPLACE(username, '$username', '$newUsername') WHERE INSTR(username, '$username') > 0;");
-            $res = $statement->execute();
+            $update->setMUsername($newUsername);
+            $res = $update->newUsername($username);
             $usernameSuccess = "Your username has been changed to " . "<b>" . $newUsername . "</b>";
         } else {
             $usernameError = "Please fill in a valid username!";
@@ -48,9 +35,8 @@
                 'cost' => 12,
             ];
             $newPassword = password_hash($newPassword, PASSWORD_DEFAULT, $options);
-            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-            $statement = $connection->prepare("UPDATE users SET password = REPLACE(password, '$password', '$newPassword') WHERE INSTR(password, '$password') > 0;");
-            $res = $statement->execute();
+            $update->setMPassword($newPassword);
+            $res = $update->newPassword($password);
             $passwordSuccess = "Your password has been changed!";
         } else {
             $passwordError = "Please fill in a valid password!";
@@ -58,9 +44,8 @@
 
         if (!empty($_POST['email']) && ($_POST['email']) != $email) {
             $newEmail = $_POST['email'];
-            $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-            $statement = $connection->prepare("UPDATE users SET email = REPLACE(email, '$email', '$newEmail') WHERE INSTR(email, '$email') > 0;");
-            $res = $statement->execute();
+            $update->setMEmail($newEmail);
+            $res = $update->newEmail($email);
             $emailSuccess = "Your email has been changed to " . "<b>" . $newEmail . "</b>";
             //update session variable to new email address
             $_SESSION['user'] = $newEmail;
@@ -104,9 +89,7 @@
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $uploadSuccess = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
                     $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-                    $statement = $connection->prepare("UPDATE users SET image = '$target_file' WHERE email = :email");
-                    $statement->bindvalue(":email", $email);
-                    $res = $statement->execute();
+                    $update->newImg($email, $target_file);
                 } else {
                     $uploadError = "Sorry, there was an error uploading your file.";
                 }
@@ -115,11 +98,6 @@
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
-
-
-
-
-
 
 ?>
 <!doctype html>
@@ -172,7 +150,7 @@
         <div id="profile_form_left">
 
         <label for="name">Change email address</label>
-        <input type="text" name="email" id="email" placeholder="<?php echo $email?>">
+        <input type="email" name="email" id="email" placeholder="<?php echo $email?>">
         <p><?php if (isset($emailError)) {
     echo $emailError;
 } elseif (isset($emailSuccess)) {
@@ -200,7 +178,7 @@
         <div id="profile_form_password">
 
         <label for="name">Change password</label>
-        <input type="text" name="password" id="password" placeholder="New password">
+        <input type="password" name="password" id="password" placeholder="New password">
         <p><?php if (isset($passwordError)) {
     echo $passwordError;
 } elseif (isset($passwordSuccess)) {
