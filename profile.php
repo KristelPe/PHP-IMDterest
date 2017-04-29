@@ -5,64 +5,39 @@
         header('location: login.php');
     }
 
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
+    });
 
     $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $connection->prepare("SELECT * FROM users WHERE id = :id");
-    $statement->bindValue(':id', $_SESSION['id']);
-    $statement->execute();
-    $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    $userid = $_GET['id'];
+    try{
+        //PROFILE
+        $userid = $_GET['id'];
 
-    $stment = $connection->prepare("SELECT * FROM users WHERE id = :id");
-    $stment->bindValue(':id', $userid);
-    $stment->execute();
-    $use = $stment->fetchAll(PDO::FETCH_ASSOC);
+        $profile = new Profile();
+        $profile->setUserId($userid);
+        $use = $profile->Profile();
 
-    if ($_SESSION['id'] == $userid) {
-        $guest = "hidden";
-        $user = "visible";
-    } else {
-        $guest = "visible";
-        $user = "hidden";
-    }
-
-
-
-    $stmnt = $connection->prepare("select userid from following where userid = :id and followerid = :follower");
-    $stmnt->bindValue(':id', $_GET['id']);
-    $stmnt->bindValue(':follower', $_SESSION['id']);
-    $stmnt->execute();
-    $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
-
-    if (!empty($status)) {
-        $state = "unfollow";
-    } else {
-        $state = "follow";
-    }
-
-    if (!empty($_POST)) {
-        if (!empty($status)) {
-            $statement = $connection->prepare("DELETE FROM following WHERE userid = :userid AND followerid = :followerid");
-            $statement->bindValue(':userid', $_GET['id']);
-            $statement->bindValue(':followerid', $_SESSION['id']);
-            $statement->execute();
-            $state = "unfollow";
+        if ($_SESSION['id'] == $userid) {
+            $guest = "hidden";
+            $user = "visible";
         } else {
-            $statement = $connection->prepare("INSERT INTO following (userid, followerid) VALUES (:userid, :followerid)");
-            $statement->bindValue(':userid', $_GET['id']);
-            $statement->bindValue(':followerid', $_SESSION['id']);
-            $statement->execute();
-            $state = "follow";
+            $guest = "visible";
+            $user = "hidden";
         }
-        header("Refresh:0");
+
+        //FOLLOW
+        $state = $profile->Follow();
+
+        //BOARDS
+        $board = new Board();
+        $board->setUserId($userid);
+        $boards = $board->Boards();
+
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
-
-
-    $statemnt = $connection->prepare("select * from boards where userid = :userid");
-    $statemnt->bindValue(':userid', $_GET['id']);
-    $statemnt->execute();
-    $boards = $statemnt->fetchAll(PDO::FETCH_ASSOC)
 
 ?><!doctype html>
 <html lang="en">
@@ -71,7 +46,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php foreach ($users as $u):?>
+    <?php foreach ($use as $u):?>
     <title><?php echo $u["username"]?></title>
     <?php endforeach;?>
     <link rel="stylesheet" href="css/reset.css">
