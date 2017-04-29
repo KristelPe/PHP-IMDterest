@@ -1,4 +1,5 @@
 <?php
+    require 'libraries/simple_html_dom.php';
     session_start();
     if (!isset($_SESSION['user'])) {
         header('location: login.php');
@@ -201,7 +202,7 @@
         <p style="font-size: 12px;"> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
         <p>Or </p>
         <input type="text" id="link" name="link" placeholder="https://www.yourwebsite.com/">
-
+        <button type="button" id="generatebtn" style="margin-left: 0px;">Generate Description</button>
         <hr>
         <label for="description">Description</label>
         <textarea id="description" name="description" placeholder="What is it about?"></textarea>
@@ -251,5 +252,24 @@
 } ?></p>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+
+        $( "#generatebtn" ).click(function() {
+            var link = $('#link').val();
+
+            $.ajax({
+                type: "POST",
+                url: 'ajax/generateDesc.php',
+                data: { test: link },
+                success: function(response){
+                    console.log(response);
+                }
+            });
+
+            $("#description").val ("<?php echo $desc; ?>");
+        });
+</script>
 </body>
 </html>
