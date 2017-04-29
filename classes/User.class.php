@@ -131,7 +131,6 @@ class User
     }
 
 
-
     public function Register()
     {
         $conn = Db::getInstance();
