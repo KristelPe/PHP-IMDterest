@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 29 apr 2017 om 15:58
+-- Gegenereerd op: 29 apr 2017 om 16:06
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -104,15 +104,16 @@ CREATE TABLE `posts` (
   `image` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `description` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `link` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `board` int(11) NOT NULL
+  `board` int(11) NOT NULL,
+  `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `posts`
 --
 
-INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `board`) VALUES
-(59, 8, 'Boomerang', 'uploads/_boomerang_klein.png', 'Just a boomerang', '', 6);
+INSERT INTO `posts` (`id`, `userId`, `title`, `image`, `description`, `link`, `board`, `date`) VALUES
+(59, 8, 'Boomerang', 'uploads/_boomerang_klein.png', 'Just a boomerang', '', 6, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
