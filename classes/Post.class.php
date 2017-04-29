@@ -9,6 +9,25 @@ class Post
     private $m_userId;
     private $m_board;
     private $m_postId;
+    private $topic;
+
+    /**
+     * @return mixed
+     */
+    public function getTopic()
+    {
+        return $this->topic;
+    }
+
+    /**
+     * @param mixed $topic
+     */
+    public function setTopic($topic)
+    {
+        $this->topic = $topic;
+    }
+
+
 
     /**
      * @return mixed
@@ -160,6 +179,25 @@ class Post
             $stmnt->bindvalue(":userId", $this->m_userId);
             $stmnt->execute();
             echo "You have successfully reported this post!";
+        }
+    }
+
+    public function AddTopic(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("select COUNT(*) from selectedtopics where userId = :user and topicId = :topic LIMIT 1");
+        $statement->bindvalue(":topic", $this->topic);
+        $statement->bindvalue(":user", $this->m_userId);
+        $statement->execute();
+
+        if ($statement->fetchColumn()) {
+            echo "You already are added to this topic";
+        } else {
+            $stmnt = $conn->prepare("insert into selectedtopics (userId, topicId) values (:user, :topic)");
+            $stmnt->bindvalue(":topic", $this->topic);
+            $stmnt->bindvalue(":user", $this->m_userId);
+            $stmnt->execute();
+            echo "You have subscrided to this topic";
         }
     }
 

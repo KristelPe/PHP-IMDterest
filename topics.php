@@ -5,6 +5,10 @@
         header('location: login.php');
     }
 
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
+    });
+
     try {
         $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
         $sql = "select * from topics";
@@ -12,19 +16,28 @@
         echo $e->getMessage();
     }
 
+    $email = $_SESSION['user'];
+
+    //find userid associated with the email address
+    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $statement = $connection->prepare("SELECT id FROM users WHERE email = :email");
+    $statement->bindvalue(":email", $email);
+    $res = $statement->execute();
+    $userid = $statement->fetchColumn();
+
     $topic = "";
     if (empty($_POST['topic'])) {
         $topics = "You didn't select any topics.";
     } else {
         $topic = $_POST['topic'];
         $N = count($topic);
-        if ($N == 1) {
-            $topics = "You selected $N topic";
-        } else {
+
             $topics = "You selected $N topics";
             for ($i=0; $i < $N; $i++) {
-                echo($topic[$i] . " "); // dees moet weg zodra k weet hoe k die klasse kan toevoegen aan <p>
-            }
+                $selectedTopic = new Post();
+                $selectedTopic->setMUserId($userid);
+                $selectedTopic->setTopic($topic[$i]);
+                $selectedTopic->AddTopic();
         }
     }
 
