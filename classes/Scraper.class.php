@@ -28,7 +28,8 @@ class Scraper
     }
 
     public function ScrapeTitle(){
-        $html = file_get_html($this->link);
+        $html = new simple_html_dom();
+        $html->load_file($this->link);
         if ($html->find('title', 0)){
             $pagetitle = $html->find('title', 0);
             return $pagetitle->plaintext;
@@ -37,8 +38,9 @@ class Scraper
         }
     }
 
-    public function scrapeImg(){
-        $html = file_get_html($this->link);
+    public function ScrapeImg(){
+        $html = new simple_html_dom();
+        $html->load_file($this->link);
         if ($html->find('img', 0)){
             $image = $html->find('img', 0);
             return $image->src;
@@ -48,15 +50,13 @@ class Scraper
     }
 
     public function ScrapeDesc(){
-
+        $html = new simple_html_dom();
+        $html->load_file($this->link);
+        if ($html->find("meta[name='description']", 0)){
+            $desc = $html->find("meta[name='description']", 0)->content;
+            return $desc;
+        }else{
+            return "No Description Found!";
+        }
     }
-
-    /*
-        $html = file_get_html($p['link']);
-        $pagetitle = $html->find('title', 0);
-        $image = $html->find('img', 0);
-
-        $pagetitle->plaintext
-        $image->src
-    */
 }

@@ -116,7 +116,7 @@
                 $scraper = new Scraper();
                 $scraper->SetLink($p['link']);
                 $pagetitle = $scraper->ScrapeTitle();
-                $image = $scraper->scrapeImg();
+                $image = $scraper->ScrapeImg();
 
                 echo "<div id='item' class='item'>
                     <h1>" . $p['title'] . "</h1>
