@@ -99,7 +99,7 @@ class User
     /**
      * @param mixed $password
      */
-    public function setMPassword($password)
+    public function setPassword($password)
     {
         if ($password=="") {
             throw new Exception("Password can not be empty");
