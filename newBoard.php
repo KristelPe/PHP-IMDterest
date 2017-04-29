@@ -16,7 +16,7 @@
 
             $newB = new Board();
             $newB->setTitle($title);
-            $newB->getState($case);
+            $newB->setState($case);
             $newB->newB();
         }
     } catch (Exception $e) {
