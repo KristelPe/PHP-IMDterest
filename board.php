@@ -5,11 +5,19 @@
         header('location: login.php');
     }
 
+    spl_autoload_register(function ($class) {
+        include_once("classes/" . $class . ".class.php");
+    });
 
-    $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $conn->prepare("select * from posts where board = :board limit 0,20");
-    $statement->bindValue(':board', $_GET['id']);
-    $statement->execute();
+    try {
+        $userId = $_GET['id'];
+        $board = new Board();
+        $board->setUserId($userId);
+        $res = $board->Boards();
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
     ?>
 <!doctype html>
 <html lang="en">
@@ -31,7 +39,7 @@
     <?php include_once("nav.inc.php")?>
     <div id="items" class="item_layout">
 
-        <?php $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        <?php $results = $res;
 
         foreach ($results as $key => $p) {
             if (!empty($p['link'])) {
@@ -58,10 +66,7 @@
                        </div>
                    </a>
                    <div class='like'>
-                       <button id='like' class='unliked'></button>
-                       <p id='likes'></p>
-                       <p>likes</p>
-                       <input name='id' type='hidden' value='" . $p['id'] . "'>
+                       <p id='likes'>" . $p['likes']. " likes</p>
                    </div>
                    
                    </div>";
@@ -74,19 +79,13 @@
                            </div>
                        </a>
                        <div class='like'>
-                           <button id='like' class='unliked'></button>
-                           <p id='likes'></p>
-                           <p>likes</p>
-                           <input name='id' type='hidden' value='" . $p['id'] . "'>
+                           <p id='likes'>" . $p['likes']. " likes</p>
                        </div>
                    </div>";
             }
         }
         ?>
-        <input type="hidden" id="result_no" value="20">
     </div>
-    <button type='submit' name='more' id='more'>Load more</button>
-
 </body>
 </html>
 
