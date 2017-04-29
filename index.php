@@ -113,24 +113,25 @@
 
         foreach ($results as $key => $p) {
             if (!empty($p['link'])) {
-                $html = file_get_html($p['link']);
-                $pagetitle = $html->find('title', 0);
-                $image = $html->find('img', 0);
+                $scraper = new Scraper();
+                $scraper->SetLink($p['link']);
+                $pagetitle = $scraper->ScrapeTitle();
+                $image = $scraper->scrapeImg();
 
                 echo "<div id='item' class='item'>
                     <h1>" . $p['title'] . "</h1>
                    <a href='" . $p['link'] . "'>" .
-                    $pagetitle->plaintext
+                    $pagetitle
                     . "</a>
                        <a href='post.php?postid=" . $p['id'] . "'>
                            <div class='post_img'>
                            <img src='
                                 " .
-                    $image->src
+                    $image
                     . "'
                                 alt='
                                 " .
-                    $pagetitle->plaintext
+                    $pagetitle
                     . "'
                            >
                        </div>
