@@ -238,9 +238,9 @@ class Post
 
     public function removePost(){
         $conn = Db::getInstance();
-        $removePost = $conn->prepare("DELETE FROM posts WHERE userId = :userid  and id = :postid");
+        $removePost = $conn->prepare("DELETE FROM posts WHERE userId = :userId  and id = :postId");
         $removePost->bindvalue(":userId", $this->m_userId);
-        $removePost->bindvalue(":postid", $this->m_postId);
+        $removePost->bindvalue(":postId", $this->m_postId);
         $removePost->execute();
         header('location: index.php');
     }

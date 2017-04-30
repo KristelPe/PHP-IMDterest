@@ -72,7 +72,7 @@ class Comment
 
     public function showComments(){
         $conn = Db::getInstance();
-        $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = :postid ORDER BY c.Id DESC ");
+        $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = :postId ORDER BY c.Id DESC ");
         $selectComments->bindvalue(":postId", $this->m_postId);
         $selectComments->execute();
         $res = $selectComments->fetchAll(PDO::FETCH_ASSOC);
