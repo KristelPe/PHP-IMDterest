@@ -19,10 +19,10 @@ try {
     $userid = $statement->fetchColumn();
 
     $subComment = new Comment();
-    $subComment->setMComment($_POST["comment"]);
-    $subComment->setCommentId();
+    $subComment->setMComment($_POST["sub_comment"]);
+    $subComment->setCommentId($_POST["comment_id"]);
     $subComment->setMUserId($userid);
-    $subComment->UploadComment();
+    $subComment->UploadSubComment();
 } catch (Exception $e) {
     echo $e->getMessage();
 }

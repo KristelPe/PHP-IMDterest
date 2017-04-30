@@ -169,6 +169,8 @@ try {
                         </div>
                     </div>
 
+                    <div id="sub-comment_layout">
+
                     <?php
                 $resultsSubComments = $comment->showSubComments($c["cid"]);
             foreach ($resultsSubComments as $Subc):?>
@@ -185,13 +187,15 @@ try {
 
                     <?php endforeach; ?>
 
+                    </div>
+
                         <div class="sub-comment_user-form">
                             <div class="sub-user_img">
                                 <img src="<?php echo $image ?>" alt="<?php echo $username ?>">
                             </div>
                             <form action="" method="post" id="submit" enctype="multipart/form-data" class="sub-comment_form">
-                                <textarea name="comment" placeholder="..."></textarea>
-                                <input type="hidden" value="" name="post_id">
+                                <textarea id="text_sub_comment" name="sub_comment" placeholder="..."></textarea>
+                                <input  type="hidden" value="<?php echo htmlentities($c["cid"]); ?>" name="comment_id">
                                 <button type="submit">Reply</button>
                             </form>
                         </div>
@@ -219,7 +223,27 @@ try {
                 $('#text_comment').val('');
             });
             e.preventDefault();
-        })
+        });
+
+        $(".sub-comment_form").bind("submit", function(e) {
+            $.post('ajax/createSubComment.php', $(this).serialize(), function(e) {
+                // Zodra gepost, nieuw element toevoegen
+
+                var sub_comment = $("<div class='sub-comment_user'>");
+                var username = '<?php echo $username ?>';
+                var img = '<?php echo $image ?>';
+                comment.html('<div class="sub-user_img"><img src=' + img + '></div><div class="sub-user_comment"><h2>' + username + ':' + '</h2><p>' + $('#text_comment').val() + '</p></div>');
+
+                $("#sub-comment_layout").prepend(sub_comment);
+
+
+                // Veld leegmaken
+
+                $('#text_sub_comment').val('');
+            });
+            e.preventDefault();
+        });
+
     </script>
 </div>
 </body>

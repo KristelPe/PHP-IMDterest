@@ -106,4 +106,16 @@ class Comment
         $Subres = $selectSubComments->fetchAll(PDO::FETCH_ASSOC);
         return $Subres;
     }
+
+    public function UploadSubComment()
+    {
+        $conn = Db::getInstance();
+
+
+        $stmnt = $conn->prepare("insert into sub_comments (comment,userId,commentId) values (:comment,:userId, :commentId)");
+        $stmnt->bindvalue(":comment", $this->m_comment);
+        $stmnt->bindvalue(":userId", $this->m_userId);
+        $stmnt->bindValue(":commentId",$this->commentId);
+        $stmnt->execute();
+    }
 }
