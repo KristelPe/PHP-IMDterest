@@ -55,6 +55,7 @@ try {
 } catch (Exception $e) {
     $commentError = $e->getMessage();
 }
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -157,23 +158,46 @@ try {
     </div>
 
     <div id="comments_layout">
-        <?php $resultsComments = $resC;
-
-        foreach ($resultsComments as $c) {
-            echo "
-                    <div class=\"comment_user\">
-                        <div class=\"user_img\">
-                            <img src=" . $c['img'] . " alt=" . $c['username'] . ">
+        <?php $resultsComments = $resC; foreach ($resultsComments as $c):?>
+                    <div class="comment_user">
+                        <div class="user_img">
+                            <img src="<?php echo $c['img']?>" alt="<?php echo $c['username']?>">
                         </div>
-                        <div class=\"user_comment\">
-                        <h2>" . $c['username'] . ":". "</h2>
-                        <p>" . $c['comment'] . "</p>
+                        <div class="user_comment">
+                            <h2><?php echo $c['username']?></h2>
+                            <p><?php echo $c['comment']?></p>
                         </div>
                     </div>
-         
-                 ";
-        }
-        ?>
+
+                    <?php
+                $resultsSubComments = $comment->showSubComments($c["cid"]);
+            foreach ($resultsSubComments as $Subc):?>
+                        
+                        <div class="sub-comment_user">
+                            <div class="sub-user_img">
+                                <img src="<?php echo $Subc['img']?>" alt="<?php echo $Subc['username']?>">
+                            </div>
+                            <div class="sub-user_comment">
+                                <h2><?php echo $Subc['username']?></h2>
+                                <p><?php echo $Subc['comment']?></p>
+                            </div>
+                        </div>
+
+                    <?php endforeach; ?>
+
+                        <div class="sub-comment_user-form">
+                            <div class="sub-user_img">
+                                <img src="<?php echo $image ?>" alt="<?php echo $username ?>">
+                            </div>
+                            <form action="" method="post" id="submit" enctype="multipart/form-data" class="sub-comment_form">
+                                <textarea name="comment" placeholder="..."></textarea>
+                                <input type="hidden" value="" name="post_id">
+                                <button type="submit">Reply</button>
+                            </form>
+                        </div>
+
+        <?php endforeach; ?>
+
     </div>
 
     <script src="jquery.min.js"></script>

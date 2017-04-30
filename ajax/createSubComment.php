@@ -18,11 +18,11 @@ try {
     $res = $statement->execute();
     $userid = $statement->fetchColumn();
 
-    $comment = new Comment();
-    $comment->setMComment($_POST["comment"]);
-    $comment->setMPostId($_POST["post_id"]);
-    $comment->setMUserId($userid);
-    $comment->UploadComment();
+    $subComment = new Comment();
+    $subComment->setMComment($_POST["comment"]);
+    $subComment->setCommentId();
+    $subComment->setMUserId($userid);
+    $subComment->UploadComment();
 } catch (Exception $e) {
     echo $e->getMessage();
 }

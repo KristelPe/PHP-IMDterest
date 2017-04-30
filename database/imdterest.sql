@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 29 apr 2017 om 16:06
+-- Gegenereerd op: 30 apr 2017 om 17:28
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -38,7 +38,9 @@ CREATE TABLE `boards` (
 --
 
 INSERT INTO `boards` (`id`, `userid`, `title`, `state`) VALUES
-(6, 8, 'Animations', 'public');
+(6, 8, 'Animations', 'public'),
+(7, 27, 'banaan', 'public'),
+(8, 27, 'test', 'public');
 
 -- --------------------------------------------------------
 
@@ -65,7 +67,15 @@ INSERT INTO `comments` (`Id`, `comment`, `postId`, `userId`) VALUES
 (6, 'tetssss', 59, 29),
 (7, 'tes', 59, 29),
 (8, 'yo Lisa', 59, 8),
-(9, 'test', 59, 30);
+(9, 'test', 59, 30),
+(10, 'test', 59, 8),
+(11, 'dammit robbe', 59, 8),
+(12, 'hm', 61, 8),
+(13, 'yolo', 59, 27),
+(14, 'sub-yolo', 59, 27),
+(15, 'rawr xd', 59, 27),
+(16, 'huh', 59, 27),
+(17, 'waaa', 59, 27);
 
 -- --------------------------------------------------------
 
@@ -132,8 +142,9 @@ CREATE TABLE `reported` (
 --
 
 INSERT INTO `reported` (`id`, `postId`, `userId`) VALUES
-(7, 59, 27),
-(8, 59, 29);
+(9, 59, 27),
+(10, 59, 29),
+(11, 59, 32);
 
 -- --------------------------------------------------------
 
@@ -146,6 +157,37 @@ CREATE TABLE `selectedtopics` (
   `userId` int(11) NOT NULL,
   `topicId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `selectedtopics`
+--
+
+INSERT INTO `selectedtopics` (`id`, `userId`, `topicId`) VALUES
+(16, 29, 3),
+(17, 29, 5),
+(18, 29, 10),
+(19, 32, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `sub_comments`
+--
+
+CREATE TABLE `sub_comments` (
+  `Id` int(11) NOT NULL,
+  `comment` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `userId` int(11) NOT NULL,
+  `commentId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `sub_comments`
+--
+
+INSERT INTO `sub_comments` (`Id`, `comment`, `userId`, `commentId`) VALUES
+(1, 'inderdaad', 27, 16),
+(2, 'inderdaad', 27, 8);
 
 -- --------------------------------------------------------
 
@@ -205,7 +247,9 @@ INSERT INTO `users` (`id`, `email`, `firstname`, `lastname`, `image`, `password`
 (27, 'bram.janssens@thomasmore.be', 'Bram', 'Janssens', '', '$2y$12$Sbui4M8gTQ/qZcCjIl7FWOfcB9jz2u1WvS23lx0tYQL8Qhx4/tbRG', 'Synrise'),
 (28, 'heidi.decat@thomasmore.be', 'Heidi', 'Decat', '', '$2y$12$yfqlBZUGIdLsAwyoTwfAMeK7sVEVtoCbpWGJPYdDHgSo1LjCU4Ige', 'Hecat'),
 (29, 'Bart.janssens@thomasmore.be', 'Bart', 'Janssens', 'uploads/11951157_912688378798056_8366126992169365022_n.jpg', '$2y$12$OcLhaG21bSCCilKGsIwy4.XSrpA7YSHuS/G7eZLjB6nedIJLecDNO', 'Bartjans'),
-(30, 'testydebesty@gmail.com', 'test', 'mactest', 'images/default.png', '$2y$12$oBGYDqZvxEgAOIRxH69YHOHTz5DwyyHXeIZG6n3vvSAQjPTyvJgDq', 'testerbot');
+(30, 'testydebesty@gmail.com', 'test', 'mactest', 'images/default.png', '$2y$12$oBGYDqZvxEgAOIRxH69YHOHTz5DwyyHXeIZG6n3vvSAQjPTyvJgDq', 'testerbot'),
+(31, 'bart.janssens@thomasmore.be', 'Bart', 'Janssens', 'images/default.png', '$2y$12$3C4fSErGgFYVwwZD3RztBOe.sxTHu4H4u/90HTKfVdLTdaMowLrDm', 'Bartho'),
+(32, 'bart.decat@thomasmore.be', 'Bart', 'Decat', 'images/default.png', '$2y$12$hzwmT4l4RYrTgKVW1NKJvuZCWPstpD/V8bb1yTR/xTnhxI.m8psjC', 'Bartheyyy');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -248,6 +292,12 @@ ALTER TABLE `selectedtopics`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `sub_comments`
+--
+ALTER TABLE `sub_comments`
+  ADD PRIMARY KEY (`Id`);
+
+--
 -- Indexen voor tabel `topics`
 --
 ALTER TABLE `topics`
@@ -267,32 +317,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT voor een tabel `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT voor een tabel `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT voor een tabel `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT voor een tabel `reported`
 --
 ALTER TABLE `reported`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT voor een tabel `selectedtopics`
 --
 ALTER TABLE `selectedtopics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT voor een tabel `sub_comments`
+--
+ALTER TABLE `sub_comments`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT voor een tabel `topics`
 --
@@ -302,7 +357,7 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

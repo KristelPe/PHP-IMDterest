@@ -5,6 +5,7 @@ class Comment
     private $m_comment;
     private $m_userId;
     private $m_postId;
+    private $commentId;
 
     /**
      * @return mixed
@@ -57,9 +58,27 @@ class Comment
         $this->m_postId = $m_postId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCommentId()
+    {
+        return $this->commentId;
+    }
+
+    /**
+     * @param mixed $commentId
+     */
+    public function setCommentId($commentId)
+    {
+        $this->commentId = $commentId;
+    }
 
 
-    public function Upload()
+
+
+
+    public function UploadComment()
     {
         $conn = Db::getInstance();
 
@@ -72,10 +91,19 @@ class Comment
 
     public function showComments(){
         $conn = Db::getInstance();
-        $selectComments = $conn->prepare("select c.*, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = :postId ORDER BY c.Id DESC ");
+        $selectComments = $conn->prepare("select c.*, c.Id as cid, u.username as username, u.image as img from comments c inner join users u where u.id = c.userid and c.postId = :postId ORDER BY c.Id DESC ");
         $selectComments->bindvalue(":postId", $this->m_postId);
         $selectComments->execute();
         $res = $selectComments->fetchAll(PDO::FETCH_ASSOC);
         return $res;
+    }
+
+    public function showSubComments($comment){
+        $conn = Db::getInstance();
+        $selectSubComments = $conn->prepare("SELECT * FROM sub_comments sb INNER JOIN users u ON u.id = sb.userId WHERE commentId = :commentid");
+        $selectSubComments->bindValue(":commentid", $comment);
+        $selectSubComments->execute();
+        $Subres = $selectSubComments->fetchAll(PDO::FETCH_ASSOC);
+        return $Subres;
     }
 }
