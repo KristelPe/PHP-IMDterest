@@ -11,6 +11,14 @@
         include_once("classes/" . $class . ".class.php");
     });
 
+    $email = $_SESSION['user'];
+
+    //find userid associated with the email address
+    $update = new Update();
+    $update->setSessionUser($email);
+    $userid = $update->userId();
+
+
     $noP = 0;
     settype($noP, "integer");
 
@@ -28,6 +36,7 @@
     } catch (Exception $e) {
         echo $e->getMessage();
     }
+
 
 
     $i = 0;

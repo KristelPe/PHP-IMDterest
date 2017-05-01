@@ -54,15 +54,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div id="navigatie">
-    <img src="images/spark_logo.svg" alt="spark_logo">
-    <nav>
-        <a href="index.php">Home</a>
-        <a href="upload.php">Upload</a>
-        <a href="profile.php">Profile</a>
-        <a href="logout.php">Logout</a>
-    </nav>
-</div>
+    <?php include_once("nav.inc.php")?>
     <form id="topics" action="" method="post">
         <h1>Like 5 topics</h1>
         <h2>Then we'll build a custom home feed for you</h2>

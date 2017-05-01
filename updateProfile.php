@@ -14,6 +14,8 @@
     });
 
     try {
+
+
         $email = $_SESSION['user'];
         $update = new Update();
         $update->setSessionUser($email);

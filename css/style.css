@@ -262,20 +262,109 @@ button:hover{
     margin-bottom: 15px;
 }
 
-@media only screen and (min-width: 690px) {
+#user{
+    margin-bottom: 20px;
+}
 
-    #middle_hr{
-        display: none;
+#user img{
+    max-height: 350px;
+    max-width: 350px;
+    min-height: 350px;
+    min-width: 350px;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.user_layout{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.info_layout{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.info{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.grayText{
+    color: #9da5b6;
+}
+
+@media only screen and (min-width: 750px) {
+    .user_layout{
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: row;
     }
 
-    #profile_form_left,#profile_form_right{
-        width: 50%;
-        float: left;
+    #user img{
+        margin: 0;
     }
 
-    #profile_form_left input,#profile_form_right input{
-        width: 90%;
+    .info_layout{
+        margin-left: 20px;
     }
+}
+
+.hidden, .private{
+    display: none;
+}
+
+.visible{
+    display: inherit;
+}
+#boards{
+    display: flex;
+    flex-direction: row;
+    margin: 0.5em 1.5em;
+}
+
+.board{
+    height: 225px;
+    width: 300px;
+    background-color: lightgray;
+    margin: 1.5em;
+    padding: 1em;
+}
+.contain{
+    height: 165px;
+    width: 270px;
+    overflow: hidden;
+    margin-bottom: 1em;
+}
+.contain img{
+    width: inherit;
+}
+#something{
+    margin-top: -38%;
+}
+#add *{
+    font-size: 5em;
+    width: 40px;
+    margin: auto;
+    margin-top: 20%;
+}
+#boards a{
+    text-decoration: none;
+    color: #9397a6;
+}
+#boards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.unfollow{
+    background-color: gray;
+}
+h2{
+    color: orange;
 }
 
 /*PROFILE.PHP END*/
@@ -307,10 +396,6 @@ button:hover{
     width: 100%;
     height: 100px;
 }
-#submit label{
-
-}
-
 
 #submit button{
     margin: auto;
@@ -343,10 +428,6 @@ button:hover{
     width: 100%;
     height: 100px;
 }
-#submit label{
-
-}
-
 
 #submit button{
     margin: auto;
@@ -402,7 +483,6 @@ button:hover{
 }
 
 p{
-    margin-top: 0.5em;
     color: #9da5b6;
 }
 
