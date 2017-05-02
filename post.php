@@ -95,15 +95,6 @@ try {
                     <p><?php echo $p['description']?></p>
                     <p><?php $Post = new Post();
                         echo $Post->Datum($p['date']); ?></p>
-                    <p><?php $Post = new Post();
-                        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-                            $ip = $_SERVER['HTTP_CLIENT_IP'];
-                        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-                        } else {
-                            $ip = $_SERVER['REMOTE_ADDR'];
-                        }
-                        echo $Post->request($ip); ?></p>
                 </div>
 
             <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>

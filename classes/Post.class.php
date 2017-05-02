@@ -252,30 +252,5 @@ class Post
         $results = $select->fetchAll(PDO::FETCH_ASSOC);
         return $results;
     }
-    protected $api = 'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAuThxHF0jlVFXjlqCT65JLyyXoEg7CQHQ';
-    protected $properties = [];
-    public function __get($key)
-    {
-        if(isset($this->properties[$key])){
-            return $this->properties[$key];
-        }
-    }
-    public function request($ip){
-        $url = sprintf($this->api, $ip);
-        $data = $this->sendRequest($url);
-        $this->properties = json_decode($data, true);
-        var_dump($ip);
-        var_dump($data);
-        var_dump($url);
-    }
-    protected function sendRequest($url){
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        return curl_exec($curl);
-    }
-
-    //AIzaSyDbeJL6btmiFSjc-8ousYxr5q8P-I6VSQU
-
 
 }
