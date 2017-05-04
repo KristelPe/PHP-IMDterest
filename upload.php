@@ -40,6 +40,7 @@
                 $post->setMLocation($location);
                 $post->setMBoard($board);
                 $post->Upload();
+                header('location: index.php');
             }else{
                 $urlError = "Please enter a valid URL";
             }
@@ -103,12 +104,13 @@
                 $post->setMLocation($location);
                 $post->setMBoard($board);
                 $post->Upload();
+                header('location: index.php');
             }
         } else {
-            $imageError = "PLEASE UPLOAD AN IMAGE OR A WEBSITE!";
+            $imageError = "PLEASE UPLOAD AN IMAGE OR A WEBSITE";
         }
     } else {
-        $fieldError = "PLEASE FILL IN ALL FIELDS!";
+        $fieldError = "PLEASE FILL IN ALL FIELDS WITH (*)";
     }
 
 
@@ -156,9 +158,16 @@
         }
 
 
-        #boards2{
-            background-color: red;
+        .error{
+            background-color: #F44336;
+            width: 80%;
+            height: 50px;
+            margin:auto;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
+
     </style>
 </head>
 <body>
@@ -170,12 +179,41 @@
     <?php if (!empty($boards)) :  ?>
 
     <form action="" method="post" id="submit" enctype="multipart/form-data">
+
+        <?php if (isset($imageError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $imageError; ?></p>
+        <?php endif; ?>
+        <?php if (isset($fieldError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $fieldError; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError_size)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_size; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError2)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError2; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError_isNotImage)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_isNotImage; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError_type)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_type; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadSuccess)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadSuccess; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError; ?></p>
+        <?php endif; ?>
+        <?php if (isset($urlError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $urlError; ?></p>
+        <?php endif; ?>
+
         <h1>Upload</h1>
         <p>Post your inspiration here!</p>
-        <label for="title">Title</label>
+        <label for="title">Title*</label>
         <input type="text" id="title" name="title" placeholder="Your title here">
         <hr>
-        <label for="afbeelding">Upload image or website link</label>
+        <label for="afbeelding">Upload image or website link*</label>
         <input type="file" name="fileToUpload" id="afbeelding" class="image_submit">
         <p style="font-size: 12px;"> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
         <p>Or </p>
@@ -185,10 +223,10 @@
         <input id="location" name="location" readonly>
         <button type="button" id="generateLocation" style="margin-left: 0px;">Get my location</button>
         <hr>
-        <label for="description">Description</label>
+        <label for="description">Description*</label>
         <textarea id="description" name="description" placeholder="What is it about?"></textarea>
 
-        <p>Select a board</p>
+        <p>Select a board*</p>
         <?php foreach ($boards as $b): ?>
             <div id="boards">
                 <div class="board <?php echo $board_state ?>">
@@ -202,34 +240,6 @@
 
         <?php endforeach; ?>
         <button type="submit">Submit</button>
-        <p><?php if (isset($imageError)) {
-    echo $imageError;
-} ?></p>
-        <p><?php if (isset($fieldError)) {
-    echo $fieldError;
-} ?></p>
-        <p><?php if (isset($uploadError_size)) {
-    echo $uploadError_size;
-}?></p>
-        <p><?php if (isset($uploadError2)) {
-    echo $uploadError2;
-} ?></p>
-        <p><?php if (isset($uploadError_isNotImage)) {
-    echo $uploadError_isNotImage;
-} ?></p>
-        <p><?php if (isset($uploadError_type)) {
-    echo $uploadError_type;
-} ?></p>
-        <p><?php if (isset($uploadSuccess)) {
-    echo $uploadSuccess;
-    echo "<img style='width:50px; height:50px;' src='$target_file'";
-} ?></p>
-        <p><?php if (isset($uploadError)) {
-    echo $uploadError;
-} ?></p>
-        <p><?php if (isset($urlError)) {
-                echo $urlError;
-            } ?></p>
     </form>
 
     <?php else:?>
