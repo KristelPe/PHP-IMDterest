@@ -28,6 +28,7 @@
                 $title = $_POST["title"];
                 $description = $_POST["description"];
                 $afbeelding = "";
+                $location = $_POST["location"];
                 $board = $_POST["board"];
 
                 $post = new Post();
@@ -36,6 +37,7 @@
                 $post->setMLink($link);
                 $post->setMDescription($description);
                 $post->setMUserId($userid);
+                $post->setMLocation($location);
                 $post->setMBoard($board);
                 $post->Upload();
             }else{
@@ -46,6 +48,7 @@
             $title = $_POST["title"];
             $description = $_POST["description"];
             $link = "";
+            $location = $_POST["location"];
             $board = $_POST["board"];
 
             if (!empty($_FILES["fileToUpload"]["name"])) {
@@ -97,6 +100,7 @@
                 $post->setMLink($link);
                 $post->setMDescription($description);
                 $post->setMUserId($userid);
+                $post->setMLocation($location);
                 $post->setMBoard($board);
                 $post->Upload();
             }
