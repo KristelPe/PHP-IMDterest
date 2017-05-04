@@ -129,48 +129,13 @@
         .visible{
             display: inherit;
         }
-        #boards{
-            display: flex;
-            flex-direction: row;
-            margin: 0.5em 1.5em;
-        }
 
         hr{
             margin: 1.5em;
         }
-        .board{
-            height: 225px;
-            width: 300px;
-            background-color: lightgray;
-            margin: 1.5em;
-            padding: 1em;
-        }
-        .contain{
-            height: 165px;
-            width: 270px;
-            overflow: hidden;
-            margin-bottom: 1em;
-        }
-        .contain img{
-            width: inherit;
-        }
+
         #something{
             margin-top: -38%;
-        }
-        #add *{
-            font-size: 5em;
-            width: 40px;
-            margin: auto;
-            margin-top: 20%;
-        }
-        #boards a{
-            text-decoration: none;
-            color: #9397a6;
-        }
-        #boards{
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
         }
         .unfollow{
             background-color: gray;
@@ -185,6 +150,11 @@
         .info p{
             line-height: 0em;
         }
+
+
+        #boards2{
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -192,6 +162,8 @@
 <?php include_once("nav.inc.php")?>
 
 <div id="container">
+
+    <?php if (!empty($boards)) :  ?>
 
     <form action="" method="post" id="submit" enctype="multipart/form-data">
         <h1>Upload</h1>
@@ -210,10 +182,6 @@
         <textarea id="description" name="description" placeholder="What is it about?"></textarea>
 
         <p>Select a board</p>
-        <?php if (empty($boards)) :  ?>
-        <p>You must create board before uploading a pin!</p>
-            <a href="newBoard.php">Create board</a>
-        <?php endif; ?>
         <?php foreach ($boards as $b): ?>
             <div id="boards">
                 <div class="board <?php echo $board_state ?>">
@@ -256,6 +224,18 @@
                 echo $urlError;
             } ?></p>
     </form>
+
+    <?php else:?>
+        <h1 style="color:black; text-align: center; margin-top: 7%;">Looks like you haven't made any boards yet!</h1>
+        <div id="boards">
+        <a href="newBoard.php"  class="<?php echo $user?>">
+            <div id="add"  class="board <?php echo $user?>">
+                <h3>+</h3>
+            </div>
+        </a>
+        </div>
+    <?php endif; ?>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
