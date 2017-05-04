@@ -177,6 +177,9 @@
         <p>Or </p>
         <input type="text" id="link" name="link" placeholder="https://www.yourwebsite.com/">
         <button type="button" id="generatebtn" style="margin-left: 0px;">Generate Description</button>
+        <label for="location">My location</label>
+        <input id="location" name="location" readonly>
+        <button type="button" id="generateLocation" style="margin-left: 0px;">Get my location</button>
         <hr>
         <label for="description">Description</label>
         <textarea id="description" name="description" placeholder="What is it about?"></textarea>
@@ -257,5 +260,6 @@
             });
         });
 </script>
+<script src="js/location.js"></script>
 </body>
 </html>
