@@ -4,11 +4,9 @@ spl_autoload_register(function ($class) {
     include_once("classes/" . $class . ".class.php");
 });
 
-$connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-
 try{
     //PROFILE
-
+    $userid = $_SESSION['id'];
     $profile = new Profile();
     $profile->setUserId($userid);
     $use = $profile->Profile();
