@@ -10,35 +10,41 @@
     });
 
     try {
-        $conn = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-        $sql = "select * from topics";
+
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 
-    $email = $_SESSION['user'];
+    try {
+        $topic = new topic();
 
-    //find userid associated with the email address
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
-    $statement = $connection->prepare("SELECT id FROM users WHERE email = :email");
-    $statement->bindvalue(":email", $email);
-    $res = $statement->execute();
-    $userid = $statement->fetchColumn();
+        $email = $_SESSION['user'];
 
-    $topic = "";
-    if (empty($_POST['topic'])) {
-        $topics = "You didn't select any topics.";
-    } else {
-        $topic = $_POST['topic'];
-        $N = count($topic);
-
-            $topics = "You selected $N topics";
-            for ($i=0; $i < $N; $i++) {
-                $selectedTopic = new Post();
-                $selectedTopic->setMUserId($userid);
-                $selectedTopic->setTopic($topic[$i]);
-                $selectedTopic->AddTopic();
+        $topic->setEmail($email);
+        $userid = $topic->SearchUser();
+        if (!empty($_POST['search'])) {
+            $search = $_POST['search'];
+            $topic->setSearch($search);
+            $all = $topic->Search();
+        } else{
+            $all = $topic->Topics();
+            if (!empty($_POST)) {
+                $count = $_POST['count'];
+                if ($count == 5) {
+                    if(!empty($_POST['topics'])){
+                        foreach($_POST['topics'] as $selected){
+                            $topic->setTopicId($selected);
+                            $topic->SaveTopic();
+                        }
+                    }
+                } else {
+                    $message = "Choose " . $count . " more";
+                    echo "<script type='text/javascript'>alert('$message');</script>";
+                }
+            }
         }
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
 
 ?><!doctype html>
@@ -52,34 +58,147 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        body{
+            text-align: center;
+        }
+
+        .topic p{
+            text-align: left;
+            color: white;
+            text-shadow: 0px 0px 3px rgba(75,124,134, 0.7);
+        }
+        .topic{
+            box-shadow: 0px 0px 10px rgba(75,124,134, 0.3);
+        }
+        .topics{
+            max-height: 70vh;
+            width: 100%;
+            overflow: scroll;
+            justify-content: space-around;
+            padding: 1em 0.5em;
+            box-shadow: inset 0 0 10px rgba(75,124,134, 0.3);
+        }
+        .center{
+            margin:2em;
+            display: flex;
+            flex-direction: column;
+        }
+        .float{
+            float: right;
+            background-color: #3a646f;
+            color: white;
+            width: 2.5em;
+            height: 2.5em;
+            margin-top: -0.95em;
+            margin-right: -0.4em;
+            line-height: 2.6em;
+        }
+        #searchDiv{
+            display: flex;
+            flex-direction: row;
+            margin: 1em auto 0em auto;
+        }
+        #search{
+            width: 80%;
+            height: 3.3em;
+        }
+        #search_bar_button{
+            width: 20%;
+            height: 3.3em;
+            margin-top: 0;
+        }
+        #submit{
+            margin-top: 2.5em;
+        }
+
+        .new{
+            width: 175px;
+            height: 175px;
+            background-color: whitesmoke;
+            margin: auto;
+        }
+
+        .new p{
+            font-size: 4em;
+            line-height: 2.15em;
+            margin-left: 0.9em;
+        }
+        .link{
+            text-decoration: none;
+            width: 175px;
+            height: 175px;
+            margin: 0.5em;
+        }
+    </style>
 </head>
-<body>
     <?php include_once("nav.inc.php")?>
-    <form id="topics" action="" method="post">
-        <h1>Like 5 topics</h1>
-        <h2>Then we'll build a custom home feed for you</h2>
-        <p>step 1 of 1</p>
-        <input name="search" id="search" placeholder="Search for any topics" type="search">
-        <div class="topics">
-        <?php foreach ($conn->query($sql) as $t):?>
-                <div class="topic" style="background-image: url(<?php echo $t['img']?>)">
-                    <input id="topic" class="checkbox" name="topic[]" value="<?php echo $t['id']?>" type="checkbox">
-                    <p id="<?php echo $t['id']?>" ><?php echo $t['title']?></p>
+    <div id="container">
+        <form id="topics" action="" method="post">
+            <p class="float">1/1</p>
+            <div class="center">
+                <h1 id="title">Like 5 topics</h1>
+                <h2 id="sub">And we'll build a custom home feed for you</h2>
+                <div id="searchDiv">
+                    <form action="index.php" method="post" id="search_bar">
+                        <input type="text" name="search" id="search" placeholder="Search..." />
+                        <button type="submit" id="search_bar_button">Search</button>
+                    </form>
                 </div>
-        <?php endforeach;?>
-        </div>
-        <button id="submit" type="submit"><?php echo $topics?></button>
-    </form>
+                <div class="topics">
+                <?php foreach ($all as $t):?>
+                        <div class="topic" style="background-image: url(<?php echo $t['img']?>)">
+                            <input id="topic" class="checkbox" name="topics[]" value="<?php echo $t['id']?>" type="checkbox">
+                            <p id="<?php echo $t['id']?>" ><?php echo $t['title']?></p>
+                        </div>
+                <?php endforeach;?>
+                    <a class="link" href="newTopic.php">
+                        <div class="topic new">
+                            <p>+</p>
+                        </div>
+                    </a>
+                </div>
+                <input id="count" name="count" value="0" type="text" style="visibility: hidden"/>
+                <button id="submit" type="submit">SUBMIT</button>
+            </div>
+        </form>
+    </div>
     <script src="jquery.min.js"></script>
     <script type="text/javascript">
-        $('input').click(function(){
-            if($(this).is(":checked")) {
-                $(this).next().addClass("selected");
+
+        $('input.checkbox').click(function(){
+            var $checker = $('input[type=checkbox]');
+            if ($checker.filter(':checked').length > 5){
+                this.checked = false;
+                if(this.checked = true) {
+                    this.checked = false;
+                    $(this).next().removeClass("selected");
+                }
             } else{
-                $(this).next().removeClass("selected");
+                if($(this).is(':checked')) {
+                    $(this).next().addClass("selected");
+                } else{
+                    $(this).next().removeClass("selected");
+                }
             }
+
+            var diff = 5 - $checker.filter(':checked').length;
+            var posts;
+            if (diff == 1){
+                posts = " post";
+            } else {
+                posts = " posts";
+            }
+
+            if(diff == 0 ){
+                $('h1').text('Great!');
+                $('h2').text("Let's set up your homefeed");
+            } else {
+                $('h1').text('Like '+ diff + " more" +  posts);
+            }
+
+            document.getElementById('count').value = $checker.filter(':checked').length;
         });
-        //$('p').css("background-color", "rgba(1,1,1, 0.5)");
     </script>
 </body>
 </html>
