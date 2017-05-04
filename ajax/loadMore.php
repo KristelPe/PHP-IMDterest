@@ -53,8 +53,7 @@ foreach ($results as $key => $p) {
                        </div>
                    </a>
                    <div class='like'>
-                       <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
-                       <input name='id' type='hidden' value='" . $p['id'] . "'>
+                       <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
                        <p id='likes'>" . $p['likes']. " likes</p>
                    </div>
                    
@@ -68,8 +67,7 @@ foreach ($results as $key => $p) {
                            </div>
                        </a>
                        <div class='like'>
-                           <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
-                           <input name='id' type='hidden' value='" . $p['id'] . "'>
+                           <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
                            <p id='likes'>" . $p['likes']. " likes</p>
                        </div>
                    </div>";
