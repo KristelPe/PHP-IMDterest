@@ -151,18 +151,20 @@ INSERT INTO `reported` (`id`, `postId`, `userId`) VALUES
 --
 -- Tabelstructuur voor tabel `selectedtopics`
 --
+DROP TABLE IF EXISTS `selectedtopics`;
 
-CREATE TABLE `selectedtopics` (
-  `id` int(11) NOT NULL,
-  `userId` int(11) NOT NULL,
-  `topicId` int(11) NOT NULL
+CREATE TABLE `selectedTopic` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `topic_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `selectedtopics`
 --
 
-INSERT INTO `selectedtopics` (`id`, `userId`, `topicId`) VALUES
+INSERT INTO `selectedTopics` (`id`, `userId`, `topicId`) VALUES
 (16, 29, 3),
 (17, 29, 5),
 (18, 29, 10),
