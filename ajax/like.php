@@ -1,33 +1,27 @@
 <?php
-    include_once "../classes/Db.class.php";
+    spl_autoload_register(function ($class) {
+        include_once("../classes/" . $class . ".class.php");
+    });
 
     session_start();
-    $postId = $_POST['postId'];                    //DUUUUUUS dees zou normaal $_POST['postId'] moeten zijn ma da werkt (Undefined index) -> kan waarde uit jquery niet ophalen dus k denk da de fout in dn jquery zit ╮(─▽─)╭
+    $postId = $_POST['postId'];
     settype($postId, "integer");
 
     $count = $_POST['count'];
     $userId = $_SESSION['id'];
 
-    $pdo = Db::getInstance();
+    $post = new Post();
+    $post->setMPostId($postId);
+    $post->setMUserId($userId);
 
     if ($count == 'plus') {
-        $stmt = $pdo->prepare("INSERT INTO likes (user_id, post_id) VALUES (:userid, :postid)");
-        $stmt->bindValue("userid", $userId);
-        $stmt->bindValue("postid", $postId);
-        $stmt->execute();
+       $post->Like();
     } elseif ($count == 'minus') {
-        $stmt = $pdo->prepare("DELETE FROM likes WHERE post_id = :postid AND user_id = :userid");
-        $stmt->bindValue("userid", $userId);
-        $stmt->bindValue("postid", $postId);
-        $stmt->execute();
+       $post->Unlike();
     }
 
-    $statement = $pdo->prepare("SELECT count(*) as likes FROM likes WHERE post_id = :postid");
-    $statement->bindValue("postid", $postId);
-    $statement->execute();
-    $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $res = $post->CountLikes();
 
     foreach ($res as $p){
         echo $p['likes'];
     }
-    // PROBLEEM 3 - nog niet kunnen testen door probleem 1  ╮(─▽─)╭
