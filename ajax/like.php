@@ -2,7 +2,7 @@
     include_once "../classes/Db.class.php";
 
     session_start();
-    $postId = 2;                    //DUUUUUUS dees zou normaal $_POST['postId'] moeten zijn ma da werkt (Undefined index) -> kan waarde uit jquery niet ophalen dus k denk da de fout in dn jquery zit ╮(─▽─)╭
+    $postId = $_POST['postId'];                    //DUUUUUUS dees zou normaal $_POST['postId'] moeten zijn ma da werkt (Undefined index) -> kan waarde uit jquery niet ophalen dus k denk da de fout in dn jquery zit ╮(─▽─)╭
     settype($postId, "integer");
 
     $count = $_POST['count'];
@@ -22,10 +22,12 @@
         $stmt->execute();
     }
 
-    $statement = $pdo->prepare("SELECT count(*) FROM likes WHERE post_id = :postid");
+    $statement = $pdo->prepare("SELECT count(*) as likes FROM likes WHERE post_id = :postid");
     $statement->bindValue("postid", $postId);
     $statement->execute();
+    $res = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-    echo $statement->execute();
-
+    foreach ($res as $p){
+        echo $p['likes'];
+    }
     // PROBLEEM 3 - nog niet kunnen testen door probleem 1  ╮(─▽─)╭
