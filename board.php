@@ -13,7 +13,7 @@
         $userId = $_GET['id'];
         $board = new Profile();
         $board->setUserId($userId);
-        $res = $board->Boards();
+        $res = $board->BoardPosts();
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -31,9 +31,6 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-
-    </style>
 </head>
 <body>
     <?php include_once("nav.inc.php")?>
@@ -43,45 +40,39 @@
 
         foreach ($results as $key => $p) {
             if (!empty($p['link'])) {
-                $html = file_get_html($p['link']);
-                $pagetitle = $html->find('title', 0);
-                $image = $html->find('img', 0);
+                $scraper = new Scraper();
+                $scraper->SetLink($p['link']);
+                $pagetitle = $scraper->ScrapeTitle();
+                $image = $scraper->ScrapeImg();
 
                 echo "<div id='item' class='item'>
-                    <h1>" . $p['title'] . "</h1>
-                   <a href='" . $p['link'] . "'>" .
-                    $pagetitle->plaintext
+                        <h1>" . $p['title'] . "</h1>
+                       <a href='" . $p['link'] . "'>" .
+                    $pagetitle
                     . "</a>
-                       <a href='post.php?postid=" . $p['id'] . "'>
-                           <div class='post_img'>
-                           <img src='
-                                " .
-                    $image->src
+                           <a href='post.php?postid=" . $p['id'] . "'>
+                               <div class='post_img'>
+                               <img src='
+                                    " .
+                    $image
                     . "'
-                                alt='
-                                " .
-                    $pagetitle->plaintext
+                                    alt='
+                                    " .
+                    $pagetitle
                     . "'
-                           >
-                       </div>
-                   </a>
-                   <div class='like'>
-                       <p id='likes'>" . $p['likes']. " likes</p>
-                   </div>
-                   
-                   </div>";
+                               >
+                           </div>
+                       </a>                       
+                       </div>";
             } elseif (empty($p['link'])) {
                 echo "<div id='item' class='item'>
-                       <h1>" . $p['title'] . "</h1>
-                       <a href='post.php?postid=" . $p['id'] . "'>
-                           <div class='post_img'>
-                               <img src='" . $p['image'] . "' alt='" . $p['title'] . "'>
-                           </div>
-                       </a>
-                       <div class='like'>
-                           <p id='likes'>" . $p['likes']. " likes</p>
-                       </div>
-                   </div>";
+                           <h1>" . $p['title'] . "</h1>
+                           <a href='post.php?postid=" . $p['id'] . "'>
+                               <div class='post_img'>
+                                   <img src='" . $p['image'] . "' alt='" . $p['title'] . "'>
+                               </div>
+                           </a>
+                       </div>";
             }
         }
         ?>
