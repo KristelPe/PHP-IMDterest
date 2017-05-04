@@ -95,6 +95,7 @@ try {
                     <p><?php echo $p['description']?></p>
                     <p><?php $Post = new Post();
                         echo $Post->Datum($p['date']); ?></p>
+                    <p><?php echo $p['location']?></p>
                 </div>
 
             <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>
