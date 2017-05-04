@@ -115,7 +115,6 @@
 </div>
 
 <div id="container">
-
     <div id="items" class="item_layout">
 
         <?php $results = $res;
@@ -147,7 +146,6 @@
                    </a>
                    <div class='like'>
                        <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
-                       <input name='id' type='hidden' value='" . $p['id'] . "'>
                        <p id='likes'>" . $p['likes']. " likes</p>
                    </div>
                    
@@ -161,13 +159,10 @@
                            </div>
                        </a>
                        <div class='like'>
-                           <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
-                           <input name='id' type='hidden' value='" . $p['id'] . "'>
+                           <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
                            <p id='likes'>" . $p['likes']. " likes</p>
                        </div>
                    </div>";
-
-                settype($p['id'], "integer");
             }
         }
         ?>
@@ -205,8 +200,8 @@
     }
 
     function like(button) {
-        var postId = button.next('input').value; //DUUUUS Dees geeft ni de correcte waarde terug en k weet ni wa k hier nog zou kunnen proberen (￣□￣)
-        var likes = button.next().next();
+        var postId = button.attr("name"); //DUUUUS Dees geeft ni de correcte waarde terug en k weet ni wa k hier nog zou kunnen proberen (￣□￣)
+        var likes = button.next();
         var count;
 
         if (button.hasClass('unliked')) {
