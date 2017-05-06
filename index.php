@@ -98,9 +98,6 @@
         .unliked{
             background-image: url("http://www.clker.com/cliparts/d/v/C/j/y/1/grey-heart-hi.png");
         }
-        .item{
-            max-height: 500px;
-        }
     </style>
 </head>
 <body>

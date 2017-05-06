@@ -80,19 +80,21 @@ try {
         <?php foreach ($results as $p): ?>
 
             <?php if ($p['id'] == $postid && empty($p['link'])): ?>
-                <div class="user_post_img">
-                    <a href="profile.php?id=<?php echo $p['userid']?>">
-                        <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
-                        <h2><?php echo $p['username']?></h2>
-                    </a>
+                <div class="top_layout_post">
+                    <div class="user_post_img">
+                        <a href="profile.php?id=<?php echo $p['userid']?>">
+                            <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                        </a>
+                    </div>
+                    <div class="post_title_info">
+                        <h1><?php echo $p['title']?></h1>
+                        <h2>Uploaded by:<a href="profile.php?id=<?php echo $p['userid']?>"> <?php echo $p['username']?></a></h2>
+                    </div>
                 </div>
 
-                <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
-                <div id="post_layout_info">
-                    <h1><?php echo $p['title']?></h1>
-                    <div class="user">
+                    <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?> " class="posted_image">
 
-                    </div>
+                <div class="post_layout_info">
                     <p><?php echo $p['description']?></p>
                     <p><?php $Post = new Post();
                         echo $Post->Datum($p['date']); ?></p>
