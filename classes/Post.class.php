@@ -194,25 +194,6 @@ class Post
         }
     }
 
-    public function AddTopic(){
-        $conn = Db::getInstance();
-
-        $statement = $conn->prepare("select COUNT(*) from selectedtopics where userId = :user and topicId = :topic LIMIT 1");
-        $statement->bindvalue(":topic", $this->topic);
-        $statement->bindvalue(":user", $this->m_userId);
-        $statement->execute();
-
-        if ($statement->fetchColumn()) {
-            echo "You already are added to this topic";
-        } else {
-            $stmnt = $conn->prepare("insert into selectedtopics (userId, topicId) values (:user, :topic)");
-            $stmnt->bindvalue(":topic", $this->topic);
-            $stmnt->bindvalue(":user", $this->m_userId);
-            $stmnt->execute();
-            echo "You have subscrided to this topic";
-        }
-    }
-
     public function Datum($date){
         $currentDate = strtotime(date("Y-m-d H:i:s"));
         $savedDate = strtotime($date);

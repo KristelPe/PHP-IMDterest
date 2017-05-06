@@ -85,10 +85,21 @@ class topic
 
     public function SaveTopic(){
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare("INSERT into selectedTopic (user_id, topic_id) VALUES (:userid, :topicId)");
-        $stmnt->bindvalue(":topicId", $this->topicId);
-        $stmnt->bindvalue(":userid", $_SESSION['id']);
-        $stmnt->execute();
+
+        $statement = $conn->prepare("select COUNT(*) from selectedtopics where userId = :user and topicId = :topic LIMIT 1");
+        $statement->bindvalue(":topic", $this->topicId);
+        $statement->bindvalue(":user", $_SESSION['id']);
+        $statement->execute();
+
+        if ($statement->fetchColumn()) {
+            echo "You already are added to this topic";
+        } else {
+            $stmnt = $conn->prepare("insert into selectedtopics (userId, topicId) values (:user, :topic)");
+            $stmnt->bindvalue(":topic", $this->topicId);
+            $stmnt->bindvalue(":user", $_SESSION['id']);
+            $stmnt->execute();
+            echo "You have subscrided to this topic";
+        }
         header("Location: ./index.php");
     }
 }
