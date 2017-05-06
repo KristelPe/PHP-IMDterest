@@ -145,7 +145,6 @@
         <p><?php if (isset($uploadError)) {
     echo $uploadError;
 } ?></p>
-        <input type="submit" value="Upload Image" name="submit">
 
         <hr>
 

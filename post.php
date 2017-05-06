@@ -178,7 +178,7 @@ try {
                         
                         <div class="sub-comment_user">
                             <div class="sub-user_img">
-                                <img src="<?php echo $Subc['img']?>" alt="<?php echo $Subc['username']?>">
+                                <img src="<?php echo $Subc['image']?>" alt="<?php echo $Subc['username']?>">
                             </div>
                             <div class="sub-user_comment">
                                 <h2><?php echo $Subc['username']?></h2>
