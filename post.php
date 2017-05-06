@@ -80,17 +80,18 @@ try {
         <?php foreach ($results as $p): ?>
 
             <?php if ($p['id'] == $postid && empty($p['link'])): ?>
+                <div class="user_post_img">
+                    <a href="profile.php?id=<?php echo $p['userid']?>">
+                        <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                        <h2><?php echo $p['username']?></h2>
+                    </a>
+                </div>
+
                 <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>">
                 <div id="post_layout_info">
                     <h1><?php echo $p['title']?></h1>
                     <div class="user">
-                        <div class="user_img">
-                            <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
-                        </div>
 
-                        <a href="profile.php?id=<?php echo $p['userid']?>">
-                            <h2><?php echo $p['username']?></h2>
-                        </a>
                     </div>
                     <p><?php echo $p['description']?></p>
                     <p><?php $Post = new Post();

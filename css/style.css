@@ -96,13 +96,6 @@ body{
 
 }
 
-@media only screen and (min-width: 1700px) {
-    #container{
-        width: 1600px;
-    }
-
-}
-
 /*CONTAINER END*/
 
 h1,h2,p{
