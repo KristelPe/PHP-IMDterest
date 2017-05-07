@@ -88,11 +88,11 @@ try {
                     </div>
                     <div class="post_title_info">
                         <h1><?php echo $p['title']?></h1>
-                        <h2>Uploaded by:<a href="profile.php?id=<?php echo $p['userid']?>"> <?php echo $p['username']?></a></h2>
+                        <h2>Uploaded by: <a href="profile.php?id=<?php echo $p['userid']?>"><?php echo $p['username']?></a></h2>
                     </div>
                 </div>
 
-                    <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?> " class="posted_image">
+                    <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>" class="posted_image">
 
                 <div class="post_layout_info">
                     <p><?php echo $p['description']?></p>
@@ -163,32 +163,31 @@ try {
 
     <div id="comments_layout">
         <?php $resultsComments = $resC; foreach ($resultsComments as $c):?>
+            <hr>
                     <div class="comment_user">
                         <div class="user_img">
                             <img src="<?php echo $c['img']?>" alt="<?php echo $c['username']?>">
                         </div>
                         <div class="user_comment">
-                            <h2><?php echo $c['username']?></h2>
+                            <h2><?php echo $c['username']?>:</h2>
                             <p><?php echo $c['comment']?></p>
                         </div>
                     </div>
 
                     <div id="sub-comment_layout">
-
                     <?php
                 $resultsSubComments = $comment->showSubComments($c["cid"]);
             foreach ($resultsSubComments as $Subc):?>
-                        
+
                         <div class="sub-comment_user">
                             <div class="sub-user_img">
                                 <img src="<?php echo $Subc['image']?>" alt="<?php echo $Subc['username']?>">
                             </div>
                             <div class="sub-user_comment">
-                                <h2><?php echo $Subc['username']?></h2>
+                                <h2><?php echo $Subc['username']?>:</h2>
                                 <p><?php echo $Subc['comment']?></p>
                             </div>
                         </div>
-
                     <?php endforeach; ?>
 
                     </div>
@@ -233,12 +232,12 @@ try {
             $.post('ajax/createSubComment.php', $(this).serialize(), function(e) {
                 // Zodra gepost, nieuw element toevoegen
 
-                var sub_comment = $("<div class='sub-comment_user'>");
+                var subComment = $("<div class='sub-comment_user'>");
                 var username = '<?php echo $username ?>';
                 var img = '<?php echo $image ?>';
-                comment.html('<div class="sub-user_img"><img src=' + img + '></div><div class="sub-user_comment"><h2>' + username + ':' + '</h2><p>' + $('#text_comment').val() + '</p></div>');
+                subComment.html('<div class="sub-user_img"><img src=' + img + '></div><div class="sub-user_comment"><h2>' + username + ':' + '</h2><p>' + $('#text_sub_comment').val() + '</p></div>');
 
-                $("#sub-comment_layout").prepend(sub_comment);
+                $("#sub-comment_layout").append(subComment);
 
 
                 // Veld leegmaken
