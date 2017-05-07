@@ -24,12 +24,12 @@
         if (!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])) {
             error_reporting(0);
             if (get_headers($_POST["link"])) {
-                $link = $_POST["link"];
-                $title = $_POST["title"];
-                $description = $_POST["description"];
+                $link = htmlspecialchars($_POST["link"]);
+                $title = htmlspecialchars($_POST["title"]);
+                $description = htmlspecialchars($_POST["description"]);
                 $afbeelding = "";
-                $location = $_POST["location"];
-                $board = $_POST["board"];
+                $location = htmlspecialchars($_POST["location"]);
+                $board = htmlspecialchars($_POST["board"]);
 
                 $post = new Post();
                 $post->setMTitle($title);
@@ -46,11 +46,11 @@
             }
             error_reporting(1);
         } elseif (!empty($_FILES["fileToUpload"]["name"]) && empty($_POST["link"])) {
-            $title = $_POST["title"];
-            $description = $_POST["description"];
+            $title = htmlspecialchars($_POST["title"]);
+            $description = htmlspecialchars($_POST["description"]);
             $link = "";
-            $location = $_POST["location"];
-            $board = $_POST["board"];
+            $location = htmlspecialchars($_POST["location"]);
+            $board = htmlspecialchars($_POST["board"]);
 
             if (!empty($_FILES["fileToUpload"]["name"])) {
                 $target_dir = "uploads/";
@@ -231,10 +231,10 @@
             <div id="boards">
                 <div class="board <?php echo $board_state ?>">
                     <div class="contain">
-                        <input id="board" name="board" value="<?php echo $b['id']?>" type="radio">
+                        <input id="board" name="board" value="<?php echo htmlspecialchars($b['id'])?>" type="radio">
                         <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
                     </div>
-                    <h3><?php echo $b['title']?></h3>
+                    <h3><?php echo htmlspecialchars($b['title'])?></h3>
                 </div>
             </div>
 
@@ -245,8 +245,8 @@
     <?php else:?>
         <h1 style="color:black; text-align: center; margin-top: 7%;">Looks like you haven't made any boards yet!</h1>
         <div id="boards">
-        <a href="newBoard.php"  class="<?php echo $user?>">
-            <div id="add"  class="board <?php echo $user?>">
+        <a href="newBoard.php"  class="<?php echo htmlspecialchars($user)?>">
+            <div id="add"  class="board <?php echo htmlspecialchars($user)?>">
                 <h3>+</h3>
             </div>
         </a>

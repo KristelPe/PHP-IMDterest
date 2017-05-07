@@ -16,9 +16,9 @@ $email = $_SESSION['user'];
 $profile = new Profile();
 $res = $profile->userVMail($email);
 
-$userid = $res['id'];
-$image = $res['image'];
-$username = $res['username'];
+$userid = htmlspecialchars($res['id']);
+$image = htmlspecialchars($res['image']);
+$username = htmlspecialchars($res['username']);
 $postid = $_GET['postid'];
 
 $post = new Post();
@@ -82,23 +82,23 @@ try {
             <?php if ($p['id'] == $postid && empty($p['link'])): ?>
                 <div class="top_layout_post">
                     <div class="user_post_img">
-                        <a href="profile.php?id=<?php echo $p['userid']?>">
-                            <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                        <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>">
+                            <img src="<?php echo htmlspecialchars($p['img'])?>" alt="<?php echo htmlspecialchars($p['username'])?>">
                         </a>
                     </div>
                     <div class="post_title_info">
-                        <h1><?php echo $p['title']?></h1>
-                        <h2>Uploaded by: <a href="profile.php?id=<?php echo $p['userid']?>"><?php echo $p['username']?></a></h2>
+                        <h1><?php echo htmlspecialchars($p['title'])?></h1>
+                        <h2>Uploaded by: <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>"><?php echo htmlspecialchars($p['username'])?></a></h2>
                     </div>
                 </div>
 
-                    <img src="<?php echo $p['image']?>" alt="<?php echo $p['title']?>" class="posted_image">
+                    <img src="<?php echo htmlspecialchars($p['image'])?>" alt="<?php echo htmlspecialchars($p['title'])?>" class="posted_image">
 
                 <div class="post_layout_info">
-                    <p><?php echo $p['description']?></p>
+                    <p><?php echo htmlspecialchars($p['description'])?></p>
                     <p><?php $Post = new Post();
                         echo $Post->Datum($p['date']); ?></p>
-                    <p><?php echo $p['location']?></p>
+                    <p><?php echo htmlspecialchars($p['location'])?></p>
                 </div>
 
             <?php elseif ($p['id'] == $postid && !empty($p['link'])): ?>
@@ -108,21 +108,21 @@ try {
                 $pagetitle = $scraper->ScrapeTitle();
                 $image = $scraper->ScrapeImg();
                 ?>
-                <a style="text-decoration: none;" href="<?php echo $p['link'] ?>">
-                    <h1><?php echo $pagetitle ?></h1>
-                    <img src='<?php echo $image ?>' alt='<?php echo $pagetitle ?>'>
+                <a style="text-decoration: none;" href="<?php echo htmlspecialchars($p['link']) ?>">
+                    <h1><?php echo htmlspecialchars($pagetitle) ?></h1>
+                    <img src='<?php echo htmlspecialchars($image) ?>' alt='<?php echo htmlspecialchars($pagetitle) ?>'>
                 </a>
                 <div id="post_layout_info">
-                    <h1><?php echo $p['title']?></h1>
+                    <h1><?php echo htmlspecialchars($p['title'])?></h1>
                     <div class="user">
                         <div class="user_img">
-                            <img src="<?php echo $p['img']?>" alt="<?php echo $p['username']?>">
+                            <img src="<?php echo htmlspecialchars($p['img'])?>" alt="<?php echo htmlspecialchars($p['username'])?>">
                         </div>
-                        <a href="profile.php?id=<?php echo $p['userid']?>">
-                            <h2><?php echo $p['username']?></h2>
+                        <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>">
+                            <h2><?php echo htmlspecialchars($p['username'])?></h2>
                         </a>
                     </div>
-                    <p><?php echo $p['description']?></p>
+                    <p><?php echo htmlspecialchars($p['description'])?></p>
 
 
                 </div>
@@ -146,7 +146,7 @@ try {
 
         <form action="" method="post" id="report">
             <input type="submit" name="report" value="Report">
-            <p><?php echo $reportmessage ?></p>
+            <p><?php echo htmlspecialchars($reportmessage) ?></p>
         </form>
 
     <?php endif; ?>
@@ -156,7 +156,7 @@ try {
             <label for="text_comment">Comment</label>
             <textarea id="text_comment" name="comment" placeholder="..."></textarea>
             <input type="hidden" value="<?php echo htmlentities($_GET["postid"]); ?>" name="post_id">
-            <p><?php echo $commentError?></p>
+            <p><?php echo htmlspecialchars($commentError)?></p>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -166,11 +166,11 @@ try {
             <hr>
                     <div class="comment_user">
                         <div class="user_img">
-                            <img src="<?php echo $c['img']?>" alt="<?php echo $c['username']?>">
+                            <img src="<?php echo htmlspecialchars($c['img'])?>" alt="<?php echo htmlspecialchars($c['username'])?>">
                         </div>
                         <div class="user_comment">
-                            <h2><?php echo $c['username']?>:</h2>
-                            <p><?php echo $c['comment']?></p>
+                            <h2><?php echo htmlspecialchars($c['username'])?>:</h2>
+                            <p><?php echo htmlspecialchars($c['comment'])?></p>
                         </div>
                     </div>
 
@@ -181,11 +181,11 @@ try {
 
                         <div class="sub-comment_user">
                             <div class="sub-user_img">
-                                <img src="<?php echo $Subc['image']?>" alt="<?php echo $Subc['username']?>">
+                                <img src="<?php echo htmlspecialchars($Subc['image'])?>" alt="<?php echo htmlspecialchars($Subc['username'])?>">
                             </div>
                             <div class="sub-user_comment">
-                                <h2><?php echo $Subc['username']?>:</h2>
-                                <p><?php echo $Subc['comment']?></p>
+                                <h2><?php echo htmlspecialchars($Subc['username'])?>:</h2>
+                                <p><?php echo htmlspecialchars($Subc['comment'])?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -194,7 +194,7 @@ try {
 
                         <div class="sub-comment_user-form">
                             <div class="sub-user_img">
-                                <img src="<?php echo $image ?>" alt="<?php echo $username ?>">
+                                <img src="<?php echo htmlspecialchars($image) ?>" alt="<?php echo htmlspecialchars($username) ?>">
                             </div>
                             <form action="" method="post" id="submit" enctype="multipart/form-data" class="sub-comment_form">
                                 <textarea id="text_sub_comment" name="sub_comment" placeholder="..."></textarea>
@@ -214,8 +214,8 @@ try {
                 // Zodra gepost, nieuw element toevoegen
 
                 var comment = $("<div class='comment_user'>");
-                var username = '<?php echo $username ?>';
-                var img = '<?php echo $image ?>';
+                var username = '<?php echo htmlspecialchars($username) ?>';
+                var img = '<?php echo htmlspecialchars($image) ?>';
                 comment.html('<div class="user_img"><img src=' + img + '></div><div class="user_comment"><h2>' + username + ':' + '</h2><p>' + $('#text_comment').val() + '</p></div>');
 
                 $("#comments_layout").prepend(comment);
@@ -233,8 +233,8 @@ try {
                 // Zodra gepost, nieuw element toevoegen
 
                 var subComment = $("<div class='sub-comment_user'>");
-                var username = '<?php echo $username ?>';
-                var img = '<?php echo $image ?>';
+                var username = '<?php echo htmlspecialchars($username) ?>';
+                var img = '<?php echo htmlspecialchars($image) ?>';
                 subComment.html('<div class="sub-user_img"><img src=' + img + '></div><div class="sub-user_comment"><h2>' + username + ':' + '</h2><p>' + $('#text_sub_comment').val() + '</p></div>');
 
                 $("#sub-comment_layout").append(subComment);

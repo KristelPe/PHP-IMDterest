@@ -148,8 +148,8 @@
                 <div class="topics">
                 <?php foreach ($all as $t):?>
                         <div class="topic" style="background-image: url(<?php echo $t['img']?>)">
-                            <input id="topic" class="checkbox" name="topics[]" value="<?php echo $t['id']?>" type="checkbox">
-                            <p id="<?php echo $t['id']?>" ><?php echo $t['title']?></p>
+                            <input id="topic" class="checkbox" name="topics[]" value="<?php echo htmlspecialchars($t['id'])?>" type="checkbox">
+                            <p id="<?php echo htmlspecialchars($t['id'])?>" ><?php echo htmlspecialchars($t['title'])?></p>
                         </div>
                 <?php endforeach;?>
                     <a class="link" href="newTopic.php">

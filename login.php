@@ -9,8 +9,8 @@
     try {
         $error = "";
         if (!empty($_POST)) {
-            $email = $_POST["email"];
-            $password = $_POST["password"];
+            $email = htmlspecialchars($_POST["email"]);
+            $password = htmlspecialchars($_POST["password"]);
 
             $user = new User();
             $user->setEmail($email);
@@ -43,14 +43,14 @@
     <h1>Log in</h1>
     <form action="" method="post">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" value="<?php echo $_POST["email"]?>">
+        <input id="email" name="email" type="email" value="<?php echo htmlspecialchars($_POST["email"])?>">
 
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" value="<?php echo $_POST["password"]?>">
+        <input id="password" name="password" type="password" value="<?php echo htmlspecialchars($_POST["password"])?>">
         <button type="submit">LOGIN</button>
     </form>
     <p>Haven't got an account <a href="registration.php">register here</a></p>
-        <p class="error"><?php echo $error?></p>
+        <p class="error"><?php echo htmlspecialchars($error)?></p>
     </div>
 </body>
 </html>

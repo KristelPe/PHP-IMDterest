@@ -12,12 +12,12 @@
     try {
         $error = "";
         if (!empty($_POST)) {
-            $email = $_POST["email"];
-            $firstname = $_POST["firstname"];
-            $lastname = $_POST["lastname"];
-            $username = $_POST["username"];
+            $email = htmlspecialchars($_POST["email"]);
+            $firstname = htmlspecialchars($_POST["firstname"]);
+            $lastname = htmlspecialchars($_POST["lastname"]);
+            $username = htmlspecialchars($_POST["username"]);
             $image = "images/default.png";
-            $password = $_POST["password"];
+            $password = htmlspecialchars($_POST["password"]);
             $options = [
                 'cost' => 12,
             ];
@@ -52,16 +52,16 @@
    <h1>Sign up</h1>
     <form action="" method="post">
         <label for="firstname">Firstname</label>
-        <input type="text" name="firstname" id="firstname" value="<?php echo $_POST["firstname"]?>">
+        <input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($_POST["firstname"])?>">
         
         <label for="lastname">Lastname</label>
-        <input type="text" name="lastname" id="lastname" value="<?php echo $_POST["lastname"]?>">
+        <input type="text" name="lastname" id="lastname" value="<?php echo htmlspecialchars($_POST["lastname"])?>">
         
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?php echo $_POST["email"]?>">
+        <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($_POST["email"])?>">
         
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php echo $_POST["username"]?>">
+        <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($_POST["username"])?>">
 
         <label for="password">Password</label>
         <input type="password" name="password" id="password">
@@ -69,7 +69,7 @@
         <button type="submit" id="submit">Register</button>
     </form>
     <p>Already got an account <a href="login.php">login here</a></p>
-       <p class="error"><?php echo $error?></p>
+       <p class="error"><?php echo htmlspecialchars($error)?></p>
     </div>
 </body>
 </html>

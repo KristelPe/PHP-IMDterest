@@ -22,10 +22,10 @@ try{
     </a>
     <nav>
         <span class="nav_text"><a href="upload.php">Upload</a></span>
-            <a href="profile.php?id=<?php echo $_SESSION['id'];?>">
+            <a href="profile.php?id=<?php echo htmlspecialchars($_SESSION['id']);?>">
                 <span class="hidden_text">Profile</span>
                 <?php foreach ($use as $u): ?>
-                    <img src="<?php echo $u['image']?>" alt="<?php echo $u['username']?>" class="profile_icon">
+                    <img src="<?php echo htmlspecialchars($u['image'])?>" alt="<?php echo htmlspecialchars($u['username'])?>" class="profile_icon">
                 <?php endforeach;?>
             </a>
         <span class="nav_text"><a href="logout.php">Logout</a></span>

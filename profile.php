@@ -68,37 +68,37 @@
 
     <div id="user">
         <?php foreach ($use as $u): ?>
-            <h2><?php echo $u['username']?></h2>
+            <h2><?php echo htmlspecialchars($u['username'])?></h2>
             <div class="user_layout">
-                <img src="<?php echo $u['image']?>" alt="<?php echo $u['username']?>">
+                <img src="<?php echo htmlspecialchars($u['image'])?>" alt="<?php echo htmlspecialchars($u['username'])?>">
                 <div class="info_layout">
                     <div class="info">
-                        <h3>Firstname: <span class="grayText"><?php echo $u['firstname']?></span></h3>
+                        <h3>Firstname: <span class="grayText"><?php echo htmlspecialchars($u['firstname'])?></span></h3>
                     </div>
                     <div class="info">
-                        <h3>Lastname: <span class="grayText"><?php echo $u['lastname']?></span></h3>
+                        <h3>Lastname: <span class="grayText"><?php echo htmlspecialchars($u['lastname'])?></span></h3>
                     </div>
                     <div class="info">
-                        <h3>Email: <span class="grayText"><?php echo $u['email']?></span></h3>
+                        <h3>Email: <span class="grayText"><?php echo htmlspecialchars($u['email'])?></span></h3>
                     </div>
                 </div>
             </div>
         <?php endforeach;?>
     </div>
 
-    <a id="update" class="<?php echo $user?>" href="updateProfile.php">UPDATE</a>
+    <a id="update" class="<?php echo htmlspecialchars($user)?>" href="updateProfile.php">UPDATE</a>
 
-    <form id="follow" class="<?php echo $guest?>" action="" method="post">
-        <input name="follower" type="hidden" value="<?php echo $userid ?>">
-        <button class="<?php echo $state?>" type="submit"><?php echo $state?></button>
+    <form id="follow" class="<?php echo htmlspecialchars($guest)?>" action="" method="post">
+        <input name="follower" type="hidden" value="<?php echo htmlspecialchars($userid) ?>">
+        <button class="<?php echo htmlspecialchars($state)?>" type="submit"><?php echo htmlspecialchars($state)?></button>
     </form>
 
     <hr>
     <div>
         <h2>Boards</h2>
         <div id="boards">
-            <a href="newBoard.php" class="<?php echo $user?>">
-                <div id="add" class="board <?php echo $user?>">
+            <a href="newBoard.php" class="<?php echo htmlspecialchars($user)?>">
+                <div id="add" class="board <?php echo htmlspecialchars($user)?>">
                     <h3>+</h3>
                 </div>
             </a>
@@ -110,12 +110,12 @@
                     $board_state = $b['state'];
                 }
                 ?>
-                <a href="board.php?id=<?php echo $b['id'];?>">
-                    <div class="board <?php echo $board_state ?>">
+                <a href="board.php?id=<?php echo htmlspecialchars($b['id']);?>">
+                    <div class="board <?php echo htmlspecialchars($board_state) ?>">
                         <div class="contain">
                             <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
                         </div>
-                        <h3><?php echo $b['title']?></h3>
+                        <h3><?php echo htmlspecialchars($b['title'])?></h3>
                     </div>
                 </a>
             <?php endforeach; ?>
@@ -129,10 +129,10 @@
 
             <?php foreach ($posts as $p):?>
                 <div id='item' class='item'>
-                    <a href="post.php?postid=<?php echo $p['id'];?>">
-                        <h1><?php echo $p['title']?></h1>
+                    <a href="post.php?postid=<?php echo htmlspecialchars($p['id']);?>">
+                        <h1><?php echo htmlspecialchars($p['title'])?></h1>
                         <div class="post_img">
-                            <img src="<?php echo $p['image'] ?>" alt="<?php echo $p['title'] ?>"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                            <img src="<?php echo htmlspecialchars($p['image']) ?>" alt="<?php echo htmlspecialchars($p['title']) ?>"> <!-- MOET LATER NOG VERNADERD WORDEN -->
                         </div>
                     </a>
                 </div>

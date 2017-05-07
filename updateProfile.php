@@ -23,7 +23,7 @@
         $password = $update->prevPassword();
 
         if (!empty($_POST['username']) && ($_POST['username']) != $username) {
-            $newUsername = $_POST['username'];
+            $newUsername = htmlspecialchars($_POST['username']);
             $update->setMUsername($newUsername);
             $res = $update->newUsername($username);
             $usernameSuccess = "Your username has been changed to " . "<b>" . $newUsername . "</b>";
@@ -45,7 +45,7 @@
         }
 
         if (!empty($_POST['email']) && ($_POST['email']) != $email) {
-            $newEmail = $_POST['email'];
+            $newEmail = htmlspecialchars($_POST['email']);
             $update->setMEmail($newEmail);
             $res = $update->newEmail($email);
             $emailSuccess = "Your email has been changed to " . "<b>" . $newEmail . "</b>";
@@ -151,7 +151,7 @@
         <div id="profile_form_left">
 
         <label for="name">Change email address</label>
-        <input type="email" name="email" id="email" placeholder="<?php echo $email?>">
+        <input type="email" name="email" id="email" placeholder="<?php echo htmlspecialchars($email)?>">
         <p><?php if (isset($emailError)) {
     echo $emailError;
 } elseif (isset($emailSuccess)) {
@@ -165,7 +165,7 @@
         <div id="profile_form_right">
 
         <label for="name">Change username</label>
-        <input type="text" name="username" id="username" placeholder="<?php echo $username?>">
+        <input type="text" name="username" id="username" placeholder="<?php echo htmlspecialchars($username)?>">
         <p><?php if (isset($usernameError)) {
     echo $usernameError;
 } elseif (isset($usernameSuccess)) {

@@ -11,8 +11,8 @@
 
     try {
         if (!empty($_POST)) {
-            $title = $_POST['title'];
-            $case = $_POST['case'];
+            $title = htmlspecialchars($_POST['title']);
+            $case = htmlspecialchars($_POST['case']);
 
             $newB = new Profile();
             $newB->setTitle($title);
