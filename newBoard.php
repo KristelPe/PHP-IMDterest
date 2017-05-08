@@ -11,12 +11,14 @@
 
     try {
         if (!empty($_POST)) {
+            $target_dir = "uploads/";
             $title = htmlspecialchars($_POST['title']);
             $case = htmlspecialchars($_POST['case']);
-
+            $image = $target_dir . basename($_FILES["fileToUpload"]["name"]);
             $newB = new Profile();
             $newB->setTitle($title);
             $newB->setState($case);
+            $newB->setImage($image);
             $newB->newB();
         }
     } catch (Exception $e) {
@@ -86,11 +88,15 @@
 <?php include_once("nav.inc.php")?>
 
 <form id="new" action="" method="post">
+
     <h2>Make a board</h2>
 
     <div>
         <label for="name">Name</label>
         <input id="name" type="text" name="title">
+    </div>
+    <div>
+        <input type="file" name="fileToUpload" id="image" class="image_submit">
     </div>
     <hr>
     <div>

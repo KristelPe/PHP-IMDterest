@@ -85,7 +85,7 @@
                         $uploadError_ok = "Sorry, your file was not uploaded.";
                         // if everything is ok, try to upload file
                     } else {
-                        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {$target_dir . basename($_FILES["fileToUpload"]["name"]);
                             $uploadSuccess = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
                             $afbeelding = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                         } else {

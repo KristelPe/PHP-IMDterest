@@ -5,6 +5,23 @@ class Profile
     private $userId;
     private $title;
     private $state;
+    private $image;
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
 
     /**
      * @return mixed
@@ -106,10 +123,11 @@ class Profile
     public function newB(){
         $conn = Db::getInstance();
 
-        $statement = $conn->prepare("INSERT INTO boards (userid, title, state) VALUES (:userid, :title, :state)");
+        $statement = $conn->prepare("INSERT INTO boards (userid, title, state, image) VALUES (:userid, :title, :state, :image)");
         $statement->bindValue(':userid', $_SESSION['id']);
         $statement->bindValue(':title', $this->title);
         $statement->bindValue(':state', $this->state);
+        $statement->bindValue(':image', $this->image);
         $statement->execute();
 
         header('location: profile.php?id=' . $_SESSION['id']);
