@@ -172,65 +172,8 @@
 </div>
 
 <script src="jquery.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#more").click(function(){
-            loadmore();
-        });
+<script src="js/loadmore.js"></script>
+<script src="js/like.js"></script>
 
-        $('.like').find('button').click(function(){
-            var button = $(this);
-            like(button);
-        });
-    });
-
-    function loadmore() {
-        var val = document.getElementById("result_no").value;
-        $.ajax({
-            type: 'post',
-            url: 'ajax/loadMore.php',
-            data: {     getresult:val   },
-            success: function (response) {
-                if (response == "empty"){
-                    $("#more").text("There are no more posts")
-                } else {
-                    var content = document.getElementById("items");
-                    content.innerHTML = content.innerHTML + response;
-                    // LIMIT + 20
-                    document.getElementById("result_no").value = Number(val) + 20;
-                }
-            }
-        });
-    }
-
-    function like(button) {
-        var postId = button.attr("name"); //DUUUUS Dees geeft ni de correcte waarde terug en k weet ni wa k hier nog zou kunnen proberen (￣□￣)
-        var likes = button.next();
-        var count;
-
-        if (button.hasClass('unliked')) {
-            count = 'plus';
-        } else {
-            count = 'minus';
-        }
-
-        $.ajax({
-            type: 'post',
-            url: 'ajax/like.php',
-            data: {postId: postId, count: count},
-            success: function (response) {
-                if (button.hasClass('unliked')) {
-                    button.removeClass('unliked').addClass('liked');
-                    likes.text(response+' likes');
-                } else {
-                    button.removeClass('liked').addClass('unliked');
-                    likes.text(response+' likes');
-                }
-
-            }
-        });
-    }
-
-</script>
 </body>
 </html>
