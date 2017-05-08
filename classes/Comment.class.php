@@ -7,6 +7,7 @@ class Comment
     private $m_postId;
     private $commentId;
 
+
     /**
      * @return mixed
      */
@@ -76,8 +77,6 @@ class Comment
 
 
 
-
-
     public function UploadComment()
     {
         $conn = Db::getInstance();
@@ -111,11 +110,21 @@ class Comment
     {
         $conn = Db::getInstance();
 
-
         $stmnt = $conn->prepare("insert into sub_comments (comment,userId,commentId) values (:comment,:userId, :commentId)");
         $stmnt->bindvalue(":comment", $this->m_comment);
         $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->bindValue(":commentId",$this->commentId);
         $stmnt->execute();
+    }
+
+    public function userMail(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("SELECT id FROM users WHERE email = :email");
+        $statement->bindvalue(":email", $_SESSION['user']);
+        $statement->execute();
+        $userid = $statement->fetchColumn();
+
+        return $userid;
     }
 }
