@@ -5,6 +5,40 @@ class topic
     private $topicId;
     private $search;
     private $email;
+    private $title;
+    private $img;
+
+    /**
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param mixed $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImg()
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param mixed $img
+     */
+    public function setImg($img)
+    {
+        $this->img = $img;
+    }
 
     /**
      * @return mixed
@@ -101,5 +135,16 @@ class topic
             echo "You have subscrided to this topic";
         }
         header("Location: ./index.php");
+    }
+
+    public function newT(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("INSERT INTO topics (title, img) VALUES (:title, :img)");
+        $statement->bindValue(':title', $this->title);
+        $statement->bindValue(':img', $this->img);
+        $statement->execute();
+
+        header('location: topics.php');
     }
 }
