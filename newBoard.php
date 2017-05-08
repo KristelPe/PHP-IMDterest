@@ -14,7 +14,7 @@
             $target_dir = "uploads/";
             $title = htmlspecialchars($_POST['title']);
             $case = htmlspecialchars($_POST['case']);
-            $image = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $image = $target_dir . basename($_FILES["fileUpload"]["name"]);
             $newB = new Profile();
             $newB->setTitle($title);
             $newB->setState($case);
@@ -96,7 +96,7 @@
         <input id="name" type="text" name="title">
     </div>
     <div>
-        <input type="file" name="fileToUpload" id="image" class="image_submit">
+        <input type="file" name="fileUpload" id="image" class="image_submit">
     </div>
     <hr>
     <div>
