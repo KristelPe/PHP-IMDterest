@@ -6,10 +6,10 @@ spl_autoload_register(function ($class) {
 
 try{
     //PROFILE
-    $userid = $_SESSION['id'];
-    $profile = new Profile();
-    $profile->setUserId($userid);
-    $use = $profile->Profile();
+    $sessionId = $_SESSION['id'];
+    $profiler = new Profile();
+    $profiler->setUserId($sessionId);
+    $user = $profiler->Profile();
 
 } catch (Exception $e) {
     echo $e->getMessage();
@@ -24,8 +24,8 @@ try{
         <span class="nav_text"><a href="upload.php">Upload</a></span>
             <a href="profile.php?id=<?php echo htmlspecialchars($_SESSION['id']);?>">
                 <span class="hidden_text">Profile</span>
-                <?php foreach ($use as $u): ?>
-                    <img src="<?php echo htmlspecialchars($u['image'])?>" alt="<?php echo htmlspecialchars($u['username'])?>" class="profile_icon">
+                <?php foreach ($user as $profile): ?>
+                    <img src="<?php echo htmlspecialchars($profile['image'])?>" alt="<?php echo htmlspecialchars($profile['username'])?>" class="profile_icon">
                 <?php endforeach;?>
             </a>
         <span class="nav_text"><a href="logout.php">Logout</a></span>
