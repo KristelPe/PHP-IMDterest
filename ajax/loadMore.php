@@ -16,17 +16,17 @@
         if (isset($_POST['search'])) {
             $searchq = $_POST['search'];
             $stack->setSearch($searchq);
-            $res = $stack->Search($noP);
+            $results = $stack->Search($noP);
         } else {
             $sessionId = $_SESSION['id'];
             $stack->setSessionId($sessionId);
-            $res = $stack->Stacker($noP);
+            $results = $stack->Stacker($noP);
         }
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 
-   $results = $res;
+if(!empty($results)){
 
 foreach ($results as $key => $p) {
     if (!empty($p['link'])) {
@@ -54,7 +54,7 @@ foreach ($results as $key => $p) {
                    </a>
                    <div class='like'>
                        <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
-                       <p id='likes'>" . $p['likes']. " likes</p>
+                       <p id='likes'>" . $p['likes'] . " likes</p>
                    </div>
                    
                    </div>";
@@ -68,9 +68,12 @@ foreach ($results as $key => $p) {
                        </a>
                        <div class='like'>
                            <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
-                           <p id='likes'>" . $p['likes']. " likes</p>
+                           <p id='likes'>" . $p['likes'] . " likes</p>
                        </div>
                    </div>";
 
     }
 }
+} else {
+     echo "empty";
+    }
