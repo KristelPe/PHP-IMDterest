@@ -14,7 +14,7 @@
     $email = $_SESSION['user'];
 
     //find userid associated with the email address
-    $update = new Update();
+    $update = new User();
     $update->setSessionUser($email);
     $userid = $update->userId();
 

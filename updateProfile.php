@@ -17,14 +17,14 @@
 
 
         $email = $_SESSION['user'];
-        $update = new Update();
+        $update = new User();
         $update->setSessionUser($email);
         $username = $update->prevUsername();
         $password = $update->prevPassword();
 
         if (!empty($_POST['username']) && ($_POST['username']) != $username) {
             $newUsername = htmlspecialchars($_POST['username']);
-            $update->setMUsername($newUsername);
+            $update->setUsername($newUsername);
             $res = $update->newUsername($username);
             $usernameSuccess = "Your username has been changed to " . "<b>" . $newUsername . "</b>";
         } else {
@@ -37,7 +37,7 @@
                 'cost' => 12,
             ];
             $newPassword = password_hash($newPassword, PASSWORD_DEFAULT, $options);
-            $update->setMPassword($newPassword);
+            $update->setPassword($newPassword);
             $res = $update->newPassword($password);
             $passwordSuccess = "Your password has been changed!";
         } else {
