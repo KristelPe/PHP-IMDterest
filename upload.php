@@ -232,7 +232,7 @@
                 <div class="board <?php echo $board_state ?>">
                     <div class="contain">
                         <input id="board" name="board" value="<?php echo htmlspecialchars($b['id'])?>" type="radio">
-                        <img src="http://lorempixel.com/400/300" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                        <img src="<?php echo htmlspecialchars($b['image'])?>" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
                     </div>
                     <h3><?php echo htmlspecialchars($b['title'])?></h3>
                 </div>
