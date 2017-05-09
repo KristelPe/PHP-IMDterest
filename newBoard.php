@@ -14,11 +14,16 @@
             $target_dir = "uploads/";
             $title = htmlspecialchars($_POST['title']);
             $case = htmlspecialchars($_POST['case']);
-            $image = $target_dir . basename($_FILES["fileUpload"]["name"]);
+            $target_file = $target_dir . basename($_FILES["fileUpload"]["name"]);
+            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
+                echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
             $newB = new Profile();
             $newB->setTitle($title);
             $newB->setState($case);
-            $newB->setImage($image);
+            $newB->setImage($target_file);
             $newB->newB();
         }
     } catch (Exception $e) {
@@ -87,7 +92,7 @@
 <body>
 <?php include_once("nav.inc.php")?>
 
-<form id="new" action="" method="post">
+<form id="new" action="" method="post" enctype="multipart/form-data">
 
     <h2>Make a board</h2>
 
