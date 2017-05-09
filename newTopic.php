@@ -96,7 +96,7 @@ catch(Exception $e) {
 <body>
 <?php include_once("nav.inc.php")?>
 
-<form id="new" action="" method="post">
+<form id="new" action="" method="post" enctype="multipart/form-data">
     <h2>Make a new topic</h2>
 
     <div>
