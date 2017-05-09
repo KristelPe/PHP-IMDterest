@@ -101,6 +101,10 @@
         .item{
             max-height: 500px;
         }
+        .alert{
+            color: #9da5b6;
+            font-size: 1.5em;
+        }
     </style>
 </head>
 <body>
@@ -117,41 +121,44 @@
 <div id="container">
     <div id="items" class="item_layout">
 
-        <?php $results = $res;
+        <?php if (empty($res)){
+            echo "<p class='alert'>No such posts where found</p>";
+        } else {
+            $results = $res;
 
-        foreach ($results as $key => $p) {
-            if (!empty($p['link'])) {
-                $scraper = new Scraper();
-                $scraper->SetLink($p['link']);
-                $pagetitle = $scraper->ScrapeTitle();
-                $image = $scraper->ScrapeImg();
+            foreach ($results as $key => $p) {
+                if (!empty($p['link'])) {
+                    $scraper = new Scraper();
+                    $scraper->SetLink($p['link']);
+                    $pagetitle = $scraper->ScrapeTitle();
+                    $image = $scraper->ScrapeImg();
 
-                echo "<div id='item' class='item'>
+                    echo "<div id='item' class='item'>
                     <h1>" . $p['title'] . "</h1>
                    <a href='" . $p['link'] . "'>" .
-                    $pagetitle
-                    . "</a>
+                        $pagetitle
+                        . "</a>
                        <a href='post.php?postid=" . $p['id'] . "'>
                            <div class='post_img'>
                            <img src='
                                 " .
-                    $image
-                    . "'
+                        $image
+                        . "'
                                 alt='
                                 " .
-                    $pagetitle
-                    . "'
+                        $pagetitle
+                        . "'
                            >
                        </div>
                    </a>
                    <div class='like'>
                        <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
-                       <p id='likes'>" . $p['likes']. " likes</p>
+                       <p id='likes'>" . $p['likes'] . " likes</p>
                    </div>
                    
                    </div>";
-            } elseif (empty($p['link'])) {
-                echo "<div id='item' class='item'>
+                } elseif (empty($p['link'])) {
+                    echo "<div id='item' class='item'>
                        <h1>" . $p['title'] . "</h1>
                        <a href='post.php?postid=" . $p['id'] . "'>
                            <div class='post_img'>
@@ -160,15 +167,16 @@
                        </a>
                        <div class='like'>
                            <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
-                           <p id='likes'>" . $p['likes']. " likes</p>
+                           <p id='likes'>" . $p['likes'] . " likes</p>
                        </div>
                    </div>";
+                }
             }
         }
         ?>
         <input type="hidden" id="result_no" value="20">
     </div>
-    <button type='submit' name='more' id='more'>Load more</button>
+    <button type='submit' name='more' id='more' class="<?php if (empty($res)){ echo "hidden";}?>">Load more</button>
 </div>
 
 <script src="jquery.min.js"></script>
