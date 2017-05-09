@@ -86,7 +86,9 @@
         <?php endforeach;?>
     </div>
 
-    <a id="update" class="<?php echo htmlspecialchars($user)?>" href="updateProfile.php">UPDATE</a>
+    <?php if($_SESSION['id'] == $userid): ?>
+        <a id="update" class="<?php echo htmlspecialchars($user)?>" href="updateProfile.php">UPDATE</a>
+    <?php endif; ?>
 
     <form id="follow" class="<?php echo htmlspecialchars($guest)?>" action="" method="post">
         <input name="follower" type="hidden" value="<?php echo htmlspecialchars($userid) ?>">
@@ -97,12 +99,13 @@
     <div>
         <h2>Boards</h2>
         <div id="boards">
+            <?php if($_SESSION['id'] == $userid): ?>
             <a href="newBoard.php" class="<?php echo htmlspecialchars($user)?>">
                 <div id="add" class="board <?php echo htmlspecialchars($user)?>">
                     <h3>+</h3>
                 </div>
             </a>
-
+            <?php endif; ?>
             <?php foreach ($boards as $b):
                 if ($b['state'] == "private" && $b['userid'] == $_SESSION['id']) {
                     $board_state = "public";
