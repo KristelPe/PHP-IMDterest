@@ -432,6 +432,19 @@ h2{
 
 /*ITEM START*/
 
+.user_post_info{
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.user_img_post{
+    height: 50px!important;
+    min-width: 50px!important;
+    max-width: 50px!important;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
 .item_layout{
     display: flex;
     flex-direction: column;

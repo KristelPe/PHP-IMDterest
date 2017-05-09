@@ -41,7 +41,7 @@ class Stack
     public function Search($noP) {
         $conn = Db::getInstance();
 
-        $statement = $conn->prepare("SELECT p.*, count(l.user_id) as likes FROM posts p left join likes l on p.id = l.post_id WHERE p.title LIKE :keywords OR p.description LIKE :keywords group by p.id order by p.id desc limit :noP,20");
+        $statement = $conn->prepare("SELECT p.*, count(l.user_id) as likes, u.username as username, u.image as userImage FROM users u inner join posts p on u.id = p.userId left join likes l on p.id = l.post_id WHERE p.title LIKE :keywords OR p.description LIKE :keywords group by p.id order by p.id desc limit :noP,20");
         $statement->bindValue(':keywords', '%' . $this->search . '%');
         $statement->bindValue(':noP', $noP, PDO::PARAM_INT);
         $statement->execute();
@@ -61,12 +61,12 @@ class Stack
         $status =  $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!empty($status)) {
-            $statement = $conn->prepare("select p.*, count(l.user_id) as likes from posts p inner join following f on f.userid = p.userid left join likes l on p.id = l.post_id where followerid = :followerid group by p.id ORDER BY p.id desc limit :noP,20");
+            $statement = $conn->prepare("select p.*, count(l.user_id) as likes, u.username as username, u.image as userImage from posts p inner join following f on f.userid = p.userid inner join users u on p.userId = u.id left join likes l on p.id = l.post_id where followerid = :follwerid group by p.id ORDER BY p.id desc limit :noP,20");
             $statement->bindValue(':followerid', $this->sessionId);
             $statement->bindValue(':noP', $noP, PDO::PARAM_INT);
             $statement->execute();
         } else {
-            $statement = $conn->prepare("select p.*, count(l.user_id) as likes from posts p left join likes l on p.id = l.post_id group by p.id order BY id DESC limit :noP,20");
+            $statement = $conn->prepare("select p.*, count(l.user_id) as likes, u.username as username, u.image as userImage from posts p inner join users u on p.userId = u.id left join likes l on p.id = l.post_id group by p.id order BY id DESC limit :noP,20");
             $statement->bindValue(':noP', $noP, PDO::PARAM_INT);
             $statement->execute();
         }

@@ -127,7 +127,10 @@
                 $image = $scraper->ScrapeImg();
 
                 echo "<div id='item' class='item'>
-                    <h1>" . $p['title'] . "</h1>
+                   <div class='user_post_info'>
+                        <img src=" . $p["userImage"] . " alt=" . $p["username"] . " class='user_img_post'>
+                        <h1>" . $p['title'] . "</h1>
+                   </div>
                    <a href='" . $p['link'] . "'>" .
                     $pagetitle
                     . "</a>
@@ -152,7 +155,10 @@
                    </div>";
             } elseif (empty($p['link'])) {
                 echo "<div id='item' class='item'>
-                       <h1>" . $p['title'] . "</h1>
+                       <div class='user_post_info'>
+                           <img src=" . $p["userImage"] . " alt=" . $p["username"] . " class='user_img_post'>
+                           <h1>" . $p['title'] . "</h1>
+                       </div>
                        <a href='post.php?postid=" . $p['id'] . "'>
                            <div class='post_img'>
                                <img src='" . $p['image'] . "' alt='" . $p['title'] . "'>
