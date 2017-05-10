@@ -127,7 +127,11 @@ class User
         if (!preg_match("#[a-zA-Z]+#", $password)) {
             throw new Exception("Password is not valid");
         }
+        $options = [
+            'cost' => 12,
+        ];
 
+        $password = password_hash($password, PASSWORD_DEFAULT, $options);
         $this->password = $password;
     }
 
@@ -160,7 +164,7 @@ class User
         $stmnt->bindvalue(":password", $this->password);
         $stmnt->bindvalue(":image", $this->image);
         $stmnt->execute();
-        echo "Registered";
+        header("Location: ./topics.php");
 
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
         $statement->bindValue(":email", $this->email);
@@ -171,7 +175,6 @@ class User
             session_start();
             $_SESSION["id"] = $row["id"];
             $_SESSION['user'] = $this->email;
-            header("Location: ./topics.php");
         }
     }
 

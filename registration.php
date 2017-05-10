@@ -18,11 +18,6 @@
             $username = htmlspecialchars($_POST["username"]);
             $image = "images/default.png";
             $password = htmlspecialchars($_POST["password"]);
-            $options = [
-                'cost' => 12,
-            ];
-
-            $password = password_hash($password, PASSWORD_DEFAULT, $options);
 
             $user = new User();
             $user->setEmail($email);

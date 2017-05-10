@@ -31,17 +31,17 @@
             $usernameError = "Please fill in a valid username!";
         }
 
-        if (!empty($_POST['password'])) {
-            $newPassword = $_POST['password'];
-            $options = [
-                'cost' => 12,
-            ];
-            $newPassword = password_hash($newPassword, PASSWORD_DEFAULT, $options);
-            $update->setPassword($newPassword);
-            $res = $update->newPassword($password);
-            $passwordSuccess = "Your password has been changed!";
+        if (!empty($_POST['password']) && strlen($_POST['password']) > 6) {
+                $newPassword = $_POST['password'];
+                $options = [
+                    'cost' => 12,
+                ];
+                $newPassword = password_hash($newPassword, PASSWORD_DEFAULT, $options);
+                $update->setPassword($newPassword);
+                $res = $update->newPassword($password);
+                $passwordSuccess = "Your password has been changed!";
         } else {
-            $passwordError = "Please fill in a valid password!";
+            $passwordError = "Your password must be more than 6 characters long!";
         }
 
         if (!empty($_POST['email']) && ($_POST['email']) != $email) {
@@ -114,6 +114,27 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <style>
+        .error{
+            background-color: #F44336;
+            width: 80%;
+            height: 50px;
+            margin:auto;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .success{
+            background-color: limegreen;
+            width: 80%;
+            height: 50px;
+            margin:auto;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -122,29 +143,55 @@
    <div id="container">
     <form id="update" action="" method="post" enctype="multipart/form-data">
         <h1>Profile</h1>
+
+        <?php if (isset($passwordError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $passwordError; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($passwordSuccess)) : ?>
+            <p class="success" style="color:white; padding-top: 13px;"><?php echo $passwordSuccess; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($usernameError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $usernameError; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($usernameSuccess)) : ?>
+            <p class="success" style="color:white; padding-top: 13px;"><?php echo $usernameSuccess; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($emailError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $emailError; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($emailSuccess)) : ?>
+            <p class="success" style="color:white; padding-top: 13px;"><?php echo $emailSuccess; ?></p>
+        <?php endif; ?>
+
+        <?php if (isset($uploadError_size)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_size; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError2)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError2; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError_isNotImage)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_isNotImage; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadError_type)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_type; ?></p>
+        <?php endif; ?>
+        <?php if (isset($uploadSuccess)) : ?>
+            <p class="success" style="color:white; padding-top: 13px;"><?php echo $uploadSuccess; ?></p>
+            <?php echo "<img style='width:50px; height:50px;' src='$target_file'"; ?>
+        <?php endif; ?>
+        <?php if (isset($uploadError)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError; ?></p>
+        <?php endif; ?>
+
         <label for="name">Upload avatar</label>
 
         <input type="file" name="fileToUpload" id="fileToUpload" class="image_submit">
         <p> Please upload a valid profile picture (Max file size: 500KB, png, jpg, jpeg)</p>
-        <p><?php if (isset($uploadError_size)) {
-    echo $uploadError_size;
-}?></p>
-        <p><?php if (isset($uploadError2)) {
-    echo $uploadError2;
-} ?></p>
-        <p><?php if (isset($uploadError_isNotImage)) {
-    echo $uploadError_isNotImage;
-} ?></p>
-        <p><?php if (isset($uploadError_type)) {
-    echo $uploadError_type;
-} ?></p>
-        <p><?php if (isset($uploadSuccess)) {
-    echo $uploadSuccess;
-    echo "<img style='width:50px; height:50px;' src='$target_file'";
-} ?></p>
-        <p><?php if (isset($uploadError)) {
-    echo $uploadError;
-} ?></p>
 
         <hr>
 
@@ -152,11 +199,6 @@
 
         <label for="name">Change email address</label>
         <input type="email" name="email" id="email" placeholder="<?php echo htmlspecialchars($email)?>">
-        <p><?php if (isset($emailError)) {
-    echo $emailError;
-} elseif (isset($emailSuccess)) {
-    echo $emailSuccess;
-} ?></p>
 
         </div>
 
@@ -166,11 +208,6 @@
 
         <label for="name">Change username</label>
         <input type="text" name="username" id="username" placeholder="<?php echo htmlspecialchars($username)?>">
-        <p><?php if (isset($usernameError)) {
-    echo $usernameError;
-} elseif (isset($usernameSuccess)) {
-    echo $usernameSuccess;
-} ?></p>
 
         </div>
 
@@ -180,11 +217,6 @@
 
         <label for="name">Change password</label>
         <input type="password" name="password" id="password" placeholder="New password">
-        <p><?php if (isset($passwordError)) {
-    echo $passwordError;
-} elseif (isset($passwordSuccess)) {
-    echo $passwordSuccess;
-} ?></p>
 
         </div>
 
