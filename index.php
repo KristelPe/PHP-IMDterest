@@ -53,23 +53,11 @@
     <link rel="stylesheet" href="css/search.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <style>
-        .post_img{
-            width: 230px;
-            border-radius: 5px;
-            max-height: 200px;
-            overflow: hidden;
-        }
         img{
             width: 230px;
         }
         button{
             cursor: pointer;
-        }
-        .like{
-            display: flex;
-            flex-direction: row;
-            margin-top: 1em;
-            line-height: 1em;
         }
         p{
             margin-top: 0.5em;
