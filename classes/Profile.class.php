@@ -175,4 +175,25 @@ class Profile
         $res = $statement->fetch();
         return $res;
     }
+    
+    
+    public function CountFollowers(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("select count(*) as followers from following where userid = :id");
+        $statement->bindvalue(":id", $_SESSION['id']);
+        $statement->execute();
+        $res = $statement->fetch();
+        return $res;
+    }
+
+    public function Followers(){
+        $conn = Db::getInstance();
+
+        $statement = $conn->prepare("select u.* from following f inner join users u on f.followerId = u.id where f.userid = :id");
+        $statement->bindvalue(":id", $_SESSION['id']);
+        $statement->execute();
+        $res = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $res;
+    }
 }

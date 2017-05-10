@@ -31,15 +31,13 @@
         $state = $profile->Follow();
 
         //BOARDS
-        $board = new Profile();
-        $board->setUserId($userid);
-        $boards = $board->Boards();
+        $boards = $profile->Boards();
 
         //POSTS
-        $posts = new Profile();
-        $posts->setUserId($userid);
-        $posts = $posts->Posts();
+        $posts = $profile->Posts();
 
+        $followers = $profile->CountFollowers();
+        
     } catch (Exception $e) {
         echo $e->getMessage();
     }
@@ -57,8 +55,22 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/profile.css.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <style>
+        #listF{
+            height: 120px;
+            padding:1em;
+            overflow: scroll;
+        }
+
+        #listF div{
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -81,6 +93,8 @@
                     <div class="info">
                         <h3>Email: <span class="grayText"><?php echo htmlspecialchars($u['email'])?></span></h3>
                     </div>
+                    <button id="followers"><?php echo $followers['followers'] . " followers";?></button>
+                    <div id="listF"></div>
                 </div>
             </div>
         <?php endforeach;?>
@@ -143,5 +157,24 @@
         </div>
     </div>
 </div>
+<script src="jquery.min.js"></script>
+<script>
+    var visible = "no";
+    $("#followers").click(function(){
+        if (visible == "no"){
+            $.ajax({
+                type: 'post',
+                url: 'ajax/followers.php',
+                success: function (response) {
+                    document.getElementById('listF').innerHTML = document.getElementById('listF').innerHTML + response;
+                    visible = "yes";
+                }
+            });
+        } else {
+            document.getElementById('listF').innerHTML = "";
+            visible = "no";
+        }
+    })
+</script>
 </body>
 </html>
