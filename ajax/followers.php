@@ -13,8 +13,10 @@ $followers = $profile->Followers();
 
 foreach ($followers as $f){
     echo    "<div>
-                <img class='img' src='". $f['image']."' alt='".$f['id']."'>
-                <a href='profile.php?id=".$f['id']."'>".$f['username']."</a>
+                <a href='profile.php?id=".$f['id']."'>
+                    <img class='img' src='". $f['image']."' alt='".$f['id']."'>
+                    <p>".$f['username']."</p>
+                </a>
             </div>";
 }
 
