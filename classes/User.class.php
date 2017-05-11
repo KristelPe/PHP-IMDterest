@@ -127,11 +127,6 @@ class User
         if (!preg_match("#[a-zA-Z]+#", $password)) {
             throw new Exception("Password is not valid");
         }
-        $options = [
-            'cost' => 12,
-        ];
-
-        $password = password_hash($password, PASSWORD_DEFAULT, $options);
         $this->password = $password;
     }
 
@@ -168,7 +163,7 @@ class User
 
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
         $statement->bindValue(":email", $this->email);
-        $res = $statement->execute();
+        $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($results as $row) {
