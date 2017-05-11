@@ -130,7 +130,7 @@
                        </div>
                    </a>
                    <div class='like'>
-                       <button id='like' class='" . $stack->Liked($p['id']) . "'></button>
+                       <button id='like' class='" . $stack->Liked($p['id']) . "' style='background-image: url(images/wood_1.gif);'></button>
                        <p id='likes'>" . $p['likes']. " likes</p>
                    </div>
                    
@@ -147,7 +147,7 @@
                            </div>
                        </a>
                        <div class='like'>
-                           <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "'></button>
+                           <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "' style='background-image: url(images/wood_1.gif);'></button>
                            <p id='likes'>" . $p['likes']. " likes</p>
                        </div>
                    </div>";

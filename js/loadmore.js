@@ -2,11 +2,6 @@ $(document).ready(function(){
     $("#more").click(function(){
         loadmore();
     });
-
-    $('.like').find('button').click(function(){
-        var button = $(this);
-        like(button);
-    });
 });
 
 function loadmore() {

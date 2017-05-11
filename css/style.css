@@ -520,11 +520,11 @@ p{
 }
 
 .liked{
-    background-image: url(../images/wood_2.gif);
+
 }
 
 .unliked{
-    background-image: url(../images/wood_1.gif);
+    opacity: 0.5;
 }
 
 .item{
