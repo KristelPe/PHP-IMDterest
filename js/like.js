@@ -18,9 +18,27 @@ function like(button) {
             if (button.hasClass('unliked')) {
                 button.removeClass('unliked').addClass('liked');
                 likes.text(response+' likes');
+                if(response > 1){
+                    liked.body.style.backgroundImage = "url(../images/wood_2.gif)";
+                }
+                else if(response > 10){
+                    liked.body.style.backgroundImage = "url(../images/wood_3.gif)";
+                }
+                else if(response > 50){
+                    liked.body.style.backgroundImage = "url(../images/wood_4.gif)";
+                }
             } else {
                 button.removeClass('liked').addClass('unliked');
                 likes.text(response+' likes');
+                if(response > 1){
+                    unliked.body.style.backgroundImage = "url(../images/wood_2.gif)";
+                }
+                else if(response > 10){
+                    unliked.body.style.backgroundImage = "url(../images/wood_3.gif)";
+                }
+                else if(response > 50){
+                    unliked.body.style.backgroundImage = "url(../images/wood_4.gif)";
+                }
             }
 
         }

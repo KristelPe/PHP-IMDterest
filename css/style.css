@@ -513,18 +513,18 @@ p{
     height: 30px;
     padding:0;
     background-position: center;
-    background-size: 20px;
+    background-size: 40px!important;
     background-repeat: no-repeat;
     background-color: white;
     border-radius: 5px;
 }
 
 .liked{
-    background-image: url("http://www.clker.com/cliparts/o/4/f/P/U/b/red-heart-hi.png");
+    background-image: url(../images/wood_2.gif);
 }
 
 .unliked{
-    background-image: url("http://www.clker.com/cliparts/d/v/C/j/y/1/grey-heart-hi.png");
+    background-image: url(../images/wood_1.gif);
 }
 
 .item{

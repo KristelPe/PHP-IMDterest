@@ -80,12 +80,6 @@
             background-color: white;
             border-radius: 5px;
         }
-        .liked{
-            background-image: url("http://www.clker.com/cliparts/o/4/f/P/U/b/red-heart-hi.png");
-        }
-        .unliked{
-            background-image: url("http://www.clker.com/cliparts/d/v/C/j/y/1/grey-heart-hi.png");
-        }
         .item{
             max-height: 500px;
         }
