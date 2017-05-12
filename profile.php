@@ -171,14 +171,17 @@
                     $board_state = $b['state'];
                 }
                 ?>
-                <a href="board.php?id=<?php echo htmlspecialchars($b['id']);?>">
-                    <div class="board <?php echo htmlspecialchars($board_state) ?>">
-                        <div class="contain">
-                            <img src="<?php echo htmlspecialchars($b['image']);?>" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                <div class=<?php echo htmlspecialchars($b['id']);?>>
+                    <a href="board.php?id=<?php echo htmlspecialchars($b['id']);?>">
+                        <div class="board <?php echo htmlspecialchars($board_state) ?>">
+                            <div class="contain">
+                                <img src="<?php echo htmlspecialchars($b['image']);?>" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                            </div>
+                            <h3><?php echo htmlspecialchars($b['title'])?></h3>
                         </div>
-                        <h3><?php echo htmlspecialchars($b['title'])?></h3>
-                    </div>
-                </a>
+                    </a>
+                    <button class='removeBoards'>Remove Board</button>
+                </div>
             <?php endforeach; ?>
         </div>
     </div>
@@ -214,5 +217,6 @@
 
 <script src="jquery.min.js"></script>
 <script src="js/followers.js"></script>
+<script src="js/removeBoard.js"></script>
 </body>
 </html>

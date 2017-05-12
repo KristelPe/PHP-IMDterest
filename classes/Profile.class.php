@@ -155,6 +155,13 @@ class Profile
         return $boards;
     }
 
+    public function removeBoard($id){
+        $conn = Db::getInstance();
+        $removeBoard = $conn->prepare("DELETE FROM boards WHERE id = :id");
+        $removeBoard->bindvalue(":id", $id);
+        $removeBoard->execute();
+    }
+
     public function Posts(){
         $conn = Db::getInstance();
 
