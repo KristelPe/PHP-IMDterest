@@ -68,61 +68,44 @@
 <div id="container">
     <div id="items" class="item_layout">
 
-        <?php $results = $res;
+        <?php $results = $res; foreach ($results as $key => $p): ?>
+            <?php if(!empty($p['link'])): {$scraper = new Scraper();$scraper->SetLink($p['link']);$pagetitle = $scraper->ScrapeTitle();$image = $scraper->ScrapeImg();}; ?>
+                <div id='item' class='item'>
+                    <div class='user_post_info'>
+                        <img src="<?php echo $p["userImage"]?>" alt="<?php echo $p["username"]?>" class='user_img_post'>
+                        <h1>"<?php echo $p['title']?>"</h1>
+                    </div>
+                    <a href='<?php echo $p['link']?>'>"<?php echo $pagetitle?>"</a>
+                    <a href='post.php?postid="<?php echo $p['id']?>"'>
+                        <div class='post_img'>
+                            <img src='<?php echo $image ?>' alt='<?php echo $pagetitle?>'>
+                        </div>
+                    </a>
+                    <div class='like'>
+                        <button id='like' class='<?php echo $stack->Liked($p['id'])?>' style='<?php echo $stack->Liked($p['id'])?>' name='<?php echo $p['id']?>' style='background-image: url(<?php if($p['likes'] <= 0 ){ echo "images/wood_1.gif";}if($p['likes'] > 0 && $p['likes'] < 10 ){ echo "images/wood_2.gif";}if($p['likes'] >= 10 && $p['likes'] < 49 ){ echo "images/wood_3.gif";}if($p['likes'] >= 50 ){ echo "images/wood_4.gif";} ?>);'></button>
+                        <p id='likes'><?php echo $p['likes']?> likes</p>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if(empty($p['link'])): ?>
+                <div id='item' class='item'>
+                    <div class='user_post_info'>
+                        <img src="<?php echo $p["userImage"]?>" alt="<?php echo $p["username"]?>" class='user_img_post'>
+                        <h1>"<?php echo $p['title']?>"</h1>
+                    </div>
+                    <a href='post.php?postid="<?php echo $p['id']?>'>
+                        <div class='post_img'>
+                            <img src='<?php echo $p['image']?>' alt='<?php echo $p['title']?>'>
+                        </div>
+                    </a>
+                    <div class='like'>
+                        <button id='like' class='<?php echo $stack->Liked($p['id'])?>' name='<?php echo $p['id']?>' style='background-image: url(<?php if($p['likes'] <= 0 ){ echo "images/wood_1.gif";}if($p['likes'] > 0 && $p['likes'] < 10 ){ echo "images/wood_2.gif";}if($p['likes'] >= 10 && $p['likes'] < 49 ){ echo "images/wood_3.gif";}if($p['likes'] >= 50 ){ echo "images/wood_4.gif";} ?>);'></button>
+                        <p id='likes'><?php echo $p['likes']?> likes</p>
+                    </div>
+                </div>
+            <?php endif; ?>
+        <?php endforeach ?>
 
-        foreach ($results as $key => $p) {
-            if (!empty($p['link'])) {
-                $scraper = new Scraper();
-                $scraper->SetLink($p['link']);
-                $pagetitle = $scraper->ScrapeTitle();
-                $image = $scraper->ScrapeImg();
-
-                echo "<div id='item' class='item'>
-                   <div class='user_post_info'>
-                        <img src=" . $p["userImage"] . " alt=" . $p["username"] . " class='user_img_post'>
-                        <h1>" . $p['title'] . "</h1>
-                   </div>
-                   <a href='" . $p['link'] . "'>" .
-                    $pagetitle
-                    . "</a>
-                       <a href='post.php?postid=" . $p['id'] . "'>
-                           <div class='post_img'>
-                           <img src='
-                                " .
-                    $image
-                    . "'
-                                alt='
-                                " .
-                    $pagetitle
-                    . "'
-                           >
-                       </div>
-                   </a>
-                   <div class='like'>
-                       <button id='like' class='" . $stack->Liked($p['id']) . "' style='background-image: url(images/wood_1.gif);'></button>
-                       <p id='likes'>" . $p['likes']. " likes</p>
-                   </div>
-                   
-                   </div>";
-            } elseif (empty($p['link'])) {
-                echo "<div id='item' class='item'>
-                       <div class='user_post_info'>
-                           <img src=" . $p["userImage"] . " alt=" . $p["username"] . " class='user_img_post'>
-                           <h1>" . $p['title'] . "</h1>
-                       </div>
-                       <a href='post.php?postid=" . $p['id'] . "'>
-                           <div class='post_img'>
-                               <img src='" . $p['image'] . "' alt='" . $p['title'] . "'>
-                           </div>
-                       </a>
-                       <div class='like'>
-                           <button id='like' class='" . $stack->Liked($p['id']) . "' name='" . $p['id'] . "' style='background-image: url(images/wood_1.gif);'></button>
-                           <p id='likes'>" . $p['likes']. " likes</p>
-                       </div>
-                   </div>";
-            }
-        }
-        ?>
         <input type="hidden" id="result_no" value="20">
     </div>
     <button type='submit' name='more' id='more'>Load more</button>

@@ -33,17 +33,17 @@ function like(button, el) {
                         backgroundImage: "url(images/wood_1.gif)"
                     });
                 }
-                else if(parseInt(likes[0].innerHTML) > 0 && parseInt(likes[0].innerHTML) < 9){
+                else if(parseInt(likes[0].innerHTML) > 0 && parseInt(likes[0].innerHTML) < 10){
                     button.css({
                         backgroundImage: "url(images/wood_2.gif)"
                     });
                 }
-                else if(parseInt(likes[0].innerHTML) > 9 && parseInt(likes[0].innerHTML) < 49){
+                else if(parseInt(likes[0].innerHTML) >= 10 && parseInt(likes[0].innerHTML) < 49){
                     button.css({
                         backgroundImage: "url(images/wood_3.gif)"
                     });
                 }
-                else if(parseInt(likes[0].innerHTML) > 50){
+                else if(parseInt(likes[0].innerHTML) >= 50){
                     button.css({
                         backgroundImage: "url(images/wood_4.gif)"
                     });
