@@ -125,62 +125,9 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upload.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>upload</title>
-    <style>
-        .hidden, .private{
-            display: none;
-        }
-
-        .visible{
-            display: inherit;
-        }
-
-        hr{
-            margin: 1.5em;
-        }
-
-        #something{
-            margin-top: -38%;
-        }
-        .unfollow{
-            background-color: gray;
-        }
-        .info{
-            display: flex;
-            flex-direction: row;
-        }
-        .info h3{
-            width: 150px;
-        }
-        .info p{
-            line-height: 0em;
-        }
-
-
-        .error{
-            background-color: #e74c3c;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            opacity: 0.80;
-        }
-
-        .success{
-            background-color: #2ecc71;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            opacity: 0.80;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -211,7 +158,7 @@
             <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_type; ?></p>
         <?php endif; ?>
         <?php if (isset($uploadSuccess)) : ?>
-            <p class="success" style="color:white; padding-top: 13px;"><?php echo $uploadSuccess; ?></p>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadSuccess; ?></p>
         <?php endif; ?>
         <?php if (isset($uploadError)) : ?>
             <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError; ?></p>

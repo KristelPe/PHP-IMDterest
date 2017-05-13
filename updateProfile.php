@@ -117,65 +117,8 @@ try {
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/updateprofile.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        .error{
-            background-color: #e74c3c;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            opacity: 0.80;
-        }
-
-        .success{
-            background-color: #2ecc71;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            opacity: 0.80;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript">
-
-        function checkname()
-        {
-            var name=document.getElementById( "username" ).value;
-
-            if(name)
-            {
-                $.ajax({
-                    type: 'post',
-                    url: 'ajax/checkdata.php',
-                    data: {
-                        user_name:name,
-                    },
-                    success: function (response) {
-                        $( '#name_status' ).html(response);
-                        if(response=="OK")
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                });
-            }
-            else
-            {
-                $( '#name_status' ).html("");
-                return false;
-            }
-        }
-    </script>
 </head>
 <body>
 
@@ -246,5 +189,40 @@ try {
 
     </form>
    </div>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        function checkname()
+        {
+            var name=document.getElementById( "username" ).value;
+
+            if(name)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: 'ajax/checkdata.php',
+                    data: {
+                        user_name:name,
+                    },
+                    success: function (response) {
+                        $( '#name_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#name_status' ).html("");
+                return false;
+            }
+        }
+    </script>
 </body>
 </html>

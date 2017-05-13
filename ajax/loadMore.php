@@ -10,11 +10,11 @@
 
     $noP = $_POST['getresult'];
     settype($noP, "integer");
+    $searchq = $_POST['searchq'];
 
     try {
         $stack = new Stack();
-        if (isset($_POST['search'])) {
-            $searchq = $_POST['search'];
+        if (isset($searchq)) {
             $stack->setSearch($searchq);
             $results = $stack->Search($noP);
         } else {

@@ -56,64 +56,6 @@
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        .pop{
-            max-height: 50vh;
-            overflow: scroll;
-            background-color: rgba(75,124,134, 0.1);
-            box-shadow: inset 0 0 10px rgba(75,124,134, 0.3);
-        }
-
-        #listF{
-            display: flex;
-            flex-direction: row;
-            padding:1em;
-            margin: auto;
-            flex-wrap: wrap;
-        }
-
-        #listF div{
-            margin:0.75em;
-            line-height: 3.5em;
-            height: 60px;
-            width: 250px;
-        }
-
-        #listF img{
-            height: 60px;
-            width: 60px;
-            border-radius: 50%;
-            margin-right: 1em;
-        }
-
-        #popover{
-            background-color: white;
-            max-width: 60vw;
-            padding: 2em;
-            margin: auto;
-            margin-top: 20vh;
-            padding-bottom: 5.5em;
-        }
-
-        #popover a{
-            color: #74787d;
-            text-decoration: none;
-            display: flex;
-            flex-direction: row;
-        }
-
-        #popover button{
-            float: right;
-        }
-
-        .bg{
-            background-color: rgba(58, 100, 111, 0.8);
-            width: 100vw;
-            height: 120vh;
-            position: fixed;
-            margin-top: -60vh;
-        }
-    </style>
 </head>
 <body>
 
