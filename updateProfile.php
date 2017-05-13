@@ -141,6 +141,41 @@ try {
             opacity: 0.80;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+
+        function checkname()
+        {
+            var name=document.getElementById( "username" ).value;
+
+            if(name)
+            {
+                $.ajax({
+                    type: 'post',
+                    url: 'ajax/checkdata.php',
+                    data: {
+                        user_name:name,
+                    },
+                    success: function (response) {
+                        $( '#name_status' ).html(response);
+                        if(response=="OK")
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                });
+            }
+            else
+            {
+                $( '#name_status' ).html("");
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -183,7 +218,7 @@ try {
         <div id="profile_form_left">
 
         <label for="name">Change email address</label>
-        <input type="email" name="email" id="email" placeholder="<?php echo htmlspecialchars($email)?>">
+        <input type="email" maxlength="50" name="email" id="email" placeholder="<?php echo htmlspecialchars($email)?>">
 
         </div>
 
@@ -192,8 +227,8 @@ try {
         <div id="profile_form_right">
 
         <label for="name">Change username</label>
-        <input type="text" name="username" id="username" placeholder="<?php echo htmlspecialchars($username)?>">
-
+        <input type="text" onkeyup="checkname();" name="username" maxlength="15" id="username" placeholder="<?php echo htmlspecialchars($username)?>">
+        <span id="name_status"></span>
         </div>
 
         <hr>
@@ -201,7 +236,7 @@ try {
         <div id="profile_form_password">
 
         <label for="name">Change password</label>
-        <input type="password" name="password" id="password" placeholder="New password">
+        <input type="password" maxlength="32" name="password" id="password" placeholder="New password">
 
         </div>
 
