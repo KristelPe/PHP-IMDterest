@@ -120,23 +120,25 @@ try {
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <style>
         .error{
-            background-color: #F44336;
+            background-color: #e74c3c;
             width: 80%;
             height: 50px;
             margin:auto;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 5px;
             margin-bottom: 20px;
+            opacity: 0.80;
         }
 
         .success{
-            background-color: limegreen;
+            background-color: #2ecc71;
             width: 80%;
             height: 50px;
             margin:auto;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 5px;
             margin-bottom: 20px;
+            opacity: 0.80;
         }
     </style>
 </head>
@@ -148,48 +150,21 @@ try {
     <form id="update" action="" method="post" enctype="multipart/form-data">
         <h1>Profile</h1>
 
-        <?php if (isset($passwordError)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $passwordError; ?></p>
-        <?php endif; ?>
-
         <?php if (isset($passwordSuccess)) : ?>
             <p class="success" style="color:white; padding-top: 13px;"><?php echo $passwordSuccess; ?></p>
-        <?php endif; ?>
-
-        <?php if (isset($usernameError)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $usernameError; ?></p>
         <?php endif; ?>
 
         <?php if (isset($usernameSuccess)) : ?>
             <p class="success" style="color:white; padding-top: 13px;"><?php echo $usernameSuccess; ?></p>
         <?php endif; ?>
 
-        <?php if (isset($emailError)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $emailError; ?></p>
-        <?php endif; ?>
-
         <?php if (isset($emailSuccess)) : ?>
             <p class="success" style="color:white; padding-top: 13px;"><?php echo $emailSuccess; ?></p>
         <?php endif; ?>
 
-        <?php if (isset($uploadError_size)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_size; ?></p>
-        <?php endif; ?>
-        <?php if (isset($uploadError2)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError2; ?></p>
-        <?php endif; ?>
-        <?php if (isset($uploadError_isNotImage)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_isNotImage; ?></p>
-        <?php endif; ?>
-        <?php if (isset($uploadError_type)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError_type; ?></p>
-        <?php endif; ?>
         <?php if (isset($uploadSuccess)) : ?>
             <p class="success" style="color:white; padding-top: 13px;"><?php echo $uploadSuccess; ?></p>
             <?php echo "<img style='width:50px; height:50px;' src='$target_file'"; ?>
-        <?php endif; ?>
-        <?php if (isset($uploadError)) : ?>
-            <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError; ?></p>
         <?php endif; ?>
 
         <?php if (!empty($error)) : ?>
