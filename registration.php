@@ -51,19 +51,19 @@
    <h1>Sign up</h1>
     <form action="" method="post">
         <label for="firstname">Firstname</label>
-        <input type="text" name="firstname" id="firstname" value="<?php echo htmlspecialchars($_POST["firstname"])?>">
+        <input type="text" maxlength="20" name="firstname" id="firstname" value="<?php echo htmlspecialchars($_POST["firstname"])?>">
         
         <label for="lastname">Lastname</label>
-        <input type="text" name="lastname" id="lastname" value="<?php echo htmlspecialchars($_POST["lastname"])?>">
+        <input type="text" maxlength="20" name="lastname" id="lastname" value="<?php echo htmlspecialchars($_POST["lastname"])?>">
         
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($_POST["email"])?>">
+        <input type="email" maxlength="50" name="email" id="email" value="<?php echo htmlspecialchars($_POST["email"])?>">
         
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($_POST["username"])?>">
+        <input type="text" maxlength="15" name="username" id="username" value="<?php echo htmlspecialchars($_POST["username"])?>">
 
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" value="<?php echo htmlspecialchars($_POST["password"])?>">
+        <input type="password" maxlength="32" name="password" id="password" value="<?php echo htmlspecialchars($_POST["password"])?>">
         
         <button type="submit" id="submit">Register</button>
     </form>
