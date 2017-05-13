@@ -13,7 +13,7 @@ if(isset($_POST['user_name']))
     $row_count =$statement->fetchColumn();
 
     if($row_count>0) {
-        echo "<img src='./images/not-available%20.png'/>";
+        echo "<img src='./images/not-available.png'/>";
         echo "<p style='color:red;'> Username not available! </p>";
     }
     else
