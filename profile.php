@@ -87,7 +87,9 @@
     </div>
 
     <?php if($_SESSION['id'] == $userid): ?>
-        <a id="update" class="<?php echo htmlspecialchars($user)?>" href="updateProfile.php">UPDATE</a>
+        <form action="updateProfile.php" style="background-color: transparent;">
+            <button type="submit" value="link" id="update" style="margin-left: 75px;" class="<?php echo htmlspecialchars($user)?>" href="updateProfile.php">EDIT PROFILE</button>
+        </form>
     <?php endif; ?>
 
     <form id="follow" class="<?php echo htmlspecialchars($guest)?>" action="" method="post">

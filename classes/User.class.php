@@ -206,8 +206,6 @@ class User
 
         return $res;
     }
-
-
     /* UPDATE */
 
     public function prevUsername(){
@@ -229,22 +227,26 @@ class User
     }
 
     public function newUsername($username){
+        //echo "old username: ";
+        //echo $username;
+        //echo "new username: ";
+        //echo $this->username;
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare("UPDATE users SET username = REPLACE(username, '$username', '$this->m_username') WHERE INSTR(username, '$username') > 0;");
+        $stmnt = $conn->prepare("UPDATE users SET username = REPLACE(username, '$username', '$this->username') WHERE INSTR(username, '$username') > 0;");
         $res = $stmnt->execute();
         return $res;
     }
 
     public function newPassword($password){
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare("UPDATE users SET password = REPLACE(password, '$password', '$this->m_password') WHERE INSTR(password, '$password') > 0;");
+        $stmnt = $conn->prepare("UPDATE users SET password = REPLACE(password, '$password', '$this->password') WHERE INSTR(password, '$password') > 0;");
         $res = $stmnt->execute();
         return $res;
     }
 
     public function newEmail($email){
         $conn = Db::getInstance();
-        $statement = $conn->prepare("UPDATE users SET email = REPLACE(email, '$email', '$this->m_email') WHERE INSTR(email, '$email') > 0;");
+        $statement = $conn->prepare("UPDATE users SET email = REPLACE(email, '$email', '$this->email') WHERE INSTR(email, '$email') > 0;");
         $res = $statement->execute();
         return $res;
     }
