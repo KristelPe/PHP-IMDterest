@@ -13,47 +13,50 @@
         include_once("classes/" . $class . ".class.php");
     });
 
-    try {
-
-
         $email = $_SESSION['user'];
         $update = new User();
         $update->setSessionUser($email);
         $username = $update->prevUsername();
         $password = $update->prevPassword();
 
-        if (!empty($_POST['username']) && ($_POST['username']) != $username) {
-            $newUsername = htmlspecialchars($_POST['username']);
-            $update->setUsername($newUsername);
-            $res = $update->newUsername($username);
-            $usernameSuccess = "Your username has been changed to " . "<b>" . $newUsername . "</b>";
-        } else {
-            $usernameError = "Please fill in a valid username!";
-        }
+try {
+    if (!empty($_POST)) {
+        $error = '';
+            if (!empty($_POST['username']) && $_POST['username'] != $username) {
+                $newUsername = htmlspecialchars($_POST['username']);
+                $update = new User();
+                $update->setUsername($newUsername);
+                $update->newUsername($username);
+                $usernameSuccess = "Your username has been changed to " . "<b>" . $newUsername . "</b>";
+            } else if ($_POST['username'] == $username) {
+                throw new Exception('Please choose a new username');
+            }
 
-        if (!empty($_POST['password']) && strlen($_POST['password']) > 6) {
+
+            if (!empty($_POST['password']) && strlen($_POST['password']) > 6) {
                 $newPassword = $_POST['password'];
                 $options = [
                     'cost' => 12,
                 ];
                 $newPassword = password_hash($newPassword, PASSWORD_DEFAULT, $options);
                 $update->setPassword($newPassword);
-                $res = $update->newPassword($password);
+                $update->newPassword($password);
                 $passwordSuccess = "Your password has been changed!";
-        } else {
-            $passwordError = "Your password must be more than 6 characters long!";
-        }
+            } else if (strlen($_POST['password']) < 7 && strlen($_POST['password']) >= 1) {
+                throw new Exception('Your password must be more than 6 characters long!');
+            }
 
-        if (!empty($_POST['email']) && ($_POST['email']) != $email) {
-            $newEmail = htmlspecialchars($_POST['email']);
-            $update->setMEmail($newEmail);
-            $res = $update->newEmail($email);
-            $emailSuccess = "Your email has been changed to " . "<b>" . $newEmail . "</b>";
-            //update session variable to new email address
-            $_SESSION['user'] = $newEmail;
-        } else {
-            $emailError = "Please fill in a valid email address!";
-        }
+
+            if (!empty($_POST['email']) && $_POST['email'] != $email) {
+                $newEmail = htmlspecialchars($_POST['email']);
+                $update->setEmail($newEmail);
+                $res = $update->newEmail($email);
+                $emailSuccess = "Your email has been changed to " . "<b>" . $newEmail . "</b>";
+                //update session variable to new email address
+                $_SESSION['user'] = $newEmail;
+            } else if ($_POST['email'] == $email) {
+                throw new Exception('Please choose a new email address');
+            }
 
         if (!empty($_FILES["fileToUpload"]["name"])) {
             $target_dir = "uploads/";
@@ -67,25 +70,26 @@
                     $uploadSuccess_isImage = "File is an image - " . $check["mime"] . ".";
                     $uploadOk = 1;
                 } else {
-                    $uploadError_isNotImage = "File is not an image.";
+                    throw new Exception('File is not an image.');
                     $uploadOk = 0;
                 }
             }
+
             // Check file size
             if ($_FILES["fileToUpload"]["size"] > 500000) {
-                $uploadError_size = "Sorry, your file is too large.";
+                throw new Exception('Sorry, your file is too large.');
                 $uploadOk = 0;
             }
             // Allow certain file formats
             if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                 && $imageFileType != "gif"
             ) {
-                $uploadError_type = "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                throw new Exception('Sorry, only JPG, JPEG, PNG & GIF files are allowed.');
                 $uploadOk = 0;
             }
             // Check if $uploadOk is set to 0 by an error
             if ($uploadOk == 0) {
-                $uploadError_ok = "Sorry, your file was not uploaded.";
+                throw new Exception('Sorry, your file was not uploaded.');
                 // if everything is ok, try to upload file
             } else {
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
@@ -93,14 +97,14 @@
                     $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
                     $update->newImg($email, $target_file);
                 } else {
-                    $uploadError = "Sorry, there was an error uploading your file.";
+                    throw new Exception('Sorry, there was an error uploading your file.');
                 }
             }
         }
-    } catch (PDOException $e) {
-        echo $e->getMessage();
     }
-
+}catch (Exception $e) {
+    $error = $e->getMessage();
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -187,6 +191,12 @@
         <?php if (isset($uploadError)) : ?>
             <p class="error" style="color:white; padding-top: 13px;"><?php echo $uploadError; ?></p>
         <?php endif; ?>
+
+        <?php if (!empty($error)) : ?>
+            <p class="error" style="color:white; padding-top: 13px;"><?php echo $error; ?></p>
+        <?php endif; ?>
+
+
 
         <label for="name">Upload avatar</label>
 
