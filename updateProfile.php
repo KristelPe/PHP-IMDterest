@@ -113,28 +113,9 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/updateprofile.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        .error{
-            background-color: #F44336;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
 
-        .success{
-            background-color: limegreen;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
 

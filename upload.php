@@ -125,50 +125,9 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upload.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <title>upload</title>
-    <style>
-        .hidden, .private{
-            display: none;
-        }
-
-        .visible{
-            display: inherit;
-        }
-
-        hr{
-            margin: 1.5em;
-        }
-
-        #something{
-            margin-top: -38%;
-        }
-        .unfollow{
-            background-color: gray;
-        }
-        .info{
-            display: flex;
-            flex-direction: row;
-        }
-        .info h3{
-            width: 150px;
-        }
-        .info p{
-            line-height: 0em;
-        }
-
-
-        .error{
-            background-color: #F44336;
-            width: 80%;
-            height: 50px;
-            margin:auto;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-    </style>
 </head>
 <body>
 

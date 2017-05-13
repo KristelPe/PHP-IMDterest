@@ -80,56 +80,8 @@ catch(Exception $e) {
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/newboard.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        h2{
-            color: darkgrey;
-        }
-        label{
-            color: #9da5b6;
-        }
-        #new div{
-            display: flex;
-            flex-direction: row;
-            margin: 0.5em 1.5em;
-        }
-        #new div *{
-            margin: auto 0.5em;
-        }
-        hr{
-            margin: 1.5em;
-        }
-        #new{
-            max-width: 600px;
-            margin: 2em auto;
-            padding: 1em;
-        }
-        #title{
-            width: 500px;
-        }
-        #buttons{
-            justify-content: flex-end;
-        }
-        form a{
-            text-decoration: none;
-            background-color: darkgrey;
-            border: 0;
-            padding: 1em 2.5em;
-            margin: 2em 0;
-            text-transform: uppercase;
-            color: white;
-            font-size: 0.75em;
-        }
-
-        form a:hover{
-            transition: 0.5s all;
-            background-color: #919191;
-            color: white;
-        }
-        .alert{
-            color: crimson;
-        }
-    </style>
 </head>
 <body>
 <?php include_once("nav.inc.php")?>

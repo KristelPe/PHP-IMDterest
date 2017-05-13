@@ -52,38 +52,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/search.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <style>
-        img{
-            width: 230px;
-        }
-        button{
-            cursor: pointer;
-        }
-        p{
-            margin-top: 0.5em;
-            color: #9da5b6;
-            margin-right: 5px;
-        }
-        .like p, .user p{
-            color: #b4b4b4;
-            font-size: small;
-        }
-        .like button{
-            margin: 0;
-            margin-right: 1em;
-            width: 30px;
-            height: 30px;
-            padding:0;
-            background-position: center;
-            background-size: 20px;
-            background-repeat: no-repeat;
-            background-color: white;
-            border-radius: 5px;
-        }
-        .item{
-            max-height: 500px;
-        }
-    </style>
 </head>
 <body>
 
