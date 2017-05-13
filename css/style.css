@@ -509,6 +509,7 @@ h2{
 
 .user_post_info h1{
     margin-left: 40px;
+    overflow: hidden;
 }
 
 .item_layout{
