@@ -151,12 +151,17 @@ class User
     {
         $conn = Db::getInstance();
 
+        $options = [
+            'cost' => 12,
+        ];
+        $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
+
         $stmnt = $conn->prepare("insert into users (email, firstname, lastname, username, password, image) values (:email, :firstname, :lastname, :username, :password, :image)");
         $stmnt->bindvalue(":email", $this->email);
         $stmnt->bindvalue(":firstname", $this->firstname);
         $stmnt->bindvalue(":lastname", $this->lastname);
         $stmnt->bindvalue(":username", $this->username);
-        $stmnt->bindvalue(":password", $this->password);
+        $stmnt->bindvalue(":password", $password);
         $stmnt->bindvalue(":image", $this->image);
         $stmnt->execute();
         header("Location: ./topics.php");
