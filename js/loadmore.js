@@ -5,11 +5,12 @@ $(document).ready(function(){
 });
 
 function loadmore() {
+    var searchq = document.getElementById('searchq').value;
     var val = document.getElementById("result_no").value;
     $.ajax({
         type: 'post',
         url: 'ajax/loadMore.php',
-        data: {     getresult:val   },
+        data: {     getresult:val, searchq: searchq   },
         success: function (response) {
             if (response == "empty"){
                 $("#more").text("There are no more posts")

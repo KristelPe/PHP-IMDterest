@@ -23,6 +23,7 @@
     settype($noP, "integer");
 
     try {
+        $searchq = "";
         $stack = new Stack();
         if (isset($_POST['search'])) {
             $searchq = $_POST['search'];
@@ -63,7 +64,7 @@
         <button type="submit" id="search_bar_button"></button>
     </form>
 </div>
-
+<input type="hidden" id="searchq" value="<?php echo $searchq?>">
 <div id="container">
     <div id="items" class="item_layout">
 
