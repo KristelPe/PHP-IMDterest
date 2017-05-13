@@ -1,17 +1,14 @@
-$(".removeBoards").on("click", function(e){
-
-    e.preventDefault();
+$(".removeBoards").on("click", function(){
     var div = $(this).parent();
-    var boardId = div.attr('id');
-    var string = 'id=' + boardId;
-    alert(boardId);
+    var boardId = $(this).attr('name');
     $.ajax({
-        method: "POST",
+        type: "POST",
         url: "ajax/removeBoards.php",
-        data: string
-    }).done(function (response) {
-        if (response.code == 200){
-            $("div").remove("#" + response.id);
+        data: {id: boardId},
+        success: function(response) {
+            if (response.code == 200) {
+                div.remove();
+            }
         }
     });
 

@@ -159,7 +159,8 @@ class Profile
         $conn = Db::getInstance();
         $removeBoard = $conn->prepare("DELETE FROM boards WHERE id = :id");
         $removeBoard->bindvalue(":id", $id);
-        $removeBoard->execute();
+        $res = $removeBoard->execute();
+        return $res;
     }
 
     public function Posts(){
