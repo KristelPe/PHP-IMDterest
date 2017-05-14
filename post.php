@@ -88,7 +88,7 @@ try {
                     </div>
                     <div class="post_title_info">
                         <h1><?php echo htmlspecialchars($p['title'])?></h1>
-                        <h2>Uploaded by: <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>"><?php echo htmlspecialchars($p['username'])?></a></h2>
+                        <h2>Uploaded by: <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>" style="text-decoration: none;"><?php echo htmlspecialchars($p['username'])?></a></h2>
                     </div>
                 </div>
 
@@ -118,7 +118,7 @@ try {
                         <div class="user_img">
                             <img src="<?php echo htmlspecialchars($p['img'])?>" alt="<?php echo htmlspecialchars($p['username'])?>">
                         </div>
-                        <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>">
+                        <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>" style="text-decoration: none;">
                             <h2><?php echo htmlspecialchars($p['username'])?></h2>
                         </a>
                     </div>
