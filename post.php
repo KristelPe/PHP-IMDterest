@@ -108,23 +108,30 @@ try {
                 $pagetitle = $scraper->ScrapeTitle();
                 $image = $scraper->ScrapeImg();
                 ?>
-                <a style="text-decoration: none;" href="<?php echo htmlspecialchars($p['link']) ?>">
-                    <h1><?php echo htmlspecialchars($pagetitle) ?></h1>
-                    <img src='<?php echo htmlspecialchars($image) ?>' alt='<?php echo htmlspecialchars($pagetitle) ?>'>
-                </a>
-                <div id="post_layout_info">
-                    <h1><?php echo htmlspecialchars($p['title'])?></h1>
-                    <div class="user">
-                        <div class="user_img">
+                <div class="top_layout_post">
+                    <div class="user_post_img">
+                        <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>">
                             <img src="<?php echo htmlspecialchars($p['img'])?>" alt="<?php echo htmlspecialchars($p['username'])?>">
-                        </div>
-                        <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>" style="text-decoration: none;">
-                            <h2><?php echo htmlspecialchars($p['username'])?></h2>
                         </a>
                     </div>
-                    <p><?php echo htmlspecialchars($p['description'])?></p>
+                    <div class="post_title_info">
+                        <h1><?php echo htmlspecialchars($p['title'])?></h1>
+                        <h2>Uploaded by: <a href="profile.php?id=<?php echo htmlspecialchars($p['userid'])?>" style="text-decoration: none;"><?php echo htmlspecialchars($p['username'])?></a></h2>
+                    </div>
+                </div>
+                <a style="text-decoration: none;" href="<?php echo htmlspecialchars($p['link']) ?>">
+                    <h1><?php echo htmlspecialchars($pagetitle) ?></h1>
+                </a>
+                <div id="post_layout_info">
 
+                    <img src="<?php echo htmlspecialchars($image)?>" alt="<?php echo htmlspecialchars($pagetitle)?>" class="posted_image">
 
+                    <div class="post_layout_info">
+                        <p><?php echo htmlspecialchars($p['description'])?></p>
+                        <p><?php $Post = new Post();
+                            echo $Post->Datum($p['date']); ?></p>
+                        <p><?php echo htmlspecialchars($p['location'])?></p>
+                    </div>
                 </div>
 
             <?php endif; ?>
