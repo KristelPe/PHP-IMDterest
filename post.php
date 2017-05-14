@@ -56,14 +56,6 @@ try {
     $commentError = $e->getMessage();
 }
 
-foreach ($results as $p) {
-    if ($p['id'] == $postid) {
-        $topic = new topic();
-        $topicname = $topic->GetTopicName($p['topic']);
-        echo $topicname;
-    }
-}
-
 ?>
 <!doctype html>
 <html lang="en">
