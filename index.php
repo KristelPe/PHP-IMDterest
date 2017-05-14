@@ -64,43 +64,43 @@
         <button type="submit" id="search_bar_button"></button>
     </form>
 </div>
-<input type="hidden" id="searchq" value="<?php echo $searchq?>">
+<input type="hidden" id="searchq" value="<?php echo htmlspecialchars($searchq)?>">
 <div id="container">
     <div id="items" class="item_layout">
 
         <?php $results = $res; foreach ($results as $key => $p): ?>
-            <?php if(!empty($p['link'])): {$scraper = new Scraper();$scraper->SetLink($p['link']);$pagetitle = $scraper->ScrapeTitle();$image = $scraper->ScrapeImg();}; ?>
+            <?php if(!empty(htmlspecialchars($p['link']))): {htmlspecialchars($scraper = new Scraper());$scraper->SetLink(htmlspecialchars($p['link']));$pagetitle = $scraper->ScrapeTitle();$image = $scraper->ScrapeImg();}; ?>
                 <div id='item' class='item'>
                     <div class='user_post_info'>
-                        <img src="<?php echo $p["userImage"]?>" alt="<?php echo $p["username"]?>" class='user_img_post'>
-                        <h1><?php echo $p['title']?></h1>
+                        <img src="<?php echo htmlspecialchars($p["userImage"])?>" alt="<?php echo htmlspecialchars($p["username"])?>" class='user_img_post'>
+                        <h1><?php echo htmlspecialchars($p['title'])?></h1>
                     </div>
-                    <a href='<?php echo $p['link']?>'><?php echo $pagetitle?></a>
-                    <a href='post.php?postid=<?php echo $p['id']?>'>
+                    <a href='<?php echo htmlspecialchars($p['link'])?>'><?php echo htmlspecialchars($pagetitle)?></a>
+                    <a href='post.php?postid=<?php echo htmlspecialchars($p['id'])?>'>
                         <div class='post_img'>
-                            <img src='<?php echo $image ?>' alt='<?php echo $pagetitle?>'>
+                            <img src='<?php echo htmlspecialchars($image) ?>' alt='<?php echo htmlspecialchars($pagetitle)?>'>
                         </div>
                     </a>
                     <div class='like'>
-                        <button id='like' class='<?php echo $stack->Liked($p['id'])?>' style='<?php echo $stack->Liked($p['id'])?>' name='<?php echo $p['id']?>' style='background-image: url(<?php if($p['likes'] <= 0 ){ echo "images/wood_1.gif";}if($p['likes'] > 0 && $p['likes'] < 10 ){ echo "images/wood_2.gif";}if($p['likes'] >= 10 && $p['likes'] < 49 ){ echo "images/wood_3.gif";}if($p['likes'] >= 50 ){ echo "images/wood_4.gif";} ?>);'></button>
-                        <p id='likes'><?php echo $p['likes']?> likes</p>
+                        <button id='like' class='<?php echo htmlspecialchars($stack->Liked(htmlspecialchars($p['id'])))?>' style='<?php echo $stack->Liked($p['id'])?>' name='<?php echo htmlspecialchars($p['id'])?>' style='background-image: url(<?php if(htmlspecialchars($p['likes']) <= 0 ){ echo "images/wood_1.gif";}if(htmlspecialchars($p['likes']) > 0 && htmlspecialchars($p['likes']) < 10 ){ echo "images/wood_2.gif";}if(htmlspecialchars($p['likes']) >= 10 && htmlspecialchars($p['likes']) < 49 ){ echo "images/wood_3.gif";}if(htmlspecialchars($p['likes']) >= 50 ){ echo "images/wood_4.gif";} ?>);'></button>
+                        <p id='likes'><?php echo htmlspecialchars($p['likes'])?> likes</p>
                     </div>
                 </div>
             <?php endif; ?>
-            <?php if(empty($p['link'])): ?>
+            <?php if(empty(htmlspecialchars($p['link']))): ?>
                 <div id='item' class='item'>
                     <div class='user_post_info'>
-                        <img src="<?php echo $p["userImage"]?>" alt="<?php echo $p["username"]?>" class='user_img_post'>
-                        <h1><?php echo $p['title']?></h1>
+                        <img src="<?php echo htmlspecialchars($p["userImage"])?>" alt="<?php echo htmlspecialchars($p["username"])?>" class='user_img_post'>
+                        <h1><?php echo htmlspecialchars($p['title'])?></h1>
                     </div>
-                    <a href='post.php?postid=<?php echo $p['id']?>'>
+                    <a href='post.php?postid=<?php echo htmlspecialchars($p['id'])?>'>
                         <div class='post_img'>
-                            <img src='<?php echo $p['image']?>' alt='<?php echo $p['title']?>'>
+                            <img src='<?php echo htmlspecialchars($p['image'])?>' alt='<?php echo htmlspecialchars($p['title'])?>'>
                         </div>
                     </a>
                     <div class='like'>
-                        <button id='like' class='<?php echo $stack->Liked($p['id'])?>' name='<?php echo $p['id']?>' style='background-image: url(<?php if($p['likes'] <= 0 ){ echo "images/wood_1.gif";}if($p['likes'] > 0 && $p['likes'] < 10 ){ echo "images/wood_2.gif";}if($p['likes'] >= 10 && $p['likes'] < 49 ){ echo "images/wood_3.gif";}if($p['likes'] >= 50 ){ echo "images/wood_4.gif";} ?>);'></button>
-                        <p id='likes'><?php echo $p['likes']?> likes</p>
+                        <button id='like' class='<?php echo $stack->Liked(htmlspecialchars($p['id']))?>' name='<?php echo htmlspecialchars($p['id'])?>' style='background-image: url(<?php if(htmlspecialchars($p['likes']) <= 0 ){ echo "images/wood_1.gif";}if(htmlspecialchars($p['likes']) > 0 && htmlspecialchars($p['likes']) < 10 ){ echo "images/wood_2.gif";}if(htmlspecialchars($p['likes']) >= 10 && htmlspecialchars($p['likes']) < 49 ){ echo "images/wood_3.gif";}if(htmlspecialchars($p['likes']) >= 50 ){ echo "images/wood_4.gif";} ?>);'></button>
+                        <p id='likes'><?php echo htmlspecialchars($p['likes'])?> likes</p>
                     </div>
                 </div>
             <?php endif; ?>
