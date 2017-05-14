@@ -13,7 +13,7 @@
             $password = htmlspecialchars($_POST["password"]);
 
             $user = new User();
-            $user->setEmail($email);
+            $user->setLoginEmail($email);
             $user->setPassword($password);
 
             if ($user->Login()) {

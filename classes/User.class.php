@@ -6,6 +6,7 @@ class User
     private $lastname;
     private $username;
     private $email;
+    private $login_email;
     private $password;
     private $image;
     private $sessionUser;
@@ -102,8 +103,44 @@ class User
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Email is not a valid one");
         }
-        $this->email = $email;
+
+        $conn = Db::getInstance();
+        $statementEmailCheck = $conn->prepare("SELECT * FROM users WHERE email = '$email';");
+        $statementEmailCheck->execute();
+
+        $num_rows = $statementEmailCheck->fetchColumn();
+
+        if ($num_rows >= 1) {
+            throw new Exception("Email is already in use");
+        }else{
+            $this->email = $email;
+        }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLoginEmail()
+    {
+        return $this->login_email;
+    }
+
+    /**
+     * @param mixed $login_email
+     */
+    public function setLoginEmail($login_email)
+    {
+        if ($login_email=="") {
+            throw new Exception("Email can not be empty");
+        }
+        if (!filter_var($login_email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Email is not a valid one");
+        }
+        $this->login_email = $login_email;
+    }
+
+
+
 
     /**
      * @return mixed
@@ -118,13 +155,13 @@ class User
      */
     public function setPassword($password)
     {
-        if ($password=="") {
+        if (htmlspecialchars($_POST["password"])=="") {
             throw new Exception("Password can not be empty");
         }
-        if (strlen($password) < 6) {
-            throw new Exception("Password is too short");
+        if (strlen(htmlspecialchars($_POST["password"])) < 6) {
+            throw new Exception("Password is too short, you need atleast 6 characters");
         }
-        if (!preg_match("#[a-zA-Z]+#", $password)) {
+        if (!preg_match("#[a-zA-Z]+#", htmlspecialchars($_POST["password"]))) {
             throw new Exception("Password is not valid");
         }
         $this->password = $password;
@@ -151,17 +188,12 @@ class User
     {
         $conn = Db::getInstance();
 
-        $options = [
-            'cost' => 12,
-        ];
-        $password = password_hash($this->password, PASSWORD_DEFAULT, $options);
-
         $stmnt = $conn->prepare("insert into users (email, firstname, lastname, username, password, image) values (:email, :firstname, :lastname, :username, :password, :image)");
         $stmnt->bindvalue(":email", $this->email);
         $stmnt->bindvalue(":firstname", $this->firstname);
         $stmnt->bindvalue(":lastname", $this->lastname);
         $stmnt->bindvalue(":username", $this->username);
-        $stmnt->bindvalue(":password", $password);
+        $stmnt->bindvalue(":password", $this->password);
         $stmnt->bindvalue(":image", $this->image);
         $stmnt->execute();
         header("Location: ./topics.php");
@@ -185,7 +217,7 @@ class User
 
         // statement: SELECT query
         $statement = $conn->prepare("SELECT * FROM users WHERE email = :email ;");
-        $statement->bindValue(":email", $this->email);
+        $statement->bindValue(":email", $this->login_email);
 
         // execute statement
         $res = $statement->execute();
@@ -198,7 +230,7 @@ class User
                 header("Location: ./index.php");
                 session_start();
                 $_SESSION["id"] = $row["id"];
-                $_SESSION['user'] = $this->email;
+                $_SESSION['user'] = $this->login_email;
             } else {
                 throw new Exception("OOPS looks like you've filled in the wrong username or password");
             }
