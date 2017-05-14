@@ -133,6 +133,7 @@ try {
 
     </div>
 
+
     <?php if ($p['userid'] == $userid): ?>
 
 
@@ -142,6 +143,7 @@ try {
 
     <?php endif; ?>
 
+
     <?php if ($p['userid'] != $userid): ?>
 
         <form action="" method="post" id="report">
@@ -150,6 +152,7 @@ try {
         </form>
 
     <?php endif; ?>
+
 
     <div id="comment_layout">
         <form action="" method="post" id="submit" enctype="multipart/form-data">

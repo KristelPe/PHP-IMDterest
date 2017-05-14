@@ -24,11 +24,11 @@
             $password = password_hash($password, PASSWORD_DEFAULT, $options);
 
             $user = new User();
-            $user->setEmail($email);
-            $user->setPassword($password);
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
+            $user->setEmail($email);
             $user->setUsername($username);
+            $user->setPassword($password);
             $user->setImage($image);
             $user->Register();
         }

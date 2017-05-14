@@ -40,7 +40,7 @@ class User
     public function setFirstname($firstname)
     {
         if ($firstname=="") {
-            throw new Exception("Name can not be empty");
+            throw new Exception("Firstname can not be empty");
         }
         $this->firstname = $firstname;
     }
