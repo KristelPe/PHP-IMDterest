@@ -73,7 +73,7 @@
                 <div id='item' class='item'>
                     <div class='user_post_info'>
                         <img src="<?php echo $p["userImage"]?>" alt="<?php echo $p["username"]?>" class='user_img_post'>
-                        <h1>"<?php echo $p['title']?>"</h1>
+                        <h1><?php echo $p['title']?></h1>
                     </div>
                     <a href='<?php echo $p['link']?>'><?php echo $pagetitle?></a>
                     <a href='post.php?postid=<?php echo $p['id']?>'>
