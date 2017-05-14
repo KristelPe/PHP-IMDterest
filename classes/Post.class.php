@@ -160,8 +160,8 @@ class Post
     {
         $conn = Db::getInstance();
         $stmnt = $conn->prepare("
-          insert into posts (title, userId, image, description, link, board, date, location) 
-          values (:title, :userId, :afbeelding, :description, :link, :board, :date, :location)");
+          insert into posts (title, userId, image, description, link, board, date, location, topic) 
+          values (:title, :userId, :afbeelding, :description, :link, :board, :date, :location, :topic)");
         $stmnt->bindvalue(":userId", $this->m_userId);
         $stmnt->bindvalue(":title", $this->m_title);
         $stmnt->bindvalue(":afbeelding", $this->m_afbeelding);
@@ -170,6 +170,7 @@ class Post
         $stmnt->bindvalue(":board", $this->m_board);
         $stmnt->bindvalue(":date", date('Y-m-d H:i:s'));
         $stmnt->bindvalue(":location", $this->m_location);
+        $stmnt->bindvalue(":topic", $this->topic);
         $stmnt->execute();
     }
 

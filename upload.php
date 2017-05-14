@@ -36,6 +36,7 @@ try {
                     $afbeelding = "";
                     $location = htmlspecialchars($_POST["location"]);
                     $board = htmlspecialchars($_POST["board"]);
+                    $topic = htmlspecialchars($_POST["topics"]);
 
                     $post = new Post();
                     $post->setMTitle($title);
@@ -45,6 +46,7 @@ try {
                     $post->setMUserId($userid);
                     $post->setMLocation($location);
                     $post->setMBoard($board);
+                    $post->setTopic($topic);
                     $post->Upload();
                     header('location: index.php');
                 } else {
@@ -57,6 +59,7 @@ try {
                 $link = "";
                 $location = htmlspecialchars($_POST["location"]);
                 $board = htmlspecialchars($_POST["board"]);
+                $topic = htmlspecialchars($_POST["topics"]);
 
                 if (!empty($_FILES["fileToUpload"]["name"])) {
                     $target_dir = "uploads/";
@@ -109,6 +112,7 @@ try {
                     $post->setMUserId($userid);
                     $post->setMLocation($location);
                     $post->setMBoard($board);
+                    $post->setTopic($topic);
                     $post->Upload();
                     header('location: index.php');
                 }
@@ -193,7 +197,7 @@ try {
             <br>
             <select name="topics">
                 <?php foreach ($topics as $t) : ?>
-                <option value="<?php echo htmlspecialchars($t['title']);?>"><?php echo htmlspecialchars($t['title']);?></option>
+                <option value="<?php echo htmlspecialchars($t['id']);?>"><?php echo htmlspecialchars($t['title']);?></option>
                 <?php endforeach; ?>
             </select>
 
