@@ -147,4 +147,12 @@ class topic
 
         header('location: topics.php');
     }
+
+    public function GetTopicName($id) {
+        $conn = Db::getInstance();
+        $statement = $conn->prepare("SELECT title FROM topics WHERE $id = id");
+        $statement->execute();
+        $topicname = $statement->fetchColumn();
+        return $topicname;
+    }
 }

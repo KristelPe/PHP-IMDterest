@@ -56,6 +56,14 @@ try {
     $commentError = $e->getMessage();
 }
 
+foreach ($results as $p) {
+    if ($p['id'] == $postid) {
+        $topic = new topic();
+        $topicname = $topic->GetTopicName($p['topic']);
+        echo $topicname;
+    }
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -96,6 +104,13 @@ try {
 
                 <div class="post_layout_info">
                     <p><?php echo htmlspecialchars($p['description'])?></p>
+                    <p>
+                        <?php
+                        $topic = new topic();
+                        $topicname = $topic->GetTopicName($p['topic']);
+                        echo "Topic: " . $topicname;
+                        ?>
+                    </p>
                     <p><?php $Post = new Post();
                         echo $Post->Datum($p['date']); ?></p>
                     <p><?php echo htmlspecialchars($p['location'])?></p>
@@ -128,6 +143,13 @@ try {
 
                     <div class="post_layout_info">
                         <p><?php echo htmlspecialchars($p['description'])?></p>
+                        <p>
+                            <?php
+                            $topic = new topic();
+                            $topicname = $topic->GetTopicName($p['topic']);
+                            echo "Topic: " . $topicname;
+                            ?>
+                        </p>
                         <p><?php $Post = new Post();
                             echo $Post->Datum($p['date']); ?></p>
                         <p><?php echo htmlspecialchars($p['location'])?></p>
