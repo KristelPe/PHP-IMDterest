@@ -19,10 +19,14 @@
     $profile = new Profile();
     $profile->setUserId($_SESSION['id']);
     $boards = $profile->Boards();
+
+    $topic = new topic();
+    $topics = $topic->Topics();
+
 try {
     if (!empty($_POST)) {
         $error = '';
-        if (!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"])) {
+        if (!empty($_POST["title"]) && !empty($_POST["description"]) && !empty($_POST["board"]) && !empty($_POST["topics"])) {
             if (!empty($_POST["link"]) && empty($_FILES["fileToUpload"]["name"])) {
                 error_reporting(0);
                 if (get_headers($_POST["link"])) {
@@ -179,11 +183,19 @@ try {
                 <div class="board <?php echo $board_state ?>">
                     <div class="contain">
                         <input id="board" name="board" value="<?php echo htmlspecialchars($b['id'])?>" type="radio">
-                        <img src="<?php echo htmlspecialchars($b['image'])?>" alt="random"> <!-- MOET LATER NOG VERNADERD WORDEN -->
+                        <img src="<?php echo htmlspecialchars($b['image'])?>" alt="boardimage">
                     </div>
                     <h3><?php echo htmlspecialchars($b['title'])?></h3>
                 </div>
             </div>
+
+            <p>Select a Topic<span style="color: red;">*</span></p>
+            <br>
+            <select name="topics">
+                <?php foreach ($topics as $t) : ?>
+                <option value="<?php echo htmlspecialchars($t['title']);?>"><?php echo htmlspecialchars($t['title']);?></option>
+                <?php endforeach; ?>
+            </select>
 
         <?php endforeach; ?>
         <button type="submit">Submit</button>
