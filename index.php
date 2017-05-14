@@ -69,7 +69,7 @@
     <div id="items" class="item_layout">
 
         <?php $results = $res; foreach ($results as $key => $p): ?>
-            <?php if(!empty(htmlspecialchars($p['link']))): {htmlspecialchars($scraper = new Scraper());$scraper->SetLink(htmlspecialchars($p['link']));$pagetitle = $scraper->ScrapeTitle();$image = $scraper->ScrapeImg();}; ?>
+            <?php if(!empty(htmlspecialchars($p['link']))): {$scraper = new Scraper();$scraper->SetLink(htmlspecialchars($p['link']));$pagetitle = $scraper->ScrapeTitle();$image = $scraper->ScrapeImg();}; ?>
                 <div id='item' class='item'>
                     <div class='user_post_info'>
                         <img src="<?php echo htmlspecialchars($p["userImage"])?>" alt="<?php echo htmlspecialchars($p["username"])?>" class='user_img_post'>
