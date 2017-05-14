@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 09 mei 2017 om 14:26
+-- Gegenereerd op: 14 mei 2017 om 18:31
 -- Serverversie: 10.1.21-MariaDB
 -- PHP-versie: 5.6.30
 
@@ -30,7 +30,8 @@ CREATE TABLE `boards` (
   `id` int(11) UNSIGNED NOT NULL,
   `userid` int(11) NOT NULL,
   `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `state` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
+  `state` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `image` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -136,7 +137,17 @@ INSERT INTO `selectedtopics` (`id`, `userId`, `topicId`) VALUES
 (51, 41, 3),
 (52, 41, 5),
 (53, 41, 7),
-(54, 41, 8);
+(54, 41, 8),
+(55, 42, 2),
+(56, 42, 3),
+(57, 42, 5),
+(58, 42, 7),
+(59, 42, 8),
+(60, 43, 2),
+(61, 43, 3),
+(62, 43, 5),
+(63, 43, 8),
+(64, 43, 9);
 
 -- --------------------------------------------------------
 
@@ -276,37 +287,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT voor een tabel `boards`
 --
 ALTER TABLE `boards`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT voor een tabel `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT voor een tabel `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 --
 -- AUTO_INCREMENT voor een tabel `reported`
 --
 ALTER TABLE `reported`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT voor een tabel `selectedtopics`
 --
 ALTER TABLE `selectedtopics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT voor een tabel `sub_comments`
 --
 ALTER TABLE `sub_comments`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT voor een tabel `topics`
 --
@@ -316,7 +327,7 @@ ALTER TABLE `topics`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
