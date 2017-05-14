@@ -189,40 +189,40 @@ try {
 
     </form>
    </div>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript">
 
-        function checkname()
+    function checkname()
+    {
+        var name=document.getElementById( "username" ).value;
+
+        if(name)
         {
-            var name=document.getElementById( "username" ).value;
-
-            if(name)
-            {
-                $.ajax({
-                    type: 'post',
-                    url: 'ajax/checkdata.php',
-                    data: {
-                        user_name:name,
-                    },
-                    success: function (response) {
-                        $( '#name_status' ).html(response);
-                        if(response=="OK")
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+            $.ajax({
+                type: 'post',
+                url: 'ajax/checkdata.php',
+                data: {
+                    user_name:name,
+                },
+                success: function (response) {
+                    $( '#name_status' ).html(response);
+                    if(response=="OK")
+                    {
+                        return true;
                     }
-                });
-            }
-            else
-            {
-                $( '#name_status' ).html("");
-                return false;
-            }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            });
         }
-    </script>
+        else
+        {
+            $( '#name_status' ).html("");
+            return false;
+        }
+    }
+</script>
 </body>
 </html>
