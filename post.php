@@ -130,9 +130,9 @@ try {
                     <h1><?php echo htmlspecialchars($pagetitle) ?></h1>
                 </a>
                 <div id="post_layout_info">
-
+                    <a style="text-decoration: none;" href="<?php echo htmlspecialchars($p['link']) ?>">
                     <img src="<?php echo htmlspecialchars($image)?>" alt="<?php echo htmlspecialchars($pagetitle)?>" class="posted_image">
-
+                    </a>
                     <div class="post_layout_info">
                         <p><?php echo htmlspecialchars($p['description'])?></p>
                         <p>

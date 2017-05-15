@@ -201,7 +201,7 @@ try {
                     <option value="<?php echo htmlspecialchars($t['id']);?>"><?php echo htmlspecialchars($t['title']);?></option>
                 <?php endforeach; ?>
             </select>
-        
+
         <button type="submit">Submit</button>
     </form>
 

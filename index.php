@@ -75,7 +75,7 @@
                         <img src="<?php echo htmlspecialchars($p["userImage"])?>" alt="<?php echo htmlspecialchars($p["username"])?>" class='user_img_post'>
                         <h1><?php echo htmlspecialchars($p['title'])?></h1>
                     </div>
-                    <a href='<?php echo htmlspecialchars($p['link'])?>'><?php echo htmlspecialchars($pagetitle)?></a>
+
                     <a href='post.php?postid=<?php echo htmlspecialchars($p['id'])?>'>
                         <div class='post_img'>
                             <img src='<?php echo htmlspecialchars($image) ?>' alt='<?php echo htmlspecialchars($pagetitle)?>'>
