@@ -135,7 +135,7 @@ class Profile
         $statement->bindValue(':image', $this->image);
         $statement->execute();
 
-        header('location: profile.php?id=' . $_SESSION['id']);
+        header('location: ./profile.php?id=' . $_SESSION['id']);
     }
 
     public function BoardPosts(){

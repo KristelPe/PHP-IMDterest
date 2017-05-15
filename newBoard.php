@@ -48,9 +48,7 @@ use spark\Profile;session_start();
                     $error = $error . "Sorry, your file was not uploaded. ";
                     // if everything is ok, try to upload file
                 } else {
-                    if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
-                        echo "The file ". basename( $_FILES["image"]["name"]). " has been uploaded.";
-                    } else {
+                    if (!move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
                         echo "Sorry, there was an error uploading your file.";
                     }
                 }
