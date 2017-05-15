@@ -192,16 +192,16 @@ try {
                     <h3><?php echo htmlspecialchars($b['title'])?></h3>
                 </div>
             </div>
+            <?php endforeach; ?>
 
             <p>Select a Topic<span style="color: red;">*</span></p>
             <br>
             <select name="topics">
                 <?php foreach ($topics as $t) : ?>
-                <option value="<?php echo htmlspecialchars($t['id']);?>"><?php echo htmlspecialchars($t['title']);?></option>
+                    <option value="<?php echo htmlspecialchars($t['id']);?>"><?php echo htmlspecialchars($t['title']);?></option>
                 <?php endforeach; ?>
             </select>
-
-        <?php endforeach; ?>
+        
         <button type="submit">Submit</button>
     </form>
 
