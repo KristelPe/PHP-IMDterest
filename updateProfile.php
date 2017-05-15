@@ -96,7 +96,7 @@ try {
             } else {
                 if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
                     $uploadSuccess = "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
-                    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+                    $connection = new PDO("mysql:host=localhost; dbname=IMDterest", "root", "");
                     $update->newImg($email, $target_file);
                 } else {
                     throw new Exception('Sorry, there was an error uploading your file.');

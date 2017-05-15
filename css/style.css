@@ -604,6 +604,8 @@ p{
 
 }
 
+/*MORE FORM START*/
+
 .remove_and_report{
     padding-left: 1.5%!important;
     padding-right: 1.5%!important;
@@ -613,8 +615,6 @@ p{
     float: right;
     margin-left: 2.5%;
 }
-
-/*MORE FORM START*/
 
 #more{
     margin: auto;

@@ -156,28 +156,32 @@ try {
 
             <?php endif; ?>
 
-            <?php if($p['userid'] == $userid): ?>
-
-
-                <form action="" method="post" id="remove_post" class="remove_and_report">
-                    <input type="submit" name="remove_post" value="Remove Post">
-                </form>
-
-            <?php endif; ?>
-
-
-            <?php if ($p['userid'] != $userid): ?>
-
-                <form action="" method="post" id="report" class="remove_and_report">
-                    <input type="submit" name="report" value="Report">
-                    <p><?php echo htmlspecialchars($reportmessage) ?></p>
-                </form>
-
-            <?php endif; ?>
-
         <?php endforeach; ?>
 
     </div>
+    
+    
+    <?php if ($p['userid'] == $userid): ?>
+
+
+        <form action="" method="post" id="remove_post">
+            <input type="submit" name="remove_post" value="Remove Post">
+        </form>
+
+    <?php endif; ?>
+
+
+    <?php if ($p['userid'] != $userid): ?>
+
+        <form action="" method="post" id="report">
+            <input type="submit" name="report" value="Report">
+            <p><?php echo htmlspecialchars($reportmessage) ?></p>
+        </form>
+
+    <?php endif; ?>
+
+
+
 
 
     <div id="comment_layout">

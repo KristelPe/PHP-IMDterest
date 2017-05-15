@@ -37,6 +37,7 @@ use spark\User;error_reporting(E_ALL & ~E_NOTICE);
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/background.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <div class="form login">

@@ -9,7 +9,7 @@ use spark\Profile;session_start();
         include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
-    $connection = new PDO('mysql:host=localhost; dbname=IMDterest', 'root', '');
+    $connection = new PDO("mysql:host=localhost; dbname=IMDterest", "root", "");
 
     try{
         //PROFILE
@@ -56,6 +56,7 @@ use spark\Profile;session_start();
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
@@ -115,16 +116,18 @@ use spark\Profile;session_start();
                     $board_state = $b['state'];
                 }
                 ?>
-                <div>
+                <div class="<?php echo htmlspecialchars($board_state)?>">
                     <a href="board.php?id=<?php echo htmlspecialchars($b['id']);?>">
-                        <div class="board <?php echo htmlspecialchars($board_state) ?>">
+                        <div class="board">
                             <div class="contain">
                                 <img src="<?php echo htmlspecialchars($b['image']);?>" alt="<?php echo htmlspecialchars($b['title'])?>">
                             </div>
                             <h3><?php echo htmlspecialchars($b['title'])?></h3>
                         </div>
                     </a>
+                    <?php if ($b['userid'] == $_SESSION['id']): ?>
                     <button class='removeBoards' name="<?php echo htmlspecialchars($b['id']);?>">Remove Board</button>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>
