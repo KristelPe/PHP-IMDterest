@@ -1,5 +1,9 @@
 <?php
 
+namespace spark;
+
+use PDO;
+
 abstract class Db
 {
     private static $conn = null;

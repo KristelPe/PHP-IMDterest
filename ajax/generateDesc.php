@@ -1,4 +1,6 @@
 <?php
+use spark\Scraper;
+
 require '../libraries/simple_html_dom.php';
 
 session_start();
@@ -8,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 spl_autoload_register(function ($class) {
-    include_once("../classes/" . $class . ".class.php");
+    include_once("../classes/" . str_replace('\\', '/', $class) . ".class.php");
 });
 
 $url = $_POST['test'];

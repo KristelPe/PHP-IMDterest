@@ -1,7 +1,9 @@
 <?php
 
+use spark\Profile;
+
 spl_autoload_register(function ($class) {
-    include_once("classes/" . $class . ".class.php");
+    include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
 });
 
 try{

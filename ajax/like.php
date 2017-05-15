@@ -1,6 +1,8 @@
 <?php
-    spl_autoload_register(function ($class) {
-        include_once("../classes/" . $class . ".class.php");
+use spark\Post;
+
+spl_autoload_register(function ($class) {
+        include_once("../classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
     session_start();

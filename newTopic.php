@@ -1,12 +1,12 @@
 <?php
 
-    session_start();
+use spark\topic;session_start();
     if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
     spl_autoload_register(function ($class) {
-        include_once("classes/" . $class . ".class.php");
+        include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
 try{

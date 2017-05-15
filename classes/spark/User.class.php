@@ -1,5 +1,10 @@
 <?php
 
+namespace spark;
+
+use Exception;
+use PDO;
+
 class User
 {
     private $firstname;

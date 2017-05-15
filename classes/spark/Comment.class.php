@@ -1,4 +1,8 @@
 <?php
+namespace spark;
+
+use Exception;
+use PDO;
 
 class Comment
 {

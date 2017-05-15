@@ -1,10 +1,12 @@
 <?php
 
-    error_reporting(E_ALL & ~E_NOTICE);
+use spark\User;
+
+error_reporting(E_ALL & ~E_NOTICE);
 
     //connectie maken met database
     spl_autoload_register(function ($class) {
-        include_once("classes/" . $class . ".class.php");
+        include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
     //check of er gepost is?

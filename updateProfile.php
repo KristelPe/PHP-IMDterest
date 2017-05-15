@@ -1,6 +1,8 @@
 <?php
 
-    error_reporting(E_ALL & ~E_NOTICE);
+use spark\User;
+
+error_reporting(E_ALL & ~E_NOTICE);
 
     //check if session exists
     //if not send back to login
@@ -10,7 +12,7 @@
     }
 
     spl_autoload_register(function ($class) {
-        include_once("classes/" . $class . ".class.php");
+        include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
         $email = $_SESSION['user'];

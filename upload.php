@@ -1,12 +1,17 @@
 <?php
-    require 'libraries/simple_html_dom.php';
+use spark\Post;
+use spark\Profile;
+use spark\topic;
+use spark\User;
+
+require 'libraries/simple_html_dom.php';
     session_start();
     if (!isset($_SESSION['user'])) {
         header('location: login.php');
     }
 
     spl_autoload_register(function ($class) {
-        include_once("classes/" . $class . ".class.php");
+        include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
     $email = $_SESSION['user'];

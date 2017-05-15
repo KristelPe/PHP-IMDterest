@@ -1,5 +1,9 @@
 <?php
 
+namespace spark;
+
+use PDO;
+
 class Post
 {
     private $m_title;

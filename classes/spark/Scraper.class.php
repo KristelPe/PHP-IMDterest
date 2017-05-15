@@ -1,5 +1,9 @@
 <?php
 
+namespace spark;
+
+use simple_html_dom;
+
 /**
  * Created by PhpStorm.
  * User: gebruiker

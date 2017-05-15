@@ -1,4 +1,10 @@
 <?php
+use spark\Comment;
+use spark\Post;
+use spark\Profile;
+use spark\Scraper;
+use spark\topic;
+
 require 'libraries/simple_html_dom.php';
 session_start();
 if (!isset($_SESSION['user'])) {

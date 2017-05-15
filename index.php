@@ -1,5 +1,9 @@
 <?php
-    require 'libraries/simple_html_dom.php';
+use spark\Scraper;
+use spark\Stack;
+use spark\User;
+
+require 'libraries/simple_html_dom.php';
     //check if session exists
     //if not send back to login
     session_start();
@@ -8,7 +12,7 @@
     }
 
     spl_autoload_register(function ($class) {
-        include_once("classes/" . $class . ".class.php");
+        include_once("classes/" . str_replace('\\', '/', $class) . ".class.php");
     });
 
     $email = $_SESSION['user'];
