@@ -604,6 +604,16 @@ p{
 
 }
 
+.remove_and_report{
+    padding-left: 1.5%!important;
+    padding-right: 1.5%!important;
+    padding-top: 15px!important;
+    padding-bottom: 15px!important;
+    width: 45%;
+    float: right;
+    margin-left: 2.5%;
+}
+
 /*MORE FORM START*/
 
 #more{
