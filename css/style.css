@@ -88,6 +88,9 @@ body{
 #container form p {
     color: #333333;
 }
+button.removeBoards{
+    margin-left: 1.8em;
+}
 
 @media only screen and (min-width: 1200px) {
     #container{
